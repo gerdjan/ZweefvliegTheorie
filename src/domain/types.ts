@@ -1,7 +1,17 @@
+export type SourceReference = {
+  file: string
+  page: number
+  pageEnd?: number
+  section: string
+  note?: string
+}
+
 export type TheoryStep = {
   type: 'theory'
   title: string
   text: string
+  source?: SourceReference
+  practiceSource?: SourceReference
 }
 
 export type QuestionStep = {
@@ -10,6 +20,8 @@ export type QuestionStep = {
   answers: string[]
   correctIndex: number
   explanation: string
+  source?: SourceReference
+  practiceSource?: SourceReference
 }
 
 export type LessonStep = TheoryStep | QuestionStep
@@ -43,3 +55,10 @@ export type Progress = {
   streak: number
   completedLessons: string[]
 }
+
+export type SourcedTheoryStep = TheoryStep & { source: SourceReference }
+export type SourcedQuestionStep = QuestionStep & { source: SourceReference }
+export type SourcedLessonStep = SourcedTheoryStep | SourcedQuestionStep
+export type SourcedLesson = Omit<Lesson, 'steps'> & { steps: SourcedLessonStep[] }
+export type SourcedUnit = Omit<Unit, 'lesson'> & { lesson: SourcedLesson }
+export type SourcedSubject = Omit<Subject, 'units'> & { units: SourcedUnit[] }

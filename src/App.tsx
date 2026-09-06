@@ -3,7 +3,7 @@ import { Header } from './components/Header'
 import { LearningPath } from './components/LearningPath'
 import { LessonPlayer } from './components/LessonPlayer'
 import { SubjectList } from './components/SubjectList'
-import { subjects } from './data/curriculum'
+import { subjects } from './data/curriculum-full'
 import type { Lesson, Progress, Subject } from './domain/types'
 import { loadProgress, saveProgress } from './lib/progress'
 import './styles.css'
@@ -30,16 +30,16 @@ export default function App(){
     updateProgress(next);setResult(r)
   }
 
-  if(lesson && result) return <main className="app"><Header progress={progress}/><section className="result card"><div className="trophy">{result.passed?'🏆':'🛩️'}</div><h2>{result.score}%</h2><p>{result.correct} van {result.total} kennischecks goed.</p><p className="muted">{result.passed?'Level gehaald. De volgende stap kan in de content-pipeline worden uitgewerkt.':'Nog niet boven de mastery-drempel. Probeer de les nog een keer.'}</p><button className="primary" onClick={()=>{setLesson(null);setResult(null)}}>Terug naar leerpad</button></section></main>
+  if(lesson && result) return <main className="app"><Header progress={progress}/><section className="result card"><div className="trophy">{result.passed?'🏆':'🛩️'}</div><h2>{result.score}%</h2><p>{result.correct} van {result.total} kennischecks goed.</p><p className="muted">{result.passed?'Level gehaald. Het volgende level in dit leerpad is nu beschikbaar.':'Nog niet boven de mastery-drempel. Bekijk de bronverwijzingen en probeer de les daarna opnieuw.'}</p><button className="primary" onClick={()=>{setLesson(null);setResult(null)}}>Terug naar leerpad</button></section></main>
 
   if(lesson) return <main className="app"><Header progress={progress}/><LessonPlayer lesson={lesson} onClose={()=>setLesson(null)} onComplete={finishLesson}/></main>
 
   return <main className="app">
     <Header progress={progress}/>
     <div className="layout">
-      <section><h2 className="small-title">De 9 examenvakken</h2><p className="muted">Kies een vak. In deze MVP is van ieder vak één bron-gebaseerde les speelbaar.</p><SubjectList subjects={subjects} currentId={subject.id} onSelect={setSubject} completedLessons={progress.completedLessons}/></section>
+      <section><h2 className="small-title">De 9 examenvakken</h2><p className="muted">Beginselen van het zweefvliegen is nu de eerste volledige cursus. De andere vakken hebben voorlopig één demonstratieles.</p><SubjectList subjects={subjects} currentId={subject.id} onSelect={setSubject} completedLessons={progress.completedLessons}/></section>
       <LearningPath subject={subject} completedLessons={progress.completedLessons} onStart={id=>{const found=lessonIndex.get(id); if(found) setLesson(found)}}/>
     </div>
-    <section className="principles card"><div><strong>Lesopbouw</strong><p>korte theorie → directe kennischeck</p></div><div><strong>Bronregel</strong><p>nieuwste dictaat bepaalt het antwoord</p></div><div><strong>Mastery</strong><p>80%+ om een level te halen</p></div></section>
+    <section className="principles card"><div><strong>Lesopbouw</strong><p>korte theorie → directe kennischeck</p></div><div><strong>Bronregel</strong><p>actueel dictaat bepaalt het antwoord; studiehulp levert oefendoelen</p></div><div><strong>Mastery</strong><p>80%+ om het volgende level te ontgrendelen</p></div></section>
   </main>
 }

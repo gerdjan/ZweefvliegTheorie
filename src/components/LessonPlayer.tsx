@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import type { Lesson } from '../domain/types'
+import { StepSource } from './StepSource'
 
 export function LessonPlayer({ lesson, onClose, onComplete }:{lesson:Lesson,onClose:()=>void,onComplete:(result:{score:number,passed:boolean,correct:number,total:number})=>void}) {
   const [index,setIndex]=useState(0)
@@ -12,7 +13,7 @@ export function LessonPlayer({ lesson, onClose, onComplete }:{lesson:Lesson,onCl
 
   function advance(){
     if(index===lesson.steps.length-1){
-      const score=Math.round((correct/questionCount)*100)
+      const score=questionCount ? Math.round((correct/questionCount)*100) : 100
       onComplete({score,passed:score>=lesson.minScore,correct,total:questionCount})
       return
     }
@@ -30,9 +31,14 @@ export function LessonPlayer({ lesson, onClose, onComplete }:{lesson:Lesson,onCl
     <section className="card lesson-card">
       <div className="eyebrow">{step.type==='theory'?'Kernkennis':'Kennischeck'} · {index+1}/{lesson.steps.length}</div>
       <h2>{lesson.title}</h2>
-      {step.type==='theory' ? <div className="theory-box"><h3>{step.title}</h3><p>{step.text}</p></div> : <>
+      {step.type==='theory' ? <div className="theory-box">
+        <h3>{step.title}</h3>
+        <p>{step.text}</p>
+        <StepSource source={step.source} practiceSource={step.practiceSource}/>
+      </div> : <>
         <h3 className="question">{step.question}</h3>
-        <div className="answers">{step.answers.map((a,i)=><button key={a} disabled={checked} onClick={()=>setSelected(i)} className={(selected===i?'selected ':'')+(checked?(i===step.correctIndex?'correct':selected===i?'wrong':''):'')}>{a}</button>)}</div>
+        <StepSource source={step.source} practiceSource={step.practiceSource}/>
+        <div className="answers">{step.answers.map((a,i)=><button key={`${i}-${a}`} disabled={checked} onClick={()=>setSelected(i)} className={(selected===i?'selected ':'')+(checked?(i===step.correctIndex?'correct':selected===i?'wrong':''):'')}>{a}</button>)}</div>
         {checked && <div className="feedback">{step.explanation}</div>}
       </>}
       <div className="actions">
