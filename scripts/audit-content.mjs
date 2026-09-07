@@ -5,9 +5,16 @@ import { fileURLToPath } from 'node:url'
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..')
 const sectionManifestPath=path.join(root,'content/coverage/principles-sections.json')
 const detailAuditPath=path.join(root,'content/coverage/principles-detail-audit.json')
+const detailOverridesPath=path.join(root,'content/coverage/principles-detail-audit-overrides.json')
 const partsDir=path.join(root,'src/data/principlesParts')
 const sectionManifest=JSON.parse(await readFile(sectionManifestPath,'utf8'))
 const detailAudit=JSON.parse(await readFile(detailAuditPath,'utf8'))
+let detailOverrides={sections:[]}
+try {
+  detailOverrides=JSON.parse(await readFile(detailOverridesPath,'utf8'))
+} catch (error) {
+  if(error?.code!=='ENOENT') throw error
+}
 const files=(await readdir(partsDir)).filter(name=>name.endsWith('.ts'))
 
 const refs=[]
@@ -31,18 +38,28 @@ if(missingSections.length){
   process.exit(1)
 }
 
+const effectiveById=new Map(detailAudit.sections.map(section=>[section.section,section]))
+for(const override of detailOverrides.sections ?? []){
+  if(!effectiveById.has(override.section)){
+    console.error(`Detailaudit-override verwijst naar onbekende sectie §${override.section}.`)
+    process.exit(1)
+  }
+  effectiveById.set(override.section,override)
+}
+const effectiveSections=sectionManifest.sections.map(section=>effectiveById.get(section.id))
+
 let detailTotal=0
 let detailCovered=0
 let detailMissing=0
 let invalid=false
 
-if(detailAudit.sections.length!==sectionManifest.sections.length){
-  console.error(`Detailaudit bevat ${detailAudit.sections.length} secties, maar sectiemanifest bevat ${sectionManifest.sections.length}.`)
+if(effectiveSections.length!==sectionManifest.sections.length || effectiveSections.some(section=>!section)){
+  console.error('De effectieve detailaudit bevat niet alle secties uit het sectiemanifest.')
   invalid=true
 }
 
 const auditedIds=new Set()
-for(const section of detailAudit.sections){
+for(const section of effectiveSections.filter(Boolean)){
   auditedIds.add(section.section)
   if(!Number.isInteger(section.total) || !Number.isInteger(section.covered) || section.total<0 || section.covered<0 || section.covered>section.total){
     console.error(`Ongeldige telling in detailaudit §${section.section}.`)
@@ -66,16 +83,20 @@ for(const sourceSection of sectionManifest.sections){
   }
 }
 
-if(detailAudit.summary){
-  const s=detailAudit.summary
-  if(s.elements!==detailTotal || s.covered!==detailCovered || s.missing!==detailMissing){
-    console.error('Samenvatting van principles-detail-audit.json komt niet overeen met de sectietellingen.')
+const expectedSummary=detailOverrides.summary ?? detailAudit.summary
+if(expectedSummary){
+  if(expectedSummary.elements!==detailTotal || expectedSummary.covered!==detailCovered || expectedSummary.missing!==detailMissing){
+    console.error('Samenvatting van de effectieve principles-detail-audit komt niet overeen met de sectietellingen.')
     invalid=true
   }
 }
 
 const percentage=detailTotal ? (detailCovered/detailTotal*100).toFixed(1) : '0.0'
 console.log(`Beginselen detailaudit: ${detailCovered}/${detailTotal} kenniselementen expliciet afgedekt (${percentage}%). Nog open: ${detailMissing}.`)
+
+if((detailOverrides.sections ?? []).length){
+  console.log(`Beginselen detailaudit-overrides actief voor ${(detailOverrides.sections ?? []).length} secties.`)
+}
 
 if(invalid) process.exit(1)
 
