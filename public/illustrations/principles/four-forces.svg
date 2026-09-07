@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img" aria-labelledby="title desc">
+  <title id="title">Vier krachten</title>
+  <desc id="desc">Schema met lift omhoog, zwaartekracht omlaag, voortstuwingskracht naar voren en weerstand naar achteren.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+    </marker>
+  </defs>
+  <rect width="800" height="420" rx="28" fill="#f7fbfb"/>
+  <g stroke="#17373b" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M270 220 L530 220"/>
+    <path d="M390 175 L410 220 L390 265"/>
+    <path d="M330 220 L400 145 L470 220"/>
+  </g>
+  <circle cx="400" cy="220" r="9" fill="#17373b"/>
+  <g fill="none" stroke-width="7" marker-end="url(#arrow)" font-family="system-ui, sans-serif">
+    <path d="M400 195 L400 68" stroke="#12888f" color="#12888f"/>
+    <path d="M400 245 L400 372" stroke="#b5524e" color="#b5524e"/>
+    <path d="M430 220 L665 220" stroke="#2d7f61" color="#2d7f61"/>
+    <path d="M370 220 L135 220" stroke="#6a6577" color="#6a6577"/>
+  </g>
+  <g font-family="system-ui, sans-serif" font-size="29" font-weight="700" fill="#17373b">
+    <text x="420" y="85">Draagkracht (lift)</text>
+    <text x="420" y="370">Zwaartekracht</text>
+    <text x="500" y="190" font-size="24">Voortstuwingskracht</text>
+    <text x="55" y="190">Weerstand</text>
+  </g>
+  <text x="416" y="246" font-family="system-ui, sans-serif" font-size="21" fill="#53696d">zwaartepunt</text>
+</svg>
