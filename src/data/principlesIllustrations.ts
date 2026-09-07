@@ -13,6 +13,13 @@ const b=(page:number,section:string):SourceReference=>({
   section,
 })
 
+const vnDiagram:LearningIllustration = {
+  src:'illustrations/principles/vn-diagram.svg',
+  alt:'Schematisch V-n-diagram met vliegsnelheid op de horizontale as, belastingfactor op de verticale as, stallgrens, VA en Vne.',
+  caption:'Didactische vereenvoudiging van het V-n-diagram en de LS4-voorbeeldwaarden uit het dictaat. Voor operationele limieten blijft het vlieghandboek van het betreffende type leidend.',
+  source:b(35,'§5.5.5 Belastingdiagram'),
+}
+
 const illustrations:Record<string,LearningIllustration> = {
   'principles-5-0-basics::Vier krachten': {
     src:'illustrations/principles/four-forces.svg',
@@ -32,12 +39,7 @@ const illustrations:Record<string,LearningIllustration> = {
     caption:'Didactische schets van spanwijdte, gemiddelde koorde en de definitie van slankheid.',
     source:b(4,'§5.0.2 Spanwijdte, koorde en slankheid'),
   },
-  'principles-5-5-vn-detail::Positief en negatief': {
-    src:'illustrations/principles/vn-diagram.svg',
-    alt:'Schematisch V-n-diagram met vliegsnelheid op de horizontale as, belastingfactor op de verticale as, stallgrens, VA en Vne.',
-    caption:'Didactische vereenvoudiging van het V-n-diagram en de LS4-voorbeeldwaarden uit het dictaat. Voor operationele limieten blijft het vlieghandboek van het betreffende type leidend.',
-    source:b(35,'§5.5.5 Belastingdiagram'),
-  },
+  'principles-5-5-vn-detail::Positief en negatief': vnDiagram,
   'principles-5-6-stall-signals::Drukpunt naar achteren': {
     src:'illustrations/principles/stall-progression.svg',
     alt:'Didactische vergelijking tussen aangehechte stroming vóór overtrek en losgelaten stroming bij overtrek, met het drukpunt achter het zwaartepunt en een neus-omlaagmoment.',
@@ -46,6 +48,14 @@ const illustrations:Record<string,LearningIllustration> = {
   },
 }
 
+const keyedIllustrations:Record<string,LearningIllustration>={
+  'vn-diagram':vnDiagram,
+}
+
 export function getPrinciplesIllustration(lessonId:string, stepTitle:string){
   return illustrations[`${lessonId}::${stepTitle}`]
+}
+
+export function getPrinciplesIllustrationByKey(key?:string){
+  return key ? keyedIllustrations[key] : undefined
 }
