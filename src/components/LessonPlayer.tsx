@@ -1,6 +1,11 @@
 import { useMemo, useState } from 'react'
 import type { Lesson } from '../domain/types'
+import { getPrinciplesIllustration } from '../data/principlesIllustrations'
+import { principlesTerms } from '../data/principlesTerms'
+import { RichText } from './RichText'
+import { StepIllustration } from './StepIllustration'
 import { StepSource } from './StepSource'
+import './learningContent.css'
 
 export function LessonPlayer({ lesson, onClose, onComplete }:{lesson:Lesson,onClose:()=>void,onComplete:(result:{score:number,passed:boolean,correct:number,total:number})=>void}) {
   const [index,setIndex]=useState(0)
@@ -10,6 +15,9 @@ export function LessonPlayer({ lesson, onClose, onComplete }:{lesson:Lesson,onCl
   const step=lesson.steps[index]
   const questionCount=useMemo(()=>lesson.steps.filter(s=>s.type==='question').length,[lesson])
   const progress=Math.round((index/lesson.steps.length)*100)
+  const isPrinciples=lesson.id.startsWith('principles-') || step.source?.file==='5-Beginselen.pdf'
+  const terms=isPrinciples ? principlesTerms : []
+  const illustration=step.type==='theory' ? getPrinciplesIllustration(lesson.id,step.title) : undefined
 
   function advance(){
     if(index===lesson.steps.length-1){
@@ -33,13 +41,14 @@ export function LessonPlayer({ lesson, onClose, onComplete }:{lesson:Lesson,onCl
       <h2>{lesson.title}</h2>
       {step.type==='theory' ? <div className="theory-box">
         <h3>{step.title}</h3>
-        <p>{step.text}</p>
+        <p><RichText text={step.text} terms={terms}/></p>
+        <StepIllustration illustration={illustration}/>
         <StepSource source={step.source} practiceSource={step.practiceSource}/>
       </div> : <>
-        <h3 className="question">{step.question}</h3>
+        <h3 className="question"><RichText text={step.question} terms={terms}/></h3>
         <StepSource source={step.source} practiceSource={step.practiceSource}/>
         <div className="answers">{step.answers.map((a,i)=><button key={`${i}-${a}`} disabled={checked} onClick={()=>setSelected(i)} className={(selected===i?'selected ':'')+(checked?(i===step.correctIndex?'correct':selected===i?'wrong':''):'')}>{a}</button>)}</div>
-        {checked && <div className="feedback">{step.explanation}</div>}
+        {checked && <div className="feedback"><RichText text={step.explanation} terms={terms}/></div>}
       </>}
       <div className="actions">
         {step.type==='question' && !checked ? <button className="primary" disabled={selected===null} onClick={check}>Controleer</button> : <button className="primary" onClick={advance}>{index===lesson.steps.length-1?'Afronden':'Verder →'}</button>}
