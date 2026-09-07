@@ -21,29 +21,30 @@ Een sectieverwijzing alleen bewijst nog niet dat iedere belangrijke regel uit di
 
 Historische voorbeelden, externe links, de literatuurlijst en herhalende rekenvoorbeelden tellen niet als zelfstandig kenniselement tenzij ze een nieuwe regel introduceren.
 
-De volledige machineleesbare matrix staat in `principles-detail-audit.json`.
+De basismatrix staat in `principles-detail-audit.json`. Tijdens de lopende hoofdstuk-voor-hoofdstukaudit worden afgeronde secties aanvullend vastgelegd in `principles-detail-audit-overrides.json`; de build voegt beide samen tot één effectieve audit. Na afronding van het hele vak kunnen de overrides weer in de basismatrix worden geconsolideerd.
 
-### Huidige stand na uitwerking van §5.0 t/m §5.4
+### Huidige stand na uitwerking van §5.0 t/m §5.5
 
 - **294** afzonderlijke kenniselementen geïdentificeerd in de actuele bron.
-- **245** daarvan zijn nu expliciet terug te vinden in de cursus.
-- **49** elementen staan nog open.
-- Detaildekking: **83,3%**.
-- **§5.0 t/m §5.4 zijn volledig detail-audited.**
+- **271** daarvan zijn nu expliciet terug te vinden in de cursus.
+- **23** elementen staan nog open.
+- Detaildekking: **92,2%**.
+- **§5.0 t/m §5.5 zijn volledig detail-audited.**
 
-De resterende open punten zitten in §5.5 t/m §5.7. De cursus blijft daarom `beta-detail-audit` totdat alle 294 kenniselementen zijn behandeld of met een expliciete redactionele reden zijn uitgesloten.
+De resterende open punten zitten uitsluitend in §5.6 en §5.7. De cursus blijft daarom `beta-detail-audit` totdat alle 294 kenniselementen zijn behandeld of met een expliciete redactionele reden zijn uitgesloten.
 
-## Wat bij de §5.4-ronde is toegevoegd
+## Wat bij de §5.5-ronde is toegevoegd
 
-De 5 eerder openstaande punten uit het Besturingssysteem zijn nu als brongebonden lesinhoud toegevoegd. Het gaat om:
+De 26 eerder openstaande punten uit Beperkingen en belastingen zijn nu als brongebonden lesinhoud toegevoegd. Het gaat onder andere om:
 
-- de grote arm van hoogteroer en richtingsroer: door `kracht × arm` kan een relatief kleine roerkracht toch een bruikbaar stuurmoment geven;
-- het onderscheid tussen T-staart, conventionele staart, V-staart en pendelroer zoals het dictaat die beschrijft;
-- de verklaring waarom gieren ook rollen veroorzaakt: de buitenvleugel legt een langere weg af, beweegt sneller en levert meer lift;
-- de noodzaak om stuurknuppel en voetenstuur passend te combineren om haakeffect en neveneffecten te corrigeren en een zuivere bocht te vliegen;
-- de relatie tussen trimstand, vliegergewicht en gekozen vliegsnelheid doordat de benodigde constante stuurkracht verandert.
+- centripetale kracht, centrifugaalkracht/schijnbaar gewicht en de relatie tussen dwarshelling, g-belasting en overtreksnelheid;
+- het piefje als indicatie voor zuiver, schuivend en slippend vliegen, plus de herstelmethode en het verschillende tolvluchtrisico;
+- circa 5g bij ongeveer 80° dwarshelling, beheerst herstel uit een duik, de relatie `n = (V/Vstall)²` en high-speed stall;
+- het optellen van manoeuvreer- en remousbelasting, Utility versus Aerobatic en de voorbeeldlimieten uit de tabel;
+- positieve en negatieve grenzen in het V-n-diagram, groen/geel snelheidsgebied, VA, Vne, Vd, VRA en de veiligheidsfactor 1,5;
+- buigings- en torsietrillingen, de snelheidsafhankelijkheid van hun frequenties en het mechanisme waardoor ze bij flutter elkaar kunnen versterken.
 
-De gebruikersgerichte kennisindex van §5.4 is tegelijk uitgebreid en staat nu op **27/27 auditpunten**. De vijf ontbrekende details zijn verdeeld over twee nieuwe verdiepingslevels, zodat de leerstappen compact blijven.
+De gebruikersgerichte kennisindex van §5.5 is tegelijk uitgebreid en staat nu op **47/47 auditpunten**. Er zijn zes verdiepingslevels toegevoegd. Bij het V-n-diagram staat bovendien een eigen didactische illustratie met bronverwijzing; de exacte operationele limieten blijven type-afhankelijk en moeten uit het vlieghandboek worden gehaald.
 
 ## Gate 3 — studiehulpdekking (apart)
 
