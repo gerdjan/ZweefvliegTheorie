@@ -1,13 +1,18 @@
 import { useMemo, useState } from 'react'
 import { principlesKnowledgeChapters } from '../data/principlesKnowledgeIndex'
 import { principlesKnowledge52 } from '../data/principlesKnowledge52'
+import { principlesKnowledgeFiveThree } from '../data/principlesKnowledgeFiveThree'
 
 function sourceLabel(source:{file:string,page:number,pageEnd?:number,section:string}){
   const pages=source.pageEnd && source.pageEnd!==source.page ? `${source.page}–${source.pageEnd}` : `${source.page}`
   return `${source.file} · PDF p. ${pages} · ${source.section}`
 }
 
-const knowledgeChapters=principlesKnowledgeChapters.map(chapter=>chapter.id==='5.2'?principlesKnowledge52:chapter)
+const knowledgeChapters=principlesKnowledgeChapters.map(chapter=>{
+  if(chapter.id==='5.2') return principlesKnowledge52
+  if(chapter.id==='5.3') return principlesKnowledgeFiveThree
+  return chapter
+})
 
 export function KnowledgeIndex({completedLessons}:{completedLessons:string[]}){
   const [open,setOpen]=useState(false)
