@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 430" role="img" aria-labelledby="title desc">
+  <title id="title">Schematische snelheidspolaire</title>
+  <desc id="desc">Vliegsnelheid op de horizontale as en daalsnelheid op de verticale as. Een gebogen polaire met een raaklijn vanuit de oorsprong raakt de curve bij het punt voor beste glijgetal.</desc>
+  <rect width="760" height="430" rx="22" fill="#f7fbfb"/>
+  <line x1="95" y1="55" x2="95" y2="355" stroke="#37565a" stroke-width="3"/>
+  <line x1="95" y1="55" x2="680" y2="55" stroke="#37565a" stroke-width="3"/>
+  <path d="M145 180 C220 108 300 102 370 124 C455 150 530 220 620 325" fill="none" stroke="#0f7f88" stroke-width="6" stroke-linecap="round"/>
+  <line x1="95" y1="55" x2="430" y2="150" stroke="#ad7a13" stroke-width="4" stroke-dasharray="10 8"/>
+  <circle cx="389" cy="138" r="9" fill="#ad7a13"/>
+  <line x1="389" y1="138" x2="389" y2="55" stroke="#87a5a9" stroke-width="2" stroke-dasharray="5 5"/>
+  <text x="370" y="179" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="#74520d">raakpunt</text>
+  <text x="425" y="83" font-family="system-ui, sans-serif" font-size="17" fill="#74520d">raaklijn uit oorsprong</text>
+  <text x="522" y="390" font-family="system-ui, sans-serif" font-size="19" font-weight="700" fill="#263d41">vliegsnelheid →</text>
+  <text x="30" y="210" transform="rotate(-90 30 210)" font-family="system-ui, sans-serif" font-size="19" font-weight="700" fill="#263d41">daalsnelheid →</text>
+  <text x="108" y="43" font-family="system-ui, sans-serif" font-size="14" fill="#64787c">oorsprong</text>
+  <text x="405" y="127" font-family="system-ui, sans-serif" font-size="14" fill="#64787c">beste glijgetal</text>
+</svg>
