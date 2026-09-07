@@ -1,0 +1,107 @@
+{
+  "sourceFile": "5-beginselen-studiehulp.pdf",
+  "sourceVersion": "3-1-2018",
+  "authority": "practice-only",
+  "currentAuthority": {"file":"5-Beginselen.pdf","version":"november 2025"},
+  "method": "De 75 vragen/opdrachten uit de studiehulp zijn in documentvolgorde genummerd. Elke rij koppelt het oude oefendoel aan actuele cursuslevels, gebruikersgerichte kenniselementen en een vindplaats in het actuele dictaat. De studiehulp bepaalt het oefendoel; het actuele dictaat bepaalt inhoud en antwoord.",
+  "summary": {"questions":75,"covered":75,"adaptedReferences":2,"open":0},
+  "rowSchema": ["number","shortGoal","status","lessonIds","knowledgeElementIds","currentSource"],
+  "currentSourceSchema": ["page","pageEnd","section"],
+  "adaptations": {
+    "35": "De specifieke polaire/bladzijde bij 120 km/h uit 2018 bestaat niet één-op-één in de versie van november 2025. De actuele cursus toetst dezelfde vaardigheid: glijgetal = vliegsnelheid / daalsnelheid in gelijke eenheden.",
+    "37": "De specifieke 2018-polaire bij 10 km/h tegenwind bestaat niet één-op-één in de versie van november 2025. De actuele cursus leert dezelfde raaklijnmethode voor tegen- en meewind met actuele voorbeelden."
+  },
+  "groups": [
+    {"id":"5.1","title":"Aerodynamica","studyAidPage":1,"rows":[
+      [1,"vier krachten","covered",["principles-5-0-basics","principles-5-1-forces-angle"],["5-0-four-forces","5-1-force-balance"],[3,null,"§5.0.2 Krachten"]],
+      [2,"drie assen","covered",["principles-5-0-basics"],["5-0-axes"],[3,null,"§5.0.2 Zwaartepunt en assen"]],
+      [3,"profiel, V-/pijlstelling, instel-/invalshoek, slankheid","covered",["principles-5-0-basics","principles-5-0-detail"],["5-0-profiles","5-0-sweep-dihedral","5-0-incidence-aoa","5-0-wing-geometry"],[4,5,"§5.0.2 Begrippen en definities"]],
+      [4,"derde wet van Newton","covered",["principles-5-1-lift-origin"],["5-1-newton"],[5,null,"§5.1.0.1 Newton"]],
+      [5,"Bernoulli","covered",["principles-5-1-lift-origin","principles-5-1-air-medium"],["5-1-bernoulli"],[5,6,"§5.1.0.1 Bernoulli"]],
+      [6,"stroming, luchtsnelheid en druk rond vleugel","covered",["principles-5-1-lift-origin","principles-5-1-air-medium"],["5-1-bernoulli","5-1-streamlines"],[5,7,"§5.1.0.1 Hoe kan het dat een vliegtuig vliegt?"]],
+      [7,"krachtenevenwicht motorzwever","covered",["principles-5-1-forces-angle"],["5-1-force-balance"],[7,8,"§5.1.0.2 Luchtstroming rond een vliegtuig"]],
+      [8,"krachtenevenwicht zweefvlucht","covered",["principles-5-1-forces-angle","principles-5-2-mechanics"],["5-1-force-balance","5-1-resultant","5-2-glide-force"],[8,null,"§5.1.0.2 Zweefvlucht"]],
+      [9,"invalshoek versus lift en weerstand","covered",["principles-5-1-forces-angle"],["5-1-critical-aoa"],[8,9,"§5.1.0.3–5.1.0.4 Invalshoek, lift en weerstand"]]
+    ]},
+    {"id":"5.1.1/5.1.2","title":"Draagkracht","studyAidPage":1,"rows":[
+      [10,"factoren draagkracht en liftformule","covered",["principles-5-1-lift-factors","principles-5-1-lift-formula"],["5-1-lift-factors","5-1-lift-formula"],[9,15,"§5.1.1 Draagkracht en §5.1.2 Liftformule"]],
+      [11,"invalshoek, gewicht en snelheid","covered",["principles-5-1-lift-factors","principles-5-1-lift-detail"],["5-1-lift-factors"],[9,10,"§5.1.1.3 Invalshoek van de vleugel"]],
+      [12,"profiel, koorde, skeletlijn en welving","covered",["principles-5-0-detail","principles-5-1-lift-detail"],["5-0-profiles","5-1-profile-geometry"],[10,null,"§5.1.1.4 Koorde, skeletlijn en profielwelving"]],
+      [13,"drukpunt en invalshoek","covered",["principles-5-1-profile-controls","principles-5-1-lift-detail"],["5-1-pressure-point"],[11,null,"§5.1.1.4 Drukpunt"]],
+      [14,"thermiekbel binnenvliegen","covered",["principles-5-1-lift-detail"],["5-1-thermal-entry"],[11,12,"§5.1.1.4 Binnenvliegen thermiek"]],
+      [15,"rolroeruitslag: lift en weerstand","covered",["principles-5-1-profile-controls"],["5-1-lift-factors"],[12,null,"§5.1.1.4 Rolroer"]],
+      [16,"remkleppen: lift en weerstand","covered",["principles-5-1-profile-controls","principles-5-1-lift-detail"],["5-1-airbrakes"],[12,null,"§5.1.1.4 Remkleppen"]],
+      [17,"positieve en negatieve flaps","covered",["principles-5-1-profile-controls","principles-5-1-lift-detail"],["5-1-flaps"],[12,null,"§5.1.1.4 Flaps"]],
+      [18,"meer lift in bocht","covered",["principles-5-1-turn-ground","principles-5-5-turn-forces-detail"],["5-1-turn-lift","5-5-turn-lift-components"],[13,null,"§5.1.1 Draagkracht in een bocht"]],
+      [19,"overtreksnelheid versus dwarshelling","covered",["principles-5-1-turn-ground","principles-5-5-turn-forces-detail"],["5-1-turn-lift","5-5-bank-stall-speed"],[13,null,"§5.1.1 Draagkracht in een bocht"]],
+      [20,"neiging steiler te draaien en coördinatie","covered",["principles-5-1-turn-ground","principles-5-4-coordination-trim-detail"],["5-1-turn-lift","5-4-coordination"],[13,null,"§5.1.1 Draagkracht in een bocht"]],
+      [21,"grondeffect","covered",["principles-5-1-turn-ground"],["5-1-ground-effect"],[13,14,"§5.1.1 Grondeffect"]]
+    ]},
+    {"id":"5.1.3","title":"Weerstand","studyAidPage":1,"rows":[
+      [22,"soorten weerstand en ontstaan","covered",["principles-5-1-drag-types","principles-5-1-drag-detail","principles-5-1-induced-drag"],["5-1-drag-types","5-1-induced"],[15,16,"§5.1.3 De weerstand"]],
+      [23,"factoren drukweerstand","covered",["principles-5-1-drag-detail"],["5-1-pressure-drag"],[16,17,"§5.1.3.1 Drukweerstand"]],
+      [24,"factoren wrijvingsweerstand","covered",["principles-5-1-boundary-induced-detail"],["5-1-boundary-layer","5-1-laminar-turbulent"],[17,null,"§5.1.3.2 Wrijvingsweerstand"]],
+      [25,"grenslaag","covered",["principles-5-1-boundary-layer"],["5-1-boundary-layer"],[17,null,"§5.1.3.2 Grenslaag"]],
+      [26,"laminaire en turbulente stroming","covered",["principles-5-1-boundary-layer","principles-5-1-boundary-induced-detail"],["5-1-laminar-turbulent"],[17,19,"§5.1.3.2 Laminaire en turbulente stroming"]],
+      [27,"verschillen laminaire/turbulente grenslaag","covered",["principles-5-1-boundary-layer","principles-5-1-boundary-induced-detail"],["5-1-laminar-turbulent"],[17,19,"§5.1.3.2 Laminaire en turbulente grenslaag"]],
+      [28,"omslagpunt en stromingsgebieden","covered",["principles-5-1-boundary-induced-detail"],["5-1-laminar-turbulent"],[18,null,"§5.1.3.2 Omslagpunt"]],
+      [29,"water, insecten en vervuiling","covered",["principles-5-1-boundary-layer","principles-5-1-boundary-induced-detail"],["5-1-contamination"],[18,19,"§5.1.3.2 Oppervlakteruwheid en vervuiling"]],
+      [30,"geïnduceerde weerstand en snelheid","covered",["principles-5-1-induced-drag","principles-5-1-boundary-induced-detail"],["5-1-induced"],[19,20,"§5.1.3.3 Geïnduceerde weerstand"]],
+      [31,"weerstand verkleinen","covered",["principles-5-1-drag-detail","principles-5-1-boundary-induced-detail","principles-5-1-induced-drag"],["5-1-drag-types","5-1-contamination","5-1-induced"],[15,20,"§5.1.3–5.1.3.3 Weerstand verminderen"]]
+    ]},
+    {"id":"5.2","title":"Vliegmechanica","studyAidPage":"1-2","rows":[
+      [32,"vier hoeken","covered",["principles-5-2-mechanics"],["5-2-angles"],[22,null,"§5.2.1 Hoeken"]],
+      [33,"betekenis snelheidspolaire","covered",["principles-5-2-polar","principles-5-2-polar-detail"],["5-2-polar"],[22,null,"§5.2.2 Snelheidspolaire"]],
+      [34,"vier kernpunten snelheidspolaire","covered",["principles-5-2-polar","principles-5-2-performance-detail"],["5-2-four-points"],[22,null,"§5.2.2 Vier punten op de snelheidspolaire"]],
+      [35,"glijgetal berekenen uit polaire","adapted-reference",["principles-5-2-polar","principles-5-2-polar-detail"],["5-2-glideratio"],[23,null,"§5.2.2 Glijgetal"]],
+      [36,"beste glijgetal bij windstilte en wind","covered",["principles-5-2-polar","principles-5-2-wind-maccready","principles-5-2-polar-detail"],["5-2-minsink-bestglide","5-2-wind"],[23,null,"§5.2.2 Beste glijgetal bij wind"]],
+      [37,"beste glijhoek uit polaire met tegenwind","adapted-reference",["principles-5-2-wind-maccready","principles-5-2-polar-detail"],["5-2-wind"],[23,null,"§5.2.2 Beste glijgetal bij tegenwind"]],
+      [38,"gewicht/waterballast: polaire en schaalformule","covered",["principles-5-2-ballast","principles-5-2-polar-detail","principles-5-2-water-detail"],["5-2-wingloading-speeds","5-2-water-scale"],[25,27,"§5.2.2 Vleugelbelasting en polaire / waterballast"]],
+      [39,"voor- en nadeel waterballast","covered",["principles-5-2-ballast","principles-5-2-water-detail"],["5-2-water-performance","5-2-thermal-diameter","5-2-final-dump"],[26,27,"§5.2.2 Vliegen met water"]],
+      [40,"invalshoek, gewicht en snelheid","covered",["principles-5-2-polar-detail","principles-5-2-water-detail"],["5-2-wingloading-speeds"],[25,null,"§5.2.2 Invalshoek, snelheid en gewicht"]],
+      [41,"meer gewicht bij dezelfde invalshoek","covered",["principles-5-2-polar-detail","principles-5-2-water-detail"],["5-2-wingloading-speeds"],[25,null,"§5.2.2 Invalshoek, snelheid en gewicht"]],
+      [42,"meer gewicht bij dezelfde snelheid","covered",["principles-5-2-polar-detail","principles-5-2-water-detail"],["5-2-wingloading-speeds"],[25,null,"§5.2.2 Invalshoek, snelheid en gewicht"]],
+      [43,"werking MacCready-ring","covered",["principles-5-2-wind-maccready","principles-5-2-mc-instruments"],["5-2-mc-tools"],[26,null,"§5.2.2 MacCreadyring en sollfahrtgeber"]]
+    ]},
+    {"id":"5.3","title":"Stabiliteit","studyAidPage":2,"rows":[
+      [44,"stabiel, onstabiel, indifferent","covered",["principles-5-3-stability","principles-5-3-stability-detail"],["5-3-definitions"],[28,null,"§5.3 Stabiliteit"]],
+      [45,"langsstabiliteit","covered",["principles-5-3-stability","principles-5-3-longitudinal-washout-detail"],["5-3-longitudinal"],[28,29,"§5.3.1 Langsstabiliteit"]],
+      [46,"richtingsstabiliteit en pijlvorm","covered",["principles-5-3-stability","principles-5-3-direction-roll-detail"],["5-3-directional","5-3-sweep"],[29,null,"§5.3.2 Richtingsstabiliteit"]],
+      [47,"rolstabiliteit en V-stelling","covered",["principles-5-3-stability","principles-5-3-direction-roll-detail"],["5-3-roll","5-3-lift-vector"],[29,30,"§5.3.3 Rolstabiliteit"]],
+      [48,"wrong: doel en voordeel","covered",["principles-5-3-stability","principles-5-3-longitudinal-washout-detail"],["5-3-washout","5-3-washout-induced"],[30,null,"§5.3.4 Instelhoek en wrong"]]
+    ]},
+    {"id":"5.4","title":"Besturingssysteem","studyAidPage":2,"rows":[
+      [49,"rollen, stampen, gieren en stuurorganen","covered",["principles-5-4-controls"],["5-4-three-axes","5-4-elevator","5-4-ailerons","5-4-rudder"],[30,31,"§5.4 Besturingssysteem"]],
+      [50,"T-staart, V-staart en pendelroer","covered",["principles-5-4-controls","principles-5-4-control-geometry"],["5-4-tail-types"],[31,null,"§5.4.1 Staartvormen"]],
+      [51,"neveneffect van gieren","covered",["principles-5-4-secondary-effects","principles-5-4-coordination-trim-detail"],["5-4-yaw-roll"],[31,32,"§5.4.4 Neveneffecten"]],
+      [52,"neveneffect van dwarshelling","covered",["principles-5-4-secondary-effects"],["5-4-roll-yaw"],[32,null,"§5.4.4 Neveneffect van dwarshelling"]],
+      [53,"haakeffect","covered",["principles-5-4-secondary-effects","principles-5-4-coordination-trim-detail"],["5-4-adverse-yaw","5-4-differential","5-4-coordination"],[32,null,"§5.4.5 Haakeffect"]],
+      [54,"trim: doel en uitvoeringen","covered",["principles-5-4-secondary-effects","principles-5-4-coordination-trim-detail"],["5-4-trim-purpose","5-4-trim-types"],[32,33,"§5.4.6 De trim"]]
+    ]},
+    {"id":"5.5","title":"Beperkingen","studyAidPage":2,"rows":[
+      [55,"meer lift in een bocht","covered",["principles-5-5-turn-load","principles-5-5-turn-forces-detail"],["5-5-turn-lift-components"],[33,null,"§5.5.1 Bochten en g-krachten"]],
+      [56,"overtreksnelheid versus dwarshelling","covered",["principles-5-5-turn-load","principles-5-5-turn-forces-detail"],["5-5-bank-stall-speed"],[33,null,"§5.5.1 Bochten en g-krachten"]],
+      [57,"schuiven, slippen en gevaren","covered",["principles-5-5-turn-load","principles-5-5-slip-skid-detail"],["5-5-piefje","5-5-skid-risk","5-5-slip"],[33,34,"§5.5.2 Zuivere en onzuivere bochten"]],
+      [58,"belastingfactor","covered",["principles-5-5-turn-load","principles-5-5-loadfactor-detail"],["5-5-loadfactor"],[34,null,"§5.5.3 Belastingsfactor"]],
+      [59,"belastingfactor versus snelheid","covered",["principles-5-5-loadfactor-detail"],["5-5-n-formula","5-5-high-speed-stall"],[34,null,"§5.5.3 Belastingsfactor"]],
+      [60,"manoeuvreer- en remousbelasting","covered",["principles-5-5-vn-diagram","principles-5-5-certification-detail"],["5-5-manoeuvre-gust"],[34,null,"§5.5.4 Manoeuvreerbelasting en remousbelasting"]],
+      [61,"V-n-diagram interpreteren","covered",["principles-5-5-vn-diagram","principles-5-5-vn-detail"],["5-5-vn","5-5-positive-negative","5-5-green-yellow"],[34,36,"§5.5.5 Belastingdiagram"]],
+      [62,"maximale belastingfactor voorbeeldtoestel","covered",["principles-5-5-certification-detail","principles-5-5-vn-detail"],["5-5-example-load-limits","5-5-vn"],[34,35,"§5.5.4–5.5.5 Voorbeeldlimieten en belastingdiagram"]],
+      [63,"onder VA: stall vóór structurele limiet","covered",["principles-5-5-vn-diagram","principles-5-5-vn-detail"],["5-5-stall-before-structure"],[35,null,"§5.5.5 Belastingdiagram"]],
+      [64,"beperking boven VA","covered",["principles-5-5-vn-diagram","principles-5-5-certification-detail","principles-5-5-vn-detail"],["5-5-va","5-5-green-yellow"],[34,35,"§5.5.4–5.5.5 VA en belastingdiagram"]],
+      [65,"VRA / rough air","covered",["principles-5-5-vn-diagram","principles-5-5-vn-detail"],["5-5-vra"],[36,null,"§5.5.5 VRA / rough air"]],
+      [66,"flutter","covered",["principles-5-5-flutter","principles-5-5-flutter-detail"],["5-5-flutter","5-5-flutter-coupling","5-5-flutter-response"],[36,null,"§5.5.6 Flutter"]]
+    ]},
+    {"id":"5.6","title":"Overtrek, vrille en spiraalduik","studyAidPage":2,"rows":[
+      [67,"overtrek: definitie en ontstaan","covered",["principles-5-6-stall","principles-5-6-stall-signals"],["5-6-stall-definition"],[37,null,"§5.6.1 Overtrek"]],
+      [68,"gevolgen van overtrek","covered",["principles-5-6-stall","principles-5-6-stall-signals"],["5-6-stall-effects","5-6-pressure-point","5-6-washout-root-stall"],[37,null,"§5.6.1 Gevolgen van de overtrek"]],
+      [69,"verhoogde overtreksnelheid","covered",["principles-5-6-stall"],["5-6-increased-stall-speed"],[37,null,"§5.6.1 Verhoogde overtreksnelheid"]],
+      [70,"herstel uit overtrek","covered",["principles-5-6-stall","principles-5-6-stall-exercise"],["5-6-immediate-recovery","5-6-neutral-controls"],[37,38,"§5.6.1 Herstelprocedure overtrek"]],
+      [71,"dreigende overtrek in schuivende bocht","covered",["principles-5-6-turn-stall"],["5-6-turn-stall-recovery"],[38,null,"§5.6.1 Herstel dreigende overtrek in een bocht"]],
+      [72,"tolvlucht: definitie en ontstaan","covered",["principles-5-6-spin","principles-5-6-spin-mechanics"],["5-6-spin-definition","5-6-spin-entry"],[38,39,"§5.6.2 Tolvlucht"]],
+      [73,"herstel uit tolvlucht","covered",["principles-5-6-spin","principles-5-6-spin-safety"],["5-6-spin-standard-recovery","5-6-spin-type-specific"],[39,null,"§5.6.2 Uit een tolvlucht halen"]],
+      [74,"spiraalduik: definitie en herkenning","covered",["principles-5-7-spiral-dive","principles-5-7-dynamics-detail"],["5-7-definition","5-7-recognition"],[39,40,"§5.7 Spiraalduik"]],
+      [75,"herstel uit spiraalduik","covered",["principles-5-7-spiral-dive","principles-5-7-load-practice"],["5-7-recovery-first","5-7-recovery-roll"],[40,null,"§5.7 Herstel spiraalduik"]]
+    ]}
+  ]
+}
