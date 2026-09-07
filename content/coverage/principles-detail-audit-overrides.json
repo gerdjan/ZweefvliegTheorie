@@ -1,9 +1,9 @@
 {
   "summary": {
     "elements": 294,
-    "covered": 271,
-    "missing": 23,
-    "coveragePercent": 92.2
+    "covered": 289,
+    "missing": 5,
+    "coveragePercent": 98.3
   },
   "sections": [
     {"section":"5.5.1","pages":"33","title":"Bochten en g-krachten","total":7,"covered":7,"missing":[]},
@@ -11,6 +11,8 @@
     {"section":"5.5.3","pages":"34","title":"Belastingsfactor","total":6,"covered":6,"missing":[]},
     {"section":"5.5.4","pages":"34","title":"Manoeuvreerbelasting en remousbelasting","total":7,"covered":7,"missing":[]},
     {"section":"5.5.5","pages":"34-36","title":"Belastingdiagram","total":12,"covered":12,"missing":[]},
-    {"section":"5.5.6","pages":"36","title":"Flutter","total":8,"covered":8,"missing":[]}
+    {"section":"5.5.6","pages":"36","title":"Flutter","total":8,"covered":8,"missing":[]},
+    {"section":"5.6.1","pages":"37-38","title":"Overtrek","total":17,"covered":17,"missing":[]},
+    {"section":"5.6.2","pages":"38-39","title":"Tolvlucht","total":13,"covered":13,"missing":[]}
   ]
 }
