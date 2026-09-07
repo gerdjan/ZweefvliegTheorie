@@ -6,6 +6,12 @@ export type SourceReference = {
   note?: string
 }
 
+export type QuestionOrigin = {
+  id?: string
+  originLessonId?: string
+  originChapterId?: string
+}
+
 export type TheoryStep = {
   type: 'theory'
   title: string
@@ -14,7 +20,7 @@ export type TheoryStep = {
   practiceSource?: SourceReference
 }
 
-export type QuestionStep = {
+export type QuestionStep = QuestionOrigin & {
   type: 'question'
   question: string
   answers: string[]
@@ -22,9 +28,33 @@ export type QuestionStep = {
   explanation: string
   source?: SourceReference
   practiceSource?: SourceReference
+  illustrationKey?: string
 }
 
-export type LessonStep = TheoryStep | QuestionStep
+export type NumericQuestionStep = QuestionOrigin & {
+  type: 'numeric'
+  question: string
+  correctAnswer: number
+  tolerance?: number
+  unit?: string
+  explanation: string
+  source?: SourceReference
+  practiceSource?: SourceReference
+  illustrationKey?: string
+}
+
+export type OrderQuestionStep = QuestionOrigin & {
+  type: 'order'
+  question: string
+  items: string[]
+  correctOrder: string[]
+  explanation: string
+  source?: SourceReference
+  practiceSource?: SourceReference
+  illustrationKey?: string
+}
+
+export type LessonStep = TheoryStep | QuestionStep | NumericQuestionStep | OrderQuestionStep
 
 export type Lesson = {
   id: string
@@ -49,16 +79,32 @@ export type Subject = {
   units: Unit[]
 }
 
+export type ReviewItem = {
+  questionId: string
+  lessonId: string
+  chapterId?: string
+  stage: number
+  dueAt: string
+  attempts: number
+  correct: number
+  lastAnsweredAt: string
+}
+
 export type Progress = {
   xp: number
   hearts: number
   streak: number
   completedLessons: string[]
+  questionReviews: Record<string, ReviewItem>
+  checkpointScores: Record<string, number>
+  examBestScore: number
 }
 
 export type SourcedTheoryStep = TheoryStep & { source: SourceReference }
 export type SourcedQuestionStep = QuestionStep & { source: SourceReference }
-export type SourcedLessonStep = SourcedTheoryStep | SourcedQuestionStep
+export type SourcedNumericQuestionStep = NumericQuestionStep & { source: SourceReference }
+export type SourcedOrderQuestionStep = OrderQuestionStep & { source: SourceReference }
+export type SourcedLessonStep = SourcedTheoryStep | SourcedQuestionStep | SourcedNumericQuestionStep | SourcedOrderQuestionStep
 export type SourcedLesson = Omit<Lesson, 'steps'> & { steps: SourcedLessonStep[] }
 export type SourcedUnit = Omit<Unit, 'lesson'> & { lesson: SourcedLesson }
 export type SourcedSubject = Omit<Subject, 'units'> & { units: SourcedUnit[] }
