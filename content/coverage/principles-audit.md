@@ -23,26 +23,29 @@ Historische voorbeelden, externe links, de literatuurlijst en herhalende rekenvo
 
 De volledige machineleesbare matrix staat in `principles-detail-audit.json`.
 
-### Resultaat van de eerste detailaudit
+### Huidige stand na uitwerking van §5.0 en §5.1
 
 - **294** afzonderlijke kenniselementen geïdentificeerd in de actuele bron.
-- **165** daarvan zijn op dit moment expliciet terug te vinden in de cursus.
-- **129** elementen zijn nog niet expliciet genoeg onderwezen of getoetst.
-- Detaildekking: **56,1%**.
+- **206** daarvan zijn nu expliciet terug te vinden in de cursus.
+- **88** elementen staan nog open.
+- Detaildekking: **70,1%**.
+- **§5.0 en heel §5.1 zijn detail-audited: alle daar geïnventariseerde kenniselementen zijn expliciet opgenomen.**
 
-Dit betekent dat de huidige 25 levels inhoudelijk **beta** zijn. De cursus is pas echt compleet wanneer de detailaudit op 100% staat. De build controleert voortaan ook of de tellingen in deze matrix intern kloppen. Zodra `releaseStatus` in de matrix op `complete` wordt gezet, mag er geen enkel open detailpunt meer bestaan.
+De resterende open punten zitten in §5.2 t/m §5.7. De cursus blijft daarom `beta-detail-audit` totdat alle 294 kenniselementen zijn behandeld of met een expliciete redactionele reden zijn uitgesloten.
 
-## Belangrijkste gevonden gaten
+## Wat bij deze ronde is toegevoegd
 
-De audit vond geen nieuwe volledig ontbrekende genummerde paragraaf — Gate 1 werkt dus — maar wel veel details binnen bestaande paragrafen. Voorbeelden:
+De detailaudit vond 41 open punten in §5.0 en §5.1. Die zijn nu als brongebonden lesinhoud toegevoegd. Het gaat onder andere om:
 
-- §5.0.2: krachtpijlen, momenten, preciezere definitie van zwaartepunt, profielsoorten en pijlvorm/V-stelling.
-- §5.1.0.1: luchtdruk, standaarddruk, luchtdichtheid, luchtsnelheid versus grondsnelheid, stroomlijnen en de onsamendrukbaarheidsaanname uit het dictaat.
-- §5.1.1.4: profielwelving, drukpuntgedrag, thermiek-invloed en veiligheidsdetails van remkleppen/flaps.
-- §5.1.3: volledige weerstandstaxonomie en de afzonderlijke bepalende factoren van druk- en wrijvingsweerstand.
-- §5.2.2: veel details rond snelheidspolaires, MacCready/sollfahrtgeber, waterballast en type-afhankelijkheid uit het vlieghandboek.
-- §5.5: belastingsfactorformule, V-n-diagramdetails, Utility/Aerobatic-limieten, veiligheidsfactor en fluttermechanisme.
-- §5.6–5.7: waarschuwingstekenen, oefen-/veiligheidsprocedures, hoogteverlies bij tolvlucht en aanvullende belastingdetails bij spiraalduik.
+- krachtpijlen, werklijn, momenten en de preciezere definitie van het zwaartepunt;
+- spanwijdte, symmetrische/asymmetrische profielen, pijlvorm en V-stelling;
+- luchtdruk, standaarddruk, luchtdichtheid, luchtsnelheid versus grondsnelheid, stroomlijnen en stroombuizen;
+- vleugelbelasting, skeletlijn, profielwelving en drukpuntgedrag;
+- thermiek-invloed en veiligheidsdetails van remkleppen en flaps;
+- de relatieve invloed van luchtdichtheid versus snelheid en de relatie snelheid–CL–invalshoek uit de liftformule;
+- schadelijke/parasitair weerstand, interferentieweerstand en de factoren voor drukweerstand;
+- de vier factoren voor wrijvingsweerstand, omslagpunt, laminaire profielen, vervuiling en bugwipers;
+- zogturbulentie, het aandeel van geïnduceerde weerstand en de praktische grenzen van grotere spanwijdte.
 
 ## Gate 3 — studiehulpdekking (apart)
 
