@@ -23,30 +23,27 @@ Historische voorbeelden, externe links, de literatuurlijst en herhalende rekenvo
 
 De volledige machineleesbare matrix staat in `principles-detail-audit.json`.
 
-### Huidige stand na uitwerking van §5.0 t/m §5.3
+### Huidige stand na uitwerking van §5.0 t/m §5.4
 
 - **294** afzonderlijke kenniselementen geïdentificeerd in de actuele bron.
-- **240** daarvan zijn nu expliciet terug te vinden in de cursus.
-- **54** elementen staan nog open.
-- Detaildekking: **81,6%**.
-- **§5.0, §5.1, §5.2 en §5.3 zijn volledig detail-audited.**
+- **245** daarvan zijn nu expliciet terug te vinden in de cursus.
+- **49** elementen staan nog open.
+- Detaildekking: **83,3%**.
+- **§5.0 t/m §5.4 zijn volledig detail-audited.**
 
-De resterende open punten zitten in §5.4 t/m §5.7. De cursus blijft daarom `beta-detail-audit` totdat alle 294 kenniselementen zijn behandeld of met een expliciete redactionele reden zijn uitgesloten.
+De resterende open punten zitten in §5.5 t/m §5.7. De cursus blijft daarom `beta-detail-audit` totdat alle 294 kenniselementen zijn behandeld of met een expliciete redactionele reden zijn uitgesloten.
 
-## Wat bij de §5.3-ronde is toegevoegd
+## Wat bij de §5.4-ronde is toegevoegd
 
-De 9 eerder openstaande punten uit Stabiliteit zijn nu als brongebonden lesinhoud toegevoegd. Het gaat om:
+De 5 eerder openstaande punten uit het Besturingssysteem zijn nu als brongebonden lesinhoud toegevoegd. Het gaat om:
 
-- zelfherstel bij kleine verstoringen en de noodzaak van stuurcorrectie bij grotere verstoringen;
-- de relatie tussen stabiliteit en een zwaartepunt binnen de fabrieksgrenzen, inclusief het risico van te neus- of staartlastig beladen;
-- de gezamenlijke reactie van vleugel en stabilo op veranderde aanstroming in thermiek of turbulentie;
-- het weerhaaneffect van het kielvlak bij richtingsstabiliteit;
-- het verschil tussen positieve en negatieve pijlvorm voor koersherstel;
-- twee afzonderlijke herstelmechanismen van V-stelling bij rolstabiliteit: veranderde invalshoek van de lage vleugel en de richting van de liftvector ten opzichte van de zwaartekracht;
-- de kleinere instelhoek van het stabilo ten opzichte van de vleugel en de rol daarvan bij herstel na overtrek;
-- wrong als bijdrage aan een gunstiger ellipsvormige liftverdeling en minder geïnduceerde weerstand.
+- de grote arm van hoogteroer en richtingsroer: door `kracht × arm` kan een relatief kleine roerkracht toch een bruikbaar stuurmoment geven;
+- het onderscheid tussen T-staart, conventionele staart, V-staart en pendelroer zoals het dictaat die beschrijft;
+- de verklaring waarom gieren ook rollen veroorzaakt: de buitenvleugel legt een langere weg af, beweegt sneller en levert meer lift;
+- de noodzaak om stuurknuppel en voetenstuur passend te combineren om haakeffect en neveneffecten te corrigeren en een zuivere bocht te vliegen;
+- de relatie tussen trimstand, vliegergewicht en gekozen vliegsnelheid doordat de benodigde constante stuurkracht verandert.
 
-De gebruikersgerichte kennisindex van §5.3 is tegelijk uitgebreid en staat nu op **21/21 auditpunten**. De kenniselementen blijven gegroepeerd tot bruikbare begrippen in plaats van ieder micro-auditpunt als afzonderlijk vinkje te tonen.
+De gebruikersgerichte kennisindex van §5.4 is tegelijk uitgebreid en staat nu op **27/27 auditpunten**. De vijf ontbrekende details zijn verdeeld over twee nieuwe verdiepingslevels, zodat de leerstappen compact blijven.
 
 ## Gate 3 — studiehulpdekking (apart)
 
