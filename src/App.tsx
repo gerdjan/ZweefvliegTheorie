@@ -101,7 +101,7 @@ export default function App(){
   return <main className="app">
     <Header progress={progress}/>
     <div className="layout">
-      <section><h2 className="small-title">De 9 examenvakken</h2><p className="muted">Beginselen van het zweefvliegen is de eerste inhoudelijk complete cursus en krijgt nu de volledige 1.0-leerarchitectuur. De andere vakken hebben voorlopig één demonstratieles.</p><SubjectList subjects={subjects} currentId={subject.id} onSelect={next=>{setSubject(next);setResultState(null)}} completedLessons={progress.completedLessons}/></section>
+      <section><h2 className="small-title">De 9 examenvakken</h2><p className="muted">Beginselen van het zweefvliegen is onze eerste volledige 1.0-cursus, inclusief broncontrole, hoofdstuktoetsen, herhaling en vakexamen. De andere vakken hebben voorlopig één demonstratieles.</p><SubjectList subjects={subjects} currentId={subject.id} onSelect={next=>{setSubject(next);setResultState(null)}} completedLessons={progress.completedLessons}/></section>
       <LearningPath subject={subject} completedLessons={progress.completedLessons} checkpointScores={progress.checkpointScores} reviewDue={reviewDue} examBestScore={progress.examBestScore} onStart={startLesson} onCheckpoint={subject.id==='principles'?startCheckpoint:undefined} onReview={subject.id==='principles'?startReview:undefined} onExam={subject.id==='principles'?startExam:undefined}/>
     </div>
     <section className="principles card"><div><strong>Lesopbouw</strong><p>korte theorie → kennischeck → hoofdstuktoets</p></div><div><strong>Herhalen</strong><p>fouten direct terug; daarna 1 / 3 / 7 / 14 / 30 dagen</p></div><div><strong>Mastery</strong><p>80% per hoofdstuk · vakexamen vanaf 75%</p></div></section>
