@@ -20,6 +20,13 @@ const vnDiagram:LearningIllustration = {
   source:b(35,'§5.5.5 Belastingdiagram'),
 }
 
+const speedPolar:LearningIllustration = {
+  src:'illustrations/principles/speed-polar.svg',
+  alt:'Schematische snelheidspolaire met vliegsnelheid horizontaal, daalsnelheid verticaal en een raaklijn vanuit de oorsprong.',
+  caption:'Didactische snelheidspolaire. Het raakpunt van de lijn vanuit de oorsprong geeft in rustige lucht de snelheid voor het beste glijgetal aan.',
+  source:b(23,'§5.2.2 Snelheid voor beste glijgetal'),
+}
+
 const illustrations:Record<string,LearningIllustration> = {
   'principles-5-0-basics::Vier krachten': {
     src:'illustrations/principles/four-forces.svg',
@@ -50,6 +57,7 @@ const illustrations:Record<string,LearningIllustration> = {
 
 const keyedIllustrations:Record<string,LearningIllustration>={
   'vn-diagram':vnDiagram,
+  'speed-polar':speedPolar,
 }
 
 export function getPrinciplesIllustration(lessonId:string, stepTitle:string){
