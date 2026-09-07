@@ -1,4 +1,5 @@
 import type { Subject } from '../domain/types'
+import { KnowledgeIndex } from './KnowledgeIndex'
 
 export function LearningPath({ subject, completedLessons, onStart }:{subject:Subject,completedLessons:string[],onStart:(lessonId:string)=>void}) {
   const totalPlayable=subject.units.filter(u=>u.lesson).length
@@ -10,11 +11,14 @@ export function LearningPath({ subject, completedLessons, onStart }:{subject:Sub
       <span className="badge">{subject.sourceFreshness}</span>
     </div>
     <p className="muted">{subject.description}</p>
-    {subject.id==='principles' && <div className="source-policy-banner">
-      <strong>Broncontrole aan</strong>
-      <span>Elk theorieblok en elke vraag toont de exacte PDF, PDF-pagina en paragraaf. De actuele theorie is leidend; de studiehulp wordt alleen als oefendoel gebruikt.</span>
-      <span><strong>Dekkingsstatus:</strong> 42/42 genummerde bronsecties aanwezig · 206/294 afzonderlijke kenniselementen expliciet afgedekt (70,1%). §5.0 en §5.1 zijn detail-audited; §5.2 t/m §5.7 volgen. Tot de detailaudit 100% is, blijft deze cursus bewust een beta.</span>
-    </div>}
+    {subject.id==='principles' && <>
+      <div className="source-policy-banner">
+        <strong>Broncontrole aan</strong>
+        <span>Elk theorieblok en elke vraag toont de exacte PDF, PDF-pagina en paragraaf. De actuele theorie is leidend; de studiehulp wordt alleen als oefendoel gebruikt.</span>
+        <span><strong>Dekkingsstatus:</strong> 42/42 genummerde bronsecties aanwezig · 206/294 afzonderlijke auditpunten expliciet afgedekt (70,1%). §5.0 en §5.1 zijn detail-audited; §5.2 t/m §5.7 volgen.</span>
+      </div>
+      <KnowledgeIndex completedLessons={completedLessons}/>
+    </>}
     {totalPlayable>1 && <div className="course-progress"><strong>{completedInSubject}/{totalPlayable}</strong> levels afgerond</div>}
     <div className="path">
       {subject.units.map((u,i) => {
