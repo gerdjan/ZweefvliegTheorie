@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "courses": [
+    {
+      "id": "principles",
+      "label": "Beginselen",
+      "subject": "Beginselen van het zweefvliegen",
+      "authoritativeSource": "5-Beginselen.pdf",
+      "authoritativeSourceVersion": "november 2025",
+      "contentDir": "src/data/principlesParts",
+      "lessonIdPrefix": "principles-",
+      "sourceHelper": "b",
+      "knowledgeDir": "src/data",
+      "knowledgeFilePrefix": "principlesKnowledge",
+      "knowledgeFactory": "e",
+      "questionFactories": ["q"],
+      "sectionManifest": "content/coverage/principles-sections.json",
+      "detailAudit": "content/coverage/principles-detail-audit.json",
+      "studyAidAudit": "content/coverage/principles-study-aid-audit.json",
+      "release": "content/coverage/principles-release.json",
+      "studyAid": {
+        "sourceFile": "5-beginselen-studiehulp.pdf",
+        "expectedGoals": 75,
+        "requireActiveQuestion": true
+      }
+    }
+  ]
+}
