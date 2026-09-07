@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" role="img" aria-labelledby="title desc">
+  <title id="title">Overtrek: aangehechte en losgelaten stroming</title>
+  <desc id="desc">Didactische schets met links een vleugelprofiel met aangehechte stroming en drukpunt vóór het zwaartepunt, rechts een overtrokken profiel met losgelaten stroming, drukpunt achter het zwaartepunt en een neus-omlaagmoment.</desc>
+  <rect width="900" height="420" rx="24" fill="#f7fbfb"/>
+  <text x="225" y="46" text-anchor="middle" font-family="system-ui,sans-serif" font-size="24" font-weight="700" fill="#15383b">Vóór overtrek</text>
+  <text x="675" y="46" text-anchor="middle" font-family="system-ui,sans-serif" font-size="24" font-weight="700" fill="#15383b">Bij overtrek</text>
+
+  <g transform="translate(70 115)">
+    <path d="M40 105 C125 45 260 48 340 103 C258 122 132 132 40 105 Z" fill="#d9eeee" stroke="#163f42" stroke-width="4"/>
+    <path d="M5 78 C105 40 230 39 365 76" fill="none" stroke="#2e7f84" stroke-width="5" stroke-linecap="round"/>
+    <path d="M4 108 C120 92 244 95 365 111" fill="none" stroke="#2e7f84" stroke-width="5" stroke-linecap="round"/>
+    <path d="M4 137 C116 137 238 142 365 139" fill="none" stroke="#2e7f84" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="210" cy="102" r="8" fill="#15383b"/>
+    <text x="210" y="158" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" fill="#15383b">zwaartepunt</text>
+    <circle cx="155" cy="91" r="8" fill="#be6b24"/>
+    <text x="136" y="55" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" fill="#7c4519">drukpunt</text>
+    <line x1="155" y1="86" x2="155" y2="25" stroke="#be6b24" stroke-width="5"/>
+    <polygon points="155,13 146,31 164,31" fill="#be6b24"/>
+    <text x="250" y="205" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" fill="#536d6f">stroming volgt het profiel</text>
+  </g>
+
+  <g transform="translate(520 115)">
+    <g transform="rotate(-8 200 105)">
+      <path d="M40 105 C125 45 260 48 340 103 C258 122 132 132 40 105 Z" fill="#f3e7de" stroke="#163f42" stroke-width="4"/>
+    </g>
+    <path d="M5 78 C88 45 150 43 195 65 C238 87 260 38 365 53" fill="none" stroke="#2e7f84" stroke-width="5" stroke-linecap="round"/>
+    <path d="M6 110 C89 91 149 88 194 102 C238 118 273 75 364 89" fill="none" stroke="#2e7f84" stroke-width="5" stroke-linecap="round" stroke-dasharray="13 10"/>
+    <path d="M195 58 C235 39 270 42 296 63" fill="none" stroke="#be6b24" stroke-width="4" stroke-linecap="round"/>
+    <path d="M207 84 C250 65 291 69 321 91" fill="none" stroke="#be6b24" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="200" cy="102" r="8" fill="#15383b"/>
+    <text x="200" y="158" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" fill="#15383b">zwaartepunt</text>
+    <circle cx="255" cy="105" r="8" fill="#be6b24"/>
+    <text x="286" y="145" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" fill="#7c4519">drukpunt achter ZP</text>
+    <path d="M294 185 A75 75 0 0 1 226 227" fill="none" stroke="#be6b24" stroke-width="6"/>
+    <polygon points="215,226 235,216 233,237" fill="#be6b24"/>
+    <text x="284" y="258" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#7c4519">herstellend neus-omlaagmoment</text>
+  </g>
+
+  <text x="450" y="390" text-anchor="middle" font-family="system-ui,sans-serif" font-size="17" fill="#536d6f">Didactische schets op basis van 5-Beginselen.pdf, PDF p. 37, §5.6.1</text>
+</svg>
