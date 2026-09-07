@@ -127,7 +127,7 @@ export type Progress = {
   completedLessons: string[]
   questionReviews: Record<string, ReviewItem>
   checkpointScores: Record<string, number>
-  examBestScore: number
+  examBestScores: Record<string, number>
 }
 
 export type SourcedTheoryStep = TheoryStep & { source: SourceReference }
