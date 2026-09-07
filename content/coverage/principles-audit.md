@@ -21,39 +21,39 @@ Een sectieverwijzing alleen bewijst nog niet dat iedere belangrijke regel uit di
 
 Historische voorbeelden, externe links, de literatuurlijst en herhalende rekenvoorbeelden tellen niet als zelfstandig kenniselement tenzij ze een nieuwe regel introduceren.
 
-De basismatrix staat in `principles-detail-audit.json`. Tijdens de lopende hoofdstuk-voor-hoofdstukaudit worden afgeronde secties aanvullend vastgelegd in `principles-detail-audit-overrides.json`; de build voegt beide samen tot één effectieve audit. Na afronding van het hele vak kunnen de overrides weer in de basismatrix worden geconsolideerd.
+De basismatrix staat in `principles-detail-audit.json`. Afgeronde secties zijn tijdens de hoofdstuk-voor-hoofdstukaudit aanvullend vastgelegd in `principles-detail-audit-overrides.json`; de build voegt beide samen tot één effectieve audit. Na de laatste releasecheck kunnen de overrides in de basismatrix worden geconsolideerd.
 
-### Huidige stand na uitwerking van §5.0 t/m §5.6
+### Huidige stand na uitwerking van §5.0 t/m §5.7
 
 - **294** afzonderlijke kenniselementen geïdentificeerd in de actuele bron.
-- **289** daarvan zijn nu expliciet terug te vinden in de cursus.
-- **5** elementen staan nog open.
-- Detaildekking: **98,3%**.
-- **§5.0 t/m §5.6 zijn volledig detail-audited.**
+- **294** daarvan zijn expliciet terug te vinden in de cursus.
+- **0** elementen staan nog open.
+- Detaildekking: **100%**.
+- **§5.0 t/m §5.7 zijn volledig detail-audited.**
 
-De resterende open punten zitten uitsluitend in §5.7 Spiraalduik. De cursus blijft daarom `beta-detail-audit` totdat alle 294 kenniselementen zijn behandeld of met een expliciete redactionele reden zijn uitgesloten.
+Gate 2 is hiermee gesloten. De cursus kan inhoudelijk als **100% gedekt tegen het actuele dictaat** worden aangeduid. De aparte vergelijking met de studiehulp blijft nog als laatste releasecheck over.
 
-## Wat bij de §5.6-ronde is toegevoegd
+## Wat bij de §5.7-ronde is toegevoegd
 
-De 18 eerder openstaande punten uit Overtrek en Tolvlucht/Vrille zijn nu als brongebonden lesinhoud toegevoegd. Het gaat onder andere om:
+De vijf laatste open punten uit Spiraalduik zijn als brongebonden lesinhoud toegevoegd:
 
-- wrong als reden dat de overtrek in de regel eerst bij de vleugelwortel optreedt en het schudden door losgelaten wervels tegen romp en staart;
-- de plotselinge drukpuntverschuiving naar achteren en het herstellende neus-omlaagmoment;
-- de vijf expliciete waarschuwingssignalen voor overtrek;
-- voorzorgsmaatregelen en de uitkijkprocedure met twee halve cirkels vóór de oefening;
-- het directe herstel door vieren, de zakvlucht en het neutraal houden van voeten en rolroer;
-- de leerdoelen en het herstel bij een dreigende overtrek in een schuivende bocht;
-- de definitie van tolvlucht/vrille als overtrokken, schroefvormig dalende toestand met draaiing om de topas;
-- langzaam vliegen met te veel voetenstuur/gier als mogelijke aanleiding, de overtrokken binnenvleugel en het nog werkzame richtingsroer;
-- de binnen- en buitencheck voor de tolvluchtoefening, plus de in de bron genoemde circa 80 m hoogteverlies per draai en circa 300 m oefengrens;
-- rolroer neutraal tijdens herstel en de waarschuwing dat tolvluchteigenschappen en herstelprocedures per zweefvliegtuigtype kunnen verschillen, zodat het vlieghandboek leidend blijft.
+- een mogelijke ontstaansketen: in een bocht niet of te laat trekken, neus zakt en snelheid loopt op;
+- waarom alleen harder trekken de situatie kan verergeren doordat de bochtstraal kleiner wordt en snelheid en g-belasting verder oplopen;
+- de bronwaarden van ongeveer 2g bij 60° en circa 5g rond 80° dwarshelling, plus het risico van een abrupte optrekbeweging;
+- de ontwerpcontext van minimaal circa +5,3g normaal tegenover een lagere maximale belasting rond +3,5g met geopende remkleppen bij veel typen, door de veranderde liftverdeling;
+- het oefendoel: eerste symptomen vroeg herkennen en het juiste herstel vrijwel instinctief uitvoeren.
 
-De gebruikersgerichte kennisindex van §5.6 is tegelijk uitgebreid en staat nu op **30/30 auditpunten**. Er zijn vijf verdiepingslevels toegevoegd. Bij de drukpuntverschuiving staat bovendien een eigen didactische illustratie die expliciet naar `5-Beginselen.pdf`, PDF p. 37, §5.6.1 verwijst.
+Er zijn twee verdiepingslevels toegevoegd. De gebruikersgerichte kennisindex van §5.7 staat nu op **10/10 auditpunten**.
 
 ## Gate 3 — studiehulpdekking (apart)
 
-Pas nadat Gate 2 is gesloten, leggen we de cursus opnieuw naast `5-beginselen-studiehulp.pdf`: kan de cursist na de lessen alle oude oefendoelen beantwoorden? De studiehulp mag extra oefening opleveren, maar bepaalt nooit welke actuele theorie wordt weggelaten.
+Nu Gate 2 is gesloten, leggen we de cursus opnieuw naast `5-beginselen-studiehulp.pdf`: kan de cursist na de lessen alle oude oefendoelen beantwoorden? De studiehulp mag extra oefening opleveren, maar bepaalt nooit welke actuele theorie wordt weggelaten.
+
+Deze check heeft twee doelen:
+
+1. aantonen dat geen oud oefendoel door onze lesstructuur onbedoeld onbereikbaar is geworden;
+2. extra oefenvragen toevoegen waar de theorie wel aanwezig is, maar nog te weinig actief wordt opgehaald.
 
 ## Release-regel
 
-`Beginselen van het zweefvliegen` mag in de app pas als **inhoudelijk compleet / detail-audited** worden aangeduid wanneer alle kenniselementen uit de actuele bron expliciet zijn afgedekt of bewust als niet-leerpunt zijn beoordeeld en gedocumenteerd. Tot dat moment blijft de cursus zichtbaar als beta.
+De cursus mag nu als **detail-audited tegen het actuele dictaat** worden aangeduid. Voor de definitieve inhoudelijke release voeren we nog Gate 3 uit en documenteren we per studiehulpvraag naar welk(e) level(s) en kenniselement(en) die vraag verwijst.
