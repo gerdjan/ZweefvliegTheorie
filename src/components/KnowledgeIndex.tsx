@@ -5,6 +5,7 @@ import { principlesKnowledgeFiveThree } from '../data/principlesKnowledgeFiveThr
 import { principlesKnowledgeFiveFour } from '../data/principlesKnowledgeFiveFour'
 import { principlesKnowledgeFiveFive } from '../data/principlesKnowledgeFiveFive'
 import { principlesKnowledgeFiveSix } from '../data/principlesKnowledgeFiveSix'
+import { principlesKnowledgeFiveSeven } from '../data/principlesKnowledgeFiveSeven'
 
 function sourceLabel(source:{file:string,page:number,pageEnd?:number,section:string}){
   const pages=source.pageEnd && source.pageEnd!==source.page ? `${source.page}–${source.pageEnd}` : `${source.page}`
@@ -17,6 +18,7 @@ const knowledgeChapters=principlesKnowledgeChapters.map(chapter=>{
   if(chapter.id==='5.4') return principlesKnowledgeFiveFour
   if(chapter.id==='5.5') return principlesKnowledgeFiveFive
   if(chapter.id==='5.6') return principlesKnowledgeFiveSix
+  if(chapter.id==='5.7') return principlesKnowledgeFiveSeven
   return chapter
 })
 
