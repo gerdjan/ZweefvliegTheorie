@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img" aria-labelledby="title desc">
+  <title id="title">Spanwijdte, koorde en slankheid</title>
+  <desc id="desc">Vleugel van boven met aanduiding van spanwijdte en gemiddelde koorde plus de formule voor slankheid.</desc>
+  <defs>
+    <marker id="dim" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 5 L 10 0 L 10 10 z" fill="#12888f"/>
+    </marker>
+  </defs>
+  <rect width="800" height="420" rx="28" fill="#f7fbfb"/>
+  <path d="M95 205 L365 170 L400 155 L435 170 L705 205 L705 235 L435 224 L400 246 L365 224 L95 235 Z" fill="#e9f4f4" stroke="#17373b" stroke-width="6"/>
+  <g stroke="#12888f" stroke-width="5" fill="none" marker-start="url(#dim)" marker-end="url(#dim)">
+    <path d="M105 100 L695 100"/>
+    <path d="M365 155 L365 250"/>
+  </g>
+  <g font-family="system-ui, sans-serif" fill="#17373b">
+    <text x="322" y="78" font-size="28" font-weight="750">spanwijdte</text>
+    <text x="382" y="290" font-size="25" font-weight="750">gemiddelde koorde</text>
+    <text x="155" y="360" font-size="31" font-weight="800">slankheid = spanwijdte ÷ gemiddelde koorde</text>
+  </g>
+</svg>
