@@ -28,17 +28,20 @@ try {
 }
 
 const files=(await readdir(partsDir)).filter(name=>name.endsWith('.ts'))
-const partSources=[]
 const refs=[]
 const lessonIds=new Set()
+const questionBearingLessonIds=new Set()
 for(const file of files){
   const source=await readFile(path.join(partsDir,file),'utf8')
-  partSources.push(source)
   for(const match of source.matchAll(/\bb\(\s*\d+\s*,\s*['"`]§([0-9.]+)/g)){
     refs.push({section:match[1],file})
   }
   for(const match of source.matchAll(/\bid\s*:\s*['"`](principles-[^'"`]+)['"`]/g)){
     lessonIds.add(match[1])
+  }
+  for(const chunk of source.split(/\blesson\s*:\s*\{/).slice(1)){
+    const id=chunk.match(/^\s*id\s*:\s*['"`](principles-[^'"`]+)['"`]/)?.[1]
+    if(id && /\bq\s*\(/.test(chunk)) questionBearingLessonIds.add(id)
   }
 }
 
@@ -129,6 +132,7 @@ const allowedStudyStatuses=new Set(['covered','adapted-reference','open'])
 const studyRows=(studyAidAudit.groups ?? []).flatMap(group=>(group.rows ?? []).map(row=>({group,row})))
 let studyOpen=0
 let adaptedReferences=0
+let activeRetrievalCovered=0
 const seenNumbers=new Set()
 
 if(studyAidAudit.sourceFile!=='5-beginselen-studiehulp.pdf' || studyAidAudit.currentAuthority?.file!=='5-Beginselen.pdf'){
@@ -174,6 +178,12 @@ for(const {group,row} of studyRows){
         invalid=true
       }
     }
+    if(mappedLessons.some(lessonId=>questionBearingLessonIds.has(lessonId))){
+      activeRetrievalCovered++
+    } else {
+      console.error(`Studiehulppunt ${number} is wel aan theorie gekoppeld, maar geen gekoppeld level bevat een actieve kennisvraag.`)
+      invalid=true
+    }
   }
   if(!Array.isArray(mappedKnowledge) || mappedKnowledge.length===0){
     console.error(`Studiehulppunt ${number} is niet aan een kenniselement gekoppeld.`)
@@ -206,15 +216,16 @@ if(studySummary.questions!==studyRows.length || studySummary.covered!==reachable
 }
 
 console.log(`Beginselen studiehulpaudit: ${reachable}/${studyRows.length} oefendoelen herleidbaar. ${adaptedReferences} oude figuur-/paginaverwijzingen aangepast aan de theorie van november 2025. Open: ${studyOpen}.`)
+console.log(`Beginselen actieve-vraagdekking: ${activeRetrievalCovered}/${studyRows.length} studiehulpdoelen gekoppeld aan minimaal één level met een kennisvraag.`)
 
 if(invalid) process.exit(1)
 
 const releaseComplete=release.status==='complete'
-if(releaseComplete && (detailMissing>0 || studyOpen>0 || studyRows.length!==75)){
+if(releaseComplete && (detailMissing>0 || studyOpen>0 || studyRows.length!==75 || activeRetrievalCovered!==studyRows.length)){
   console.error('\nBeginselen staat als compleet gemarkeerd terwijl één van de inhoudelijke releasegates nog open staat.')
   process.exit(1)
 }
 
 if(releaseComplete){
-  console.log('Beginselen releasegate: COMPLEET — bronsecties, detailaudit en studiehulpaudit zijn gesloten.')
+  console.log('Beginselen releasegate: COMPLEET — bronsecties, detailaudit, studiehulpaudit en actieve-vraagdekking zijn gesloten.')
 }
