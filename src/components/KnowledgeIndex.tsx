@@ -1,26 +1,10 @@
 import { useMemo, useState } from 'react'
-import { principlesKnowledgeChapters } from '../data/principlesKnowledgeIndex'
-import { principlesKnowledge52 } from '../data/principlesKnowledge52'
-import { principlesKnowledgeFiveThree } from '../data/principlesKnowledgeFiveThree'
-import { principlesKnowledgeFiveFour } from '../data/principlesKnowledgeFiveFour'
-import { principlesKnowledgeFiveFive } from '../data/principlesKnowledgeFiveFive'
-import { principlesKnowledgeFiveSix } from '../data/principlesKnowledgeFiveSix'
-import { principlesKnowledgeFiveSeven } from '../data/principlesKnowledgeFiveSeven'
+import type { KnowledgeChapter } from '../domain/course'
 
 function sourceLabel(source:{file:string,page:number,pageEnd?:number,section:string}){
   const pages=source.pageEnd && source.pageEnd!==source.page ? `${source.page}–${source.pageEnd}` : `${source.page}`
   return `${source.file} · PDF p. ${pages} · ${source.section}`
 }
-
-const knowledgeChapters=principlesKnowledgeChapters.map(chapter=>{
-  if(chapter.id==='5.2') return principlesKnowledge52
-  if(chapter.id==='5.3') return principlesKnowledgeFiveThree
-  if(chapter.id==='5.4') return principlesKnowledgeFiveFour
-  if(chapter.id==='5.5') return principlesKnowledgeFiveFive
-  if(chapter.id==='5.6') return principlesKnowledgeFiveSix
-  if(chapter.id==='5.7') return principlesKnowledgeFiveSeven
-  return chapter
-})
 
 type MasteryState='nieuw'|'gezien'|'geoefend'|'beheerst'
 
@@ -33,7 +17,7 @@ function stateFor(seen:boolean,checkpointScore:number):MasteryState{
 
 const stateIcon:Record<MasteryState,string>={nieuw:'○',gezien:'◐',geoefend:'●',beheerst:'✓'}
 
-export function KnowledgeIndex({completedLessons,checkpointScores={}}:{completedLessons:string[],checkpointScores?:Record<string,number>}){
+export function KnowledgeIndex({knowledgeChapters,completedLessons,checkpointScores={}}:{knowledgeChapters:KnowledgeChapter[],completedLessons:string[],checkpointScores?:Record<string,number>}){
   const [open,setOpen]=useState(false)
   const [query,setQuery]=useState('')
   const completed=new Set(completedLessons)
@@ -47,7 +31,7 @@ export function KnowledgeIndex({completedLessons,checkpointScores={}}:{completed
         elements:chapter.elements.filter(element=>`${element.title} ${element.meaning} ${element.source.section}`.toLocaleLowerCase('nl-NL').includes(q)),
       }))
       .filter(chapter=>chapter.elements.length>0)
-  },[query])
+  },[query,knowledgeChapters])
 
   const allElements=knowledgeChapters.flatMap(chapter=>chapter.elements.map(element=>({chapter,element})))
   const states=allElements.map(({chapter,element})=>stateFor(element.lessonIds.some(id=>completed.has(id)),checkpointScores[chapter.id]??0))
@@ -65,7 +49,7 @@ export function KnowledgeIndex({completedLessons,checkpointScores={}}:{completed
       <p className="knowledge-intro">Gebruik dit als naslaglijst. <strong>Gezien</strong> betekent dat je een gekoppeld level hebt afgerond. Na een hoofdstuktoets wordt de status <strong>geoefend</strong>; bij 80% of hoger wordt het hoofdstuk als <strong>beheerst</strong> gemarkeerd. De herhaalmodus houdt vragen daarna volgens het herhaalritme actief.</p>
       <label className="knowledge-search">
         <span>Zoeken</span>
-        <input value={query} onChange={event=>setQuery(event.target.value)} placeholder="Bijv. invalshoek, flutter, MacCready…" />
+        <input value={query} onChange={event=>setQuery(event.target.value)} placeholder="Zoek een begrip of onderwerp…" />
       </label>
 
       <div className="knowledge-chapters">
