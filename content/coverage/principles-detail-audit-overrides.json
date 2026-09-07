@@ -1,9 +1,9 @@
 {
   "summary": {
     "elements": 294,
-    "covered": 289,
-    "missing": 5,
-    "coveragePercent": 98.3
+    "covered": 294,
+    "missing": 0,
+    "coveragePercent": 100
   },
   "sections": [
     {"section":"5.5.1","pages":"33","title":"Bochten en g-krachten","total":7,"covered":7,"missing":[]},
@@ -13,6 +13,7 @@
     {"section":"5.5.5","pages":"34-36","title":"Belastingdiagram","total":12,"covered":12,"missing":[]},
     {"section":"5.5.6","pages":"36","title":"Flutter","total":8,"covered":8,"missing":[]},
     {"section":"5.6.1","pages":"37-38","title":"Overtrek","total":17,"covered":17,"missing":[]},
-    {"section":"5.6.2","pages":"38-39","title":"Tolvlucht","total":13,"covered":13,"missing":[]}
+    {"section":"5.6.2","pages":"38-39","title":"Tolvlucht","total":13,"covered":13,"missing":[]},
+    {"section":"5.7","pages":"39-40","title":"Spiraalduik","total":10,"covered":10,"missing":[]}
   ]
 }
