@@ -142,7 +142,7 @@ export function updateReviewItem(existing:ReviewItem|undefined,item:{questionId:
   const attempts=(existing?.attempts ?? 0)+1
   const correct=(existing?.correct ?? 0)+(isCorrect?1:0)
   if(!isCorrect){
-    return {questionId:item.questionId,lessonId:item.lessonId,chapterId:item.chapterId,stage:0,dueAt:now.toISOString(),attempts,correct,lastAnsweredAt:now.toISOString()}
+    return {questionId:item.questionId,lessonId:item.lessonId,chapterId:item.chapterId,stage:-1,dueAt:now.toISOString(),attempts,correct,lastAnsweredAt:now.toISOString()}
   }
   const stage=Math.min(existing ? existing.stage+1 : 0,REVIEW_INTERVAL_DAYS.length-1)
   const dueAt=new Date(now.getTime()+REVIEW_INTERVAL_DAYS[stage]*DAY).toISOString()
@@ -152,5 +152,6 @@ export function updateReviewItem(existing:ReviewItem|undefined,item:{questionId:
 export function reviewStageLabel(stage:number){
   if(stage>=4) return 'beheerst'
   if(stage>=1) return 'geoefend'
-  return 'gezien'
+  if(stage>=0) return 'gezien'
+  return 'direct herhalen'
 }
