@@ -1,12 +1,13 @@
 {
-  "status": "complete",
+  "status": "1.0",
   "subject": "Beginselen van het zweefvliegen",
   "authoritativeSource": "5-Beginselen.pdf",
   "authoritativeSourceVersion": "november 2025",
   "gates": {
     "sourceSections": "42/42",
     "detailElements": "294/294",
-    "studyAidGoals": "75/75"
+    "studyAidGoals": "75/75",
+    "activeQuestionGoals": "75/75"
   },
   "studyAid": {
     "file": "5-beginselen-studiehulp.pdf",
