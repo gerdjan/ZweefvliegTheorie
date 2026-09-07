@@ -23,29 +23,31 @@ Historische voorbeelden, externe links, de literatuurlijst en herhalende rekenvo
 
 De volledige machineleesbare matrix staat in `principles-detail-audit.json`.
 
-### Huidige stand na uitwerking van §5.0 en §5.1
+### Huidige stand na uitwerking van §5.0, §5.1 en §5.2
 
 - **294** afzonderlijke kenniselementen geïdentificeerd in de actuele bron.
-- **206** daarvan zijn nu expliciet terug te vinden in de cursus.
-- **88** elementen staan nog open.
-- Detaildekking: **70,1%**.
-- **§5.0 en heel §5.1 zijn detail-audited: alle daar geïnventariseerde kenniselementen zijn expliciet opgenomen.**
+- **231** daarvan zijn nu expliciet terug te vinden in de cursus.
+- **63** elementen staan nog open.
+- Detaildekking: **78,6%**.
+- **§5.0, heel §5.1 en heel §5.2 zijn detail-audited.**
 
-De resterende open punten zitten in §5.2 t/m §5.7. De cursus blijft daarom `beta-detail-audit` totdat alle 294 kenniselementen zijn behandeld of met een expliciete redactionele reden zijn uitgesloten.
+De resterende open punten zitten in §5.3 t/m §5.7. De cursus blijft daarom `beta-detail-audit` totdat alle 294 kenniselementen zijn behandeld of met een expliciete redactionele reden zijn uitgesloten.
 
-## Wat bij deze ronde is toegevoegd
+## Wat bij de §5.2-ronde is toegevoegd
 
-De detailaudit vond 41 open punten in §5.0 en §5.1. Die zijn nu als brongebonden lesinhoud toegevoegd. Het gaat onder andere om:
+De 25 eerder openstaande punten uit Vliegmechanica zijn nu als brongebonden lesinhoud toegevoegd. Het gaat onder andere om:
 
-- krachtpijlen, werklijn, momenten en de preciezere definitie van het zwaartepunt;
-- spanwijdte, symmetrische/asymmetrische profielen, pijlvorm en V-stelling;
-- luchtdruk, standaarddruk, luchtdichtheid, luchtsnelheid versus grondsnelheid, stroomlijnen en stroombuizen;
-- vleugelbelasting, skeletlijn, profielwelving en drukpuntgedrag;
-- thermiek-invloed en veiligheidsdetails van remkleppen en flaps;
-- de relatieve invloed van luchtdichtheid versus snelheid en de relatie snelheid–CL–invalshoek uit de liftformule;
-- schadelijke/parasitair weerstand, interferentieweerstand en de factoren voor drukweerstand;
-- de vier factoren voor wrijvingsweerstand, omslagpunt, laminaire profielen, vervuiling en bugwipers;
-- zogturbulentie, het aandeel van geïnduceerde weerstand en de praktische grenzen van grotere spanwijdte.
+- definities van stationaire en rechtlijnige vlucht en het onderscheid tussen gecoördineerde, slippende en schuivende bochten;
+- de eisen aan stabiliteit, bestuurbaarheid en herstelbaarheid van ongewenste vliegtoestanden;
+- het feit dat zwaartekracht als enige van de vier genoemde krachten constant blijft zolang de massa niet verandert;
+- eigen dalen ten opzichte van de lucht, ook binnen een stijgend luchtblok;
+- de relatie tussen maximum toegestane snelheid en sterkteberekeningen;
+- rustige-luchtvoorwaarden voor beste glijgetal en de raaklijnmethode voor tegen- en meewind;
+- type-, flap- en toestandsafhankelijkheid van snelheidspolaires en het gebruik van het vlieghandboek;
+- glijgetal als lift/weerstandsverhouding, de omzetting 1 m/s = 3,6 km/h en de invloed van vleugelbelasting op karakteristieke snelheden;
+- het verschil tussen MacCreadyring, sollfahrtgeber en final-glidecomputer, plus de beperkingen bij vervuiling en regen;
+- positieve MacCready-instelling voor tegenwind en de interpretatie van de sollfahrtwijzer;
+- waterballast: typehandboek, prestatiewijziging, opschalen van de polaire, thermiekdiameter, final glide/dolfijnvliegen en tijdig/veilig lozen.
 
 ## Gate 3 — studiehulpdekking (apart)
 
