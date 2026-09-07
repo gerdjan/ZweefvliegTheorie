@@ -1,5 +1,5 @@
 import type { KnowledgeCheckStep, Lesson, Progress, ReviewItem, SourceReference, Subject } from '../domain/types'
-import { chapterIdForUnitTitle, principlesChapters } from '../data/principlesStructure'
+import { getCourseDefinition } from '../data/courseDefinitions'
 
 export type QuestionBankItem = {
   questionId: string
@@ -24,7 +24,9 @@ const b=(page:number,section:string,pageEnd?:number):SourceReference=>({
   file:'5-Beginselen.pdf',page,...(pageEnd?{pageEnd}:{}),section,
 })
 
-const challengeItems:QuestionBankItem[]=[
+// Extra actieve vraagvormen voor de referentiecursus. Ze gebruiken dezelfde
+// generieke KnowledgeCheckStep-typen die de volgende vakken ook kunnen gebruiken.
+const principlesChallengeItems:QuestionBankItem[]=[
   {
     questionId:'challenge-lift-speed-factor',lessonId:'principles-5-1-lift-formula',chapterId:'5.1',
     step:{type:'numeric',id:'challenge-lift-speed-factor',originLessonId:'principles-5-1-lift-formula',originChapterId:'5.1',question:'De luchtsnelheid verdubbelt terwijl de andere factoren in de liftformule gelijk blijven. Met welke factor verandert de draagkracht?',correctAnswer:4,unit:'×',explanation:'In de liftformule staat V². Twee keer de snelheid geeft daarom vier keer de draagkracht, zolang de andere factoren gelijk blijven.',source:b(14,'§5.1.2 De liftformule')},
@@ -61,9 +63,10 @@ const challengeItems:QuestionBankItem[]=[
 
 export function collectQuestionBank(subject:Subject):QuestionBankItem[]{
   const items:QuestionBankItem[]=[]
+  const course=getCourseDefinition(subject.id)
   for(const unit of subject.units){
     if(!unit.lesson) continue
-    const chapterId=subject.id==='principles' ? chapterIdForUnitTitle(unit.title) : undefined
+    const chapterId=course?.chapterIdForUnit(unit)
     unit.lesson.steps.forEach((step,index)=>{
       if(step.type==='theory') return
       const questionId=step.id ?? `${unit.lesson!.id}::${index}`
@@ -75,7 +78,7 @@ export function collectQuestionBank(subject:Subject):QuestionBankItem[]{
       })
     })
   }
-  if(subject.id==='principles') items.push(...challengeItems)
+  if(subject.id==='principles') items.push(...principlesChallengeItems)
   return items
 }
 
@@ -100,7 +103,7 @@ function balancedSample(items:QuestionBankItem[],count:number){
   return picked.slice(0,count)
 }
 
-function quizLesson(id:string,title:string,description:string,items:QuestionBankItem[],minScore=80):Lesson{
+function quizLesson(id:string,title:string,description:string,items:QuestionBankItem[],minScore:number):Lesson{
   return {
     id,title,description,minScore,
     steps:items.map(item=>({...item.step,id:item.questionId,originLessonId:item.lessonId,originChapterId:item.chapterId})),
@@ -108,27 +111,31 @@ function quizLesson(id:string,title:string,description:string,items:QuestionBank
 }
 
 export function buildChapterCheckpoint(subject:Subject,chapterId:string){
+  const course=getCourseDefinition(subject.id)
   const bank=collectQuestionBank(subject).filter(item=>item.chapterId===chapterId)
-  const chapter=principlesChapters.find(item=>item.id===chapterId)
+  const chapter=course?.chapters.find(item=>item.id===chapterId)
   const count=Math.min(12,Math.max(6,bank.length))
-  return quizLesson(`checkpoint-${chapterId}-${Date.now()}`,`${chapter?.shortTitle ?? chapterId} · hoofdstuktoets`,`Willekeurige kennischecks uit het hele hoofdstuk. Bij iedere nieuwe poging wordt opnieuw uit de brongebonden vraagbank gekozen.`,balancedSample(bank,count),80)
+  return quizLesson(`checkpoint-${subject.id}-${chapterId}-${Date.now()}`,`${chapter?.shortTitle ?? chapterId} · hoofdstuktoets`,`Willekeurige kennischecks uit het hele hoofdstuk. Bij iedere nieuwe poging wordt opnieuw uit de brongebonden vraagbank gekozen.`,balancedSample(bank,count),course?.checkpointMinScore ?? 80)
 }
 
 export function buildSubjectExam(subject:Subject){
+  const course=getCourseDefinition(subject.id)
   const bank=collectQuestionBank(subject)
   const picked:QuestionBankItem[]=[]
   const used=new Set<string>()
-  if(subject.id==='principles'){
-    for(const chapter of principlesChapters){
+  const target=course?.examQuestionCount ?? 30
+  if(course?.chapters.length){
+    const minimumPerChapter=Math.max(1,Math.min(3,Math.floor(target/course.chapters.length)))
+    for(const chapter of course.chapters){
       const chapterItems=bank.filter(item=>item.chapterId===chapter.id)
-      for(const item of balancedSample(chapterItems,3)){
+      for(const item of balancedSample(chapterItems,minimumPerChapter)){
         if(!used.has(item.questionId)){picked.push(item);used.add(item.questionId)}
       }
     }
   }
   const remaining=bank.filter(item=>!used.has(item.questionId))
-  picked.push(...balancedSample(remaining,30-picked.length))
-  return quizLesson(`exam-${subject.id}-${Date.now()}`,`${subject.title} · vakexamen`,`30 willekeurige vragen uit het hele vak. Geen theoriekaarten tussendoor; iedere poging krijgt opnieuw een mix.`,shuffled(picked).slice(0,30),75)
+  picked.push(...balancedSample(remaining,target-picked.length))
+  return quizLesson(`exam-${subject.id}-${Date.now()}`,`${subject.title} · vakexamen`,`${target} willekeurige vragen uit het hele vak. Geen theoriekaarten tussendoor; iedere poging krijgt opnieuw een mix.`,shuffled(picked).slice(0,target),course?.examMinScore ?? 75)
 }
 
 export function dueReviewItems(progress:Progress,now=new Date()){
@@ -143,7 +150,11 @@ export function buildReviewLesson(subject:Subject,progress:Progress){
     .sort((a,b)=>new Date(a.dueAt).getTime()-new Date(b.dueAt).getTime())
     .map(item=>byId.get(item.questionId))
     .filter((item):item is QuestionBankItem=>Boolean(item))
-  return quizLesson(`review-${subject.id}-${Date.now()}`,'Herhalen','Vragen die fout gingen of volgens het 1/3/7/14/30-dagenritme weer aan de beurt zijn.',due.slice(0,20),80)
+  return quizLesson(`review-${subject.id}-${Date.now()}`,'Herhalen','Vragen die fout gingen of volgens het 1/3/7/14/30-dagenritme weer aan de beurt zijn.',due.slice(0,20),courseReviewMinScore(subject))
+}
+
+function courseReviewMinScore(subject:Subject){
+  return getCourseDefinition(subject.id)?.checkpointMinScore ?? 80
 }
 
 export function updateReviewItem(existing:ReviewItem|undefined,item:{questionId:string,lessonId:string,chapterId?:string},isCorrect:boolean,now=new Date()):ReviewItem{
