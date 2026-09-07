@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img" aria-labelledby="title desc">
+  <title id="title">Drie assen door het zwaartepunt</title>
+  <desc id="desc">Bovenaanzicht van een zweefvliegtuig met langsas, dwarsas en topas door het zwaartepunt.</desc>
+  <rect width="800" height="420" rx="28" fill="#f7fbfb"/>
+  <g fill="#e9f4f4" stroke="#17373b" stroke-width="6" stroke-linejoin="round">
+    <path d="M400 55 L425 182 L690 205 L690 225 L425 238 L410 360 L390 360 L375 238 L110 225 L110 205 L375 182 Z"/>
+  </g>
+  <circle cx="400" cy="215" r="11" fill="#17373b"/>
+  <g stroke-width="6" stroke-linecap="round">
+    <path d="M400 45 L400 382" stroke="#12888f"/>
+    <path d="M70 215 L730 215" stroke="#b5524e"/>
+  </g>
+  <g font-family="system-ui, sans-serif" font-size="27" font-weight="750" fill="#17373b">
+    <text x="420" y="72">langsas</text>
+    <text x="80" y="190">dwarsas</text>
+  </g>
+  <g transform="translate(400 215)">
+    <circle r="38" fill="#fff" stroke="#2d7f61" stroke-width="6"/>
+    <circle r="10" fill="#2d7f61"/>
+  </g>
+  <text x="445" y="272" font-family="system-ui, sans-serif" font-size="27" font-weight="750" fill="#17373b">topas</text>
+  <text x="420" y="205" font-family="system-ui, sans-serif" font-size="19" fill="#53696d">zwaartepunt</text>
+</svg>
