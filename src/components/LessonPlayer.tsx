@@ -7,6 +7,15 @@ import { StepIllustration } from './StepIllustration'
 import { StepSource } from './StepSource'
 import './learningContent.css'
 
+function shuffled<T>(items:T[]){
+  const copy=[...items]
+  for(let i=copy.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1))
+    ;[copy[i],copy[j]]=[copy[j],copy[i]]
+  }
+  return copy
+}
+
 export function LessonPlayer({ lesson, onClose, onComplete }:{lesson:Lesson,onClose:()=>void,onComplete:(result:{score:number,passed:boolean,correct:number,total:number})=>void}) {
   const [index,setIndex]=useState(0)
   const [selected,setSelected]=useState<number|null>(null)
@@ -14,6 +23,10 @@ export function LessonPlayer({ lesson, onClose, onComplete }:{lesson:Lesson,onCl
   const [correct,setCorrect]=useState(0)
   const step=lesson.steps[index]
   const questionCount=useMemo(()=>lesson.steps.filter(s=>s.type==='question').length,[lesson])
+  const shuffledAnswers=useMemo(()=>{
+    if(step.type!=='question') return []
+    return shuffled(step.answers.map((text,originalIndex)=>({text,originalIndex})))
+  },[lesson.id,index])
   const progress=Math.round((index/lesson.steps.length)*100)
   const isPrinciples=lesson.id.startsWith('principles-') || step.source?.file==='5-Beginselen.pdf'
   const terms=isPrinciples ? principlesTerms : []
@@ -47,7 +60,7 @@ export function LessonPlayer({ lesson, onClose, onComplete }:{lesson:Lesson,onCl
       </div> : <>
         <h3 className="question"><RichText text={step.question} terms={terms}/></h3>
         <StepSource source={step.source} practiceSource={step.practiceSource}/>
-        <div className="answers">{step.answers.map((a,i)=><button key={`${i}-${a}`} disabled={checked} onClick={()=>setSelected(i)} className={(selected===i?'selected ':'')+(checked?(i===step.correctIndex?'correct':selected===i?'wrong':''):'')}>{a}</button>)}</div>
+        <div className="answers">{shuffledAnswers.map(({text,originalIndex})=><button key={`${originalIndex}-${text}`} disabled={checked} onClick={()=>setSelected(originalIndex)} className={(selected===originalIndex?'selected ':'')+(checked?(originalIndex===step.correctIndex?'correct':selected===originalIndex?'wrong':''):'')}>{text}</button>)}</div>
         {checked && <div className="feedback"><RichText text={step.explanation} terms={terms}/></div>}
       </>}
       <div className="actions">
