@@ -55,6 +55,7 @@ export type OrderQuestionStep = QuestionOrigin & {
 }
 
 export type LessonStep = TheoryStep | QuestionStep | NumericQuestionStep | OrderQuestionStep
+export type KnowledgeCheckStep = Exclude<LessonStep, TheoryStep>
 
 export type Lesson = {
   id: string
@@ -88,6 +89,21 @@ export type ReviewItem = {
   attempts: number
   correct: number
   lastAnsweredAt: string
+}
+
+export type QuestionResult = {
+  questionId: string
+  lessonId: string
+  chapterId?: string
+  correct: boolean
+}
+
+export type LessonResult = {
+  score: number
+  passed: boolean
+  correct: number
+  total: number
+  answers: QuestionResult[]
 }
 
 export type Progress = {
