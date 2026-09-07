@@ -34,6 +34,14 @@ const challengeItems:QuestionBankItem[]=[
     step:{type:'numeric',id:'challenge-glide-ratio-150',originLessonId:'principles-5-2-polar',originChapterId:'5.2',question:'Een zweefvliegtuig vliegt 150 km/h en daalt 5 km/h. Wat is het glijgetal?',correctAnswer:30,explanation:'Glijgetal = vliegsnelheid / daalsnelheid wanneer beide in dezelfde eenheid staan: 150 / 5 = 30.',source:b(25,'§5.2.2 Glijgetal')},
   },
   {
+    questionId:'challenge-polar-tangent',lessonId:'principles-5-2-polar',chapterId:'5.2',
+    step:{type:'question',id:'challenge-polar-tangent',originLessonId:'principles-5-2-polar',originChapterId:'5.2',question:'Bekijk de snelheidspolaire. Wat geeft in rustige lucht het raakpunt van de lijn vanuit de oorsprong met de polaire aan?',answers:['De snelheid voor het beste glijgetal','De maximum toegestane snelheid Vne','De snelheid voor de grootste daalsnelheid','De grondsnelheid bij nul wind'],correctIndex:0,explanation:'In rustige lucht vind je de snelheid voor het beste glijgetal door vanuit de oorsprong een raaklijn aan de polaire te trekken.',source:b(23,'§5.2.2 Snelheid voor beste glijgetal'),illustrationKey:'speed-polar'},
+  },
+  {
+    questionId:'challenge-controls-match',lessonId:'principles-5-4-controls',chapterId:'5.4',
+    step:{type:'match',id:'challenge-controls-match',originLessonId:'principles-5-4-controls',originChapterId:'5.4',question:'Koppel iedere beweging aan het juiste stuurorgaan en de juiste as.',pairs:[{left:'Stampen',right:'Hoogteroer · dwarsas'},{left:'Rollen',right:'Rolroeren · langsas'},{left:'Gieren',right:'Richtingsroer · topas'}],explanation:'Stampen gebeurt om de dwarsas met het hoogteroer, rollen om de langsas met de rolroeren en gieren om de topas met het richtingsroer.',source:b(31,'§5.4.1–5.4.3 Besturing om drie assen')},
+  },
+  {
     questionId:'challenge-vn-axes',lessonId:'principles-5-5-vn-diagram',chapterId:'5.5',
     step:{type:'question',id:'challenge-vn-axes',originLessonId:'principles-5-5-vn-diagram',originChapterId:'5.5',question:'Bekijk het schema. Welke grootheden staan op de assen van een V-n-diagram?',answers:['Vliegsnelheid V horizontaal en belastingfactor n verticaal','Belastingfactor n horizontaal en vlieghoogte verticaal','Daalsnelheid horizontaal en luchtdichtheid verticaal','Vliegsnelheid horizontaal en glijgetal verticaal'],correctIndex:0,explanation:'Het belastingsdiagram zet de vliegsnelheid V uit tegen de belastingfactor n.',source:b(34,'§5.5.5 Belastingdiagram',35),illustrationKey:'vn-diagram'},
   },
