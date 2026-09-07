@@ -32,6 +32,12 @@ const illustrations:Record<string,LearningIllustration> = {
     caption:'Didactische schets van spanwijdte, gemiddelde koorde en de definitie van slankheid.',
     source:b(4,'§5.0.2 Spanwijdte, koorde en slankheid'),
   },
+  'principles-5-5-vn-detail::Positief en negatief': {
+    src:'illustrations/principles/vn-diagram.svg',
+    alt:'Schematisch V-n-diagram met vliegsnelheid op de horizontale as, belastingfactor op de verticale as, stallgrens, VA en Vne.',
+    caption:'Didactische vereenvoudiging van het V-n-diagram en de LS4-voorbeeldwaarden uit het dictaat. Voor operationele limieten blijft het vlieghandboek van het betreffende type leidend.',
+    source:b(35,'§5.5.5 Belastingdiagram'),
+  },
 }
 
 export function getPrinciplesIllustration(lessonId:string, stepTitle:string){
