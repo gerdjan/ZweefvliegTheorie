@@ -1,5 +1,6 @@
 import type { Subject } from '../domain/types'
-import { principlesChapters } from '../data/principlesStructure'
+import { getCourseDefinition } from '../data/courseDefinitions'
+import { groupUnitsByChapter } from '../domain/course'
 import { KnowledgeIndex } from './KnowledgeIndex'
 
 export function LearningPath({ subject, completedLessons, checkpointScores={}, reviewDue=0, examBestScore=0, onStart, onCheckpoint, onReview, onExam }:{
@@ -16,38 +17,36 @@ export function LearningPath({ subject, completedLessons, checkpointScores={}, r
   const totalPlayable=subject.units.filter(u=>u.lesson).length
   const completedInSubject=subject.units.filter(u=>u.lesson && completedLessons.includes(u.lesson.id)).length
   const completed=new Set(completedLessons)
+  const course=getCourseDefinition(subject.id)
 
-  if(subject.id==='principles'){
-    const grouped=new Set<string>()
-    const chapterGroups=principlesChapters.map(chapter=>{
-      const units=subject.units.filter(unit=>unit.lesson && unit.title.startsWith(chapter.id))
-      units.forEach(unit=>grouped.add(unit.id))
-      return {chapter,units}
-    })
-    const extraUnits=subject.units.filter(unit=>unit.lesson && !grouped.has(unit.id))
-    const allCheckpointsPassed=principlesChapters.every(chapter=>(checkpointScores[chapter.id] ?? 0)>=80)
+  if(course?.supportsStudyModes && course.chapters.length){
+    const {chapters:chapterGroups,extraUnits}=groupUnitsByChapter(subject,course)
+    const allCheckpointsPassed=course.chapters.every(chapter=>(checkpointScores[chapter.id] ?? 0)>=course.checkpointMinScore)
     const allLessonsComplete=completedInSubject===totalPlayable
     const examUnlocked=allCheckpointsPassed && allLessonsComplete
+    const gateEntries=course.releaseGates ? Object.values(course.releaseGates).filter(Boolean) : []
 
     return <section className="card path-card">
       <div className="section-head">
-        <div><div className="eyebrow">Leerpad</div><h2>{subject.number}. {subject.title}</h2></div>
+        <div><div className="eyebrow">Leerpad · {course.releaseStatus}</div><h2>{subject.number}. {subject.title}</h2></div>
         <span className="badge">{subject.sourceFreshness}</span>
       </div>
       <p className="muted">{subject.description}</p>
-      <div className="source-policy-banner">
-        <strong>Broncontrole aan · inhoudelijk compleet</strong>
-        <span>Elk theorieblok en elke vraag toont de exacte PDF, PDF-pagina en paragraaf. De actuele theorie is leidend; de studiehulp wordt alleen als oefendoel gebruikt.</span>
-        <span><strong>Releasegate:</strong> 42/42 bronsecties · 294/294 detailpunten · 75/75 studiehulpdoelen.</span>
-      </div>
+      {course.sourcePolicy && <div className="source-policy-banner">
+        <strong>Broncontrole aan · {course.releaseStatus==='1.0'?'cursus 1.0':course.releaseStatus}</strong>
+        <span><strong>{course.sourcePolicy.authoritativeSource}</strong>{course.sourcePolicy.authoritativeSourceVersion?` (${course.sourcePolicy.authoritativeSourceVersion})`:''} is de inhoudelijke antwoordbron.{course.sourcePolicy.practiceSource?` ${course.sourcePolicy.practiceSource} wordt alleen als oefenbron gebruikt.`:''}</span>
+        {course.sourcePolicy.note && <span>{course.sourcePolicy.note}</span>}
+        {gateEntries.length>0 && <span><strong>Releasegates:</strong> {gateEntries.join(' · ')}</span>}
+        {course.sourcePolicy.dynamicContent && <span><strong>Actualiteitscontrole vereist:</strong> dit vak bevat onderwerpen die tegen officiële actuele bronnen gecontroleerd moeten worden.</span>}
+      </div>}
 
       <div className="study-actions">
         <button type="button" className="study-action" onClick={onReview} disabled={!onReview || reviewDue===0}><strong>↻ Herhalen</strong><span>{reviewDue>0?`${reviewDue} vraag${reviewDue===1?'':'en'} nu aan de beurt`:'Niets achterstallig'}</span></button>
-        <button type="button" className="study-action" onClick={onExam} disabled={!onExam || !examUnlocked}><strong>🎓 Vakexamen</strong><span>{examUnlocked?(examBestScore?`Beste score ${examBestScore}%`:'30 willekeurige vragen'):'Rond alle levels en hoofdstuktoetsen af'}</span></button>
+        <button type="button" className="study-action" onClick={onExam} disabled={!onExam || !examUnlocked}><strong>🎓 Vakexamen</strong><span>{examUnlocked?(examBestScore?`Beste score ${examBestScore}%`:`${course.examQuestionCount} willekeurige vragen`):'Rond alle levels en hoofdstuktoetsen af'}</span></button>
       </div>
 
-      <KnowledgeIndex completedLessons={completedLessons} checkpointScores={checkpointScores}/>
-      <div className="course-progress"><strong>{completedInSubject}/{totalPlayable}</strong> levels afgerond · <strong>{principlesChapters.filter(ch=> (checkpointScores[ch.id]??0)>=80).length}/8</strong> hoofdstuktoetsen gehaald</div>
+      {course.knowledgeChapters && <KnowledgeIndex knowledgeChapters={course.knowledgeChapters} completedLessons={completedLessons} checkpointScores={checkpointScores}/>}      
+      <div className="course-progress"><strong>{completedInSubject}/{totalPlayable}</strong> levels afgerond · <strong>{course.chapters.filter(ch=> (checkpointScores[ch.id]??0)>=course.checkpointMinScore).length}/{course.chapters.length}</strong> hoofdstuktoetsen gehaald</div>
 
       <div className="chapter-path">
         {chapterGroups.map(({chapter,units},chapterIndex)=>{
@@ -55,8 +54,8 @@ export function LearningPath({ subject, completedLessons, checkpointScores={}, r
           const chapterTotal=units.length
           const percent=chapterTotal ? Math.round(chapterCompleted/chapterTotal*100) : 0
           const checkpointScore=checkpointScores[chapter.id] ?? 0
-          const checkpointPassed=checkpointScore>=80
-          const previousGatePassed=chapterIndex===0 || (checkpointScores[principlesChapters[chapterIndex-1].id] ?? 0)>=80
+          const checkpointPassed=checkpointScore>=course.checkpointMinScore
+          const previousGatePassed=chapterIndex===0 || (checkpointScores[course.chapters[chapterIndex-1].id] ?? 0)>=course.checkpointMinScore
           return <section className={'chapter-block '+(checkpointPassed?'chapter-complete':'')} key={chapter.id}>
             <div className="chapter-head">
               <div><strong>{chapter.title}</strong><small>{chapterCompleted}/{chapterTotal} levels · {checkpointPassed?`toets gehaald (${checkpointScore}%)`:checkpointScore?`beste toets ${checkpointScore}%`:'toets nog niet gedaan'}</small></div>
@@ -70,15 +69,16 @@ export function LearningPath({ subject, completedLessons, checkpointScores={}, r
                 const previous=index>0 ? units[index-1].lesson : undefined
                 const previousComplete=index===0 ? previousGatePassed : Boolean(previous && completed.has(previous.id))
                 const unlocked=complete || previousComplete
+                const displayTitle=unit.title.startsWith(`${chapter.id} · `)?unit.title.replace(`${chapter.id} · `,''):unit.title
                 return <div className={'path-row '+(complete?'path-complete':'')} key={unit.id}>
                   <button disabled={!unlocked} onClick={()=>unlocked && onStart(lesson.id)} className={'node '+(unlocked?'playable':'locked')}>{complete?'✓':index+1}</button>
-                  <div><strong>{unit.title.replace(`${chapter.id} · `,'')}</strong><small>{complete?'Voltooid':unlocked?'Start level':index===0?'Haal eerst de vorige hoofdstuktoets':'Voltooi eerst het vorige level'}</small></div>
+                  <div><strong>{displayTitle}</strong><small>{complete?'Voltooid':unlocked?'Start level':index===0?'Haal eerst de vorige hoofdstuktoets':'Voltooi eerst het vorige level'}</small></div>
                 </div>
               })}
             </div>
             <button type="button" className={'checkpoint-button '+(checkpointPassed?'passed':'')} disabled={chapterCompleted<chapterTotal || !onCheckpoint} onClick={()=>onCheckpoint?.(chapter.id)}>
               <strong>{checkpointPassed?'✓ ':''}Hoofdstuktoets {chapter.id}</strong>
-              <span>{chapterCompleted<chapterTotal?'Rond eerst alle levels af':checkpointPassed?`Gehaald · ${checkpointScore}% · opnieuw doen`:'Willekeurige vragen · 80% nodig'}</span>
+              <span>{chapterCompleted<chapterTotal?'Rond eerst alle levels af':checkpointPassed?`Gehaald · ${checkpointScore}% · opnieuw doen`:`Willekeurige vragen · ${course.checkpointMinScore}% nodig`}</span>
             </button>
           </section>
         })}
