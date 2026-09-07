@@ -1,0 +1,8 @@
+.learning-term{font-weight:800;color:#102f33}
+.step-illustration{margin:18px 0 2px;border:1px solid #d7e1e2;border-radius:14px;overflow:hidden;background:#fff}
+.step-illustration img{display:block;width:100%;height:auto;background:#f7fbfb}
+.step-illustration figcaption{display:grid;gap:5px;padding:11px 13px;color:#53696d;font-size:12px;line-height:1.45}
+.step-illustration figcaption>span{color:#263d41}
+.step-illustration figcaption small{color:#6b7f83}
+.step-illustration figcaption strong{color:#263d41}
+@media(max-width:760px){.step-illustration{margin-top:15px}.step-illustration figcaption{padding:10px 12px}}
