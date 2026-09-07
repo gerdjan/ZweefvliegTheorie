@@ -1,10 +1,13 @@
 import { useMemo, useState } from 'react'
 import { principlesKnowledgeChapters } from '../data/principlesKnowledgeIndex'
+import { principlesKnowledge52 } from '../data/principlesKnowledge52'
 
 function sourceLabel(source:{file:string,page:number,pageEnd?:number,section:string}){
   const pages=source.pageEnd && source.pageEnd!==source.page ? `${source.page}–${source.pageEnd}` : `${source.page}`
   return `${source.file} · PDF p. ${pages} · ${source.section}`
 }
+
+const knowledgeChapters=principlesKnowledgeChapters.map(chapter=>chapter.id==='5.2'?principlesKnowledge52:chapter)
 
 export function KnowledgeIndex({completedLessons}:{completedLessons:string[]}){
   const [open,setOpen]=useState(false)
@@ -13,8 +16,8 @@ export function KnowledgeIndex({completedLessons}:{completedLessons:string[]}){
 
   const visible=useMemo(()=>{
     const q=query.trim().toLocaleLowerCase('nl-NL')
-    if(!q) return principlesKnowledgeChapters
-    return principlesKnowledgeChapters
+    if(!q) return knowledgeChapters
+    return knowledgeChapters
       .map(chapter=>({
         ...chapter,
         elements:chapter.elements.filter(element=>`${element.title} ${element.meaning} ${element.source.section}`.toLocaleLowerCase('nl-NL').includes(q)),
@@ -22,7 +25,7 @@ export function KnowledgeIndex({completedLessons}:{completedLessons:string[]}){
       .filter(chapter=>chapter.elements.length>0)
   },[query])
 
-  const allElements=principlesKnowledgeChapters.flatMap(chapter=>chapter.elements)
+  const allElements=knowledgeChapters.flatMap(chapter=>chapter.elements)
   const seenCount=allElements.filter(element=>element.lessonIds.some(id=>completed.has(id))).length
 
   return <div className="knowledge-index">
