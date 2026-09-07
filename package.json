@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "audit:content": "node scripts/audit-content.mjs",
+    "build": "npm run audit:content && tsc -b && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
