@@ -54,7 +54,17 @@ export type OrderQuestionStep = QuestionOrigin & {
   illustrationKey?: string
 }
 
-export type LessonStep = TheoryStep | QuestionStep | NumericQuestionStep | OrderQuestionStep
+export type MatchQuestionStep = QuestionOrigin & {
+  type: 'match'
+  question: string
+  pairs: { left:string; right:string }[]
+  explanation: string
+  source?: SourceReference
+  practiceSource?: SourceReference
+  illustrationKey?: string
+}
+
+export type LessonStep = TheoryStep | QuestionStep | NumericQuestionStep | OrderQuestionStep | MatchQuestionStep
 export type KnowledgeCheckStep = Exclude<LessonStep, TheoryStep>
 
 export type Lesson = {
@@ -120,7 +130,8 @@ export type SourcedTheoryStep = TheoryStep & { source: SourceReference }
 export type SourcedQuestionStep = QuestionStep & { source: SourceReference }
 export type SourcedNumericQuestionStep = NumericQuestionStep & { source: SourceReference }
 export type SourcedOrderQuestionStep = OrderQuestionStep & { source: SourceReference }
-export type SourcedLessonStep = SourcedTheoryStep | SourcedQuestionStep | SourcedNumericQuestionStep | SourcedOrderQuestionStep
+export type SourcedMatchQuestionStep = MatchQuestionStep & { source: SourceReference }
+export type SourcedLessonStep = SourcedTheoryStep | SourcedQuestionStep | SourcedNumericQuestionStep | SourcedOrderQuestionStep | SourcedMatchQuestionStep
 export type SourcedLesson = Omit<Lesson, 'steps'> & { steps: SourcedLessonStep[] }
 export type SourcedUnit = Omit<Unit, 'lesson'> & { lesson: SourcedLesson }
 export type SourcedSubject = Omit<Subject, 'units'> & { units: SourcedUnit[] }
