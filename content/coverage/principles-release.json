@@ -1,0 +1,17 @@
+{
+  "status": "complete",
+  "subject": "Beginselen van het zweefvliegen",
+  "authoritativeSource": "5-Beginselen.pdf",
+  "authoritativeSourceVersion": "november 2025",
+  "gates": {
+    "sourceSections": "42/42",
+    "detailElements": "294/294",
+    "studyAidGoals": "75/75"
+  },
+  "studyAid": {
+    "file": "5-beginselen-studiehulp.pdf",
+    "version": "3-1-2018",
+    "adaptedReferences": 2,
+    "note": "Twee oude figuur-/paginaverwijzingen bij snelheidspolaires zijn vervangen door de gelijkwaardige methode en voorbeelden uit de actuele theorie."
+  }
+}
