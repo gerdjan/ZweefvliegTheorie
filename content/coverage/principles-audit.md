@@ -1,59 +1,62 @@
 # Dekkingsaudit — Beginselen van het zweefvliegen
 
-De studiehulp is een oefenlijst, niet de inhoudsopgave van de cursus. De actuele theorie-PDF is daarom de enige bron voor de vraag **wat er minimaal behandeld moet worden**.
+De studiehulp is een oefenlijst, niet de inhoudsopgave van de cursus. De actuele theorie-PDF is daarom de enige bron voor de vraag **wat er minimaal behandeld moet worden** en voor de inhoud van antwoorden.
 
 ## Gate 1 — structurele sectiedekking (automatisch)
 
-`principles-sections.json` bevat de 42 genummerde inhoudelijke secties uit `5-Beginselen.pdf` (versie november 2025). `npm run audit:content` scant uitsluitend `b(...)`-verwijzingen naar de actuele theorie. Als één sectie nergens voorkomt, faalt de build en wordt de website niet gepubliceerd.
+`principles-sections.json` bevat de 42 genummerde inhoudelijke secties uit `5-Beginselen.pdf` (versie november 2025). `npm run audit:content` scant uitsluitend `b(...)`-verwijzingen naar de actuele theorie. Als één sectie nergens voorkomt, faalt de build.
 
-Huidige stand: **42/42 secties** hebben ten minste één actuele bronverwijzing.
+**Status: 42/42 bronsecties afgedekt.**
 
 ## Gate 2 — detaildekking binnen iedere sectie
 
-Een sectieverwijzing alleen bewijst nog niet dat iedere belangrijke regel uit die sectie is onderwezen. Daarom is het dictaat pagina voor pagina doorgelopen. Een kenniselement is hierbij een afzonderlijke:
+Een sectieverwijzing alleen bewijst niet dat iedere belangrijke regel uit die sectie is onderwezen. Daarom is het dictaat pagina voor pagina doorgelopen. Als kenniselement tellen onder andere definities/vaktermen, formules, relaties, voorwaarden, leerrelevante getallen, veiligheidswaarschuwingen en herstelregels.
 
-- definitie of vakterm;
-- formule, symbool of berekenrelatie;
-- opsomming, voorwaarde of expliciete vergelijking;
-- oorzaak-gevolgrelatie;
-- leerrelevant getal of limiet;
-- veiligheidswaarschuwing, herstelregel of uitzondering.
+De basismatrix staat in `principles-detail-audit.json`. De tijdens de uitwerking gesloten secties staan in `principles-detail-audit-overrides.json`; de build voegt beide samen tot één effectieve audit.
 
-Historische voorbeelden, externe links, de literatuurlijst en herhalende rekenvoorbeelden tellen niet als zelfstandig kenniselement tenzij ze een nieuwe regel introduceren.
+**Status: 294/294 kenniselementen afgedekt (100%). §5.0 t/m §5.7 zijn volledig detail-audited.**
 
-De basismatrix staat in `principles-detail-audit.json`. Afgeronde secties zijn tijdens de hoofdstuk-voor-hoofdstukaudit aanvullend vastgelegd in `principles-detail-audit-overrides.json`; de build voegt beide samen tot één effectieve audit. Na de laatste releasecheck kunnen de overrides in de basismatrix worden geconsolideerd.
+## Gate 3 — studiehulpdekking
 
-### Huidige stand na uitwerking van §5.0 t/m §5.7
+De twee pagina's van `5-beginselen-studiehulp.pdf` (3-1-2018) zijn volledig in documentvolgorde doorgelopen. De studiehulp bevat **75 vragen/opdrachten** verdeeld over Aerodynamica, Draagkracht, Weerstand, Vliegmechanica, Stabiliteit, Besturingssysteem, Beperkingen en Overtrek/Vrille/Spiraalduik.
 
-- **294** afzonderlijke kenniselementen geïdentificeerd in de actuele bron.
-- **294** daarvan zijn expliciet terug te vinden in de cursus.
-- **0** elementen staan nog open.
-- Detaildekking: **100%**.
-- **§5.0 t/m §5.7 zijn volledig detail-audited.**
+Voor ieder oefendoel legt `principles-study-aid-audit.json` vast:
 
-Gate 2 is hiermee gesloten. De cursus kan inhoudelijk als **100% gedekt tegen het actuele dictaat** worden aangeduid. De aparte vergelijking met de studiehulp blijft nog als laatste releasecheck over.
+- het nummer en onderwerp van de vraag in de studiehulp;
+- één of meer actuele cursuslevels waarin de benodigde kennis wordt geleerd;
+- één of meer gebruikersgerichte kenniselementen;
+- de actuele vindplaats in `5-Beginselen.pdf`.
 
-## Wat bij de §5.7-ronde is toegevoegd
+**Status: 75/75 oefendoelen zijn naar actuele cursusinhoud herleidbaar; 0 open.**
 
-De vijf laatste open punten uit Spiraalduik zijn als brongebonden lesinhoud toegevoegd:
+### Twee bewust aangepaste oude verwijzingen
 
-- een mogelijke ontstaansketen: in een bocht niet of te laat trekken, neus zakt en snelheid loopt op;
-- waarom alleen harder trekken de situatie kan verergeren doordat de bochtstraal kleiner wordt en snelheid en g-belasting verder oplopen;
-- de bronwaarden van ongeveer 2g bij 60° en circa 5g rond 80° dwarshelling, plus het risico van een abrupte optrekbeweging;
-- de ontwerpcontext van minimaal circa +5,3g normaal tegenover een lagere maximale belasting rond +3,5g met geopende remkleppen bij veel typen, door de veranderde liftverdeling;
-- het oefendoel: eerste symptomen vroeg herkennen en het juiste herstel vrijwel instinctief uitvoeren.
+Twee opdrachten uit §5.2 verwijzen letterlijk naar polaire-afbeeldingen en paginanummers uit de studiehulp van 2018 die niet één-op-één terugkomen in het dictaat van november 2025:
 
-Er zijn twee verdiepingslevels toegevoegd. De gebruikersgerichte kennisindex van §5.7 staat nu op **10/10 auditpunten**.
+1. het berekenen van een glijgetal bij 120 km/h uit een oude polaire;
+2. het grafisch bepalen van beste glijhoek/snelheid bij 10 km/h tegenwind uit een oude polaire.
 
-## Gate 3 — studiehulpdekking (apart)
+Deze zijn gemarkeerd als `adapted-reference`, niet als stilzwijgend 'kloppend'. De actuele cursus leert en toetst dezelfde vaardigheden met de actuele bron: glijgetal berekenen uit vliegsnelheid en daalsnelheid, en de raaklijnmethode voor beste glijgetal bij wind.
 
-Nu Gate 2 is gesloten, leggen we de cursus opnieuw naast `5-beginselen-studiehulp.pdf`: kan de cursist na de lessen alle oude oefendoelen beantwoorden? De studiehulp mag extra oefening opleveren, maar bepaalt nooit welke actuele theorie wordt weggelaten.
+Andere vragen uit de oude studiehulp konden inhoudelijk rechtstreeks naar het actuele dictaat en bestaande cursuslevels worden herleid. Waar een oud paginanummer niet meer de handigste locator is, is de actuele PDF-pagina/paragraaf leidend.
 
-Deze check heeft twee doelen:
+## Automatische releasegate
 
-1. aantonen dat geen oud oefendoel door onze lesstructuur onbedoeld onbereikbaar is geworden;
-2. extra oefenvragen toevoegen waar de theorie wel aanwezig is, maar nog te weinig actief wordt opgehaald.
+`scripts/audit-content.mjs` controleert bij iedere productiebuild nu alle drie de gates. De build faalt onder andere wanneer:
 
-## Release-regel
+- een bronsectie uit het actuele dictaat nergens in de cursus voorkomt;
+- de detailaudit intern niet klopt of open punten bevat terwijl de release compleet is;
+- niet alle 75 studiehulpdoelen aanwezig zijn;
+- een studiehulpdoel niet aan een bestaand level of kenniselement gekoppeld is;
+- een aangepaste oude verwijzing geen expliciete toelichting heeft;
+- de cursus als compleet staat gemarkeerd terwijl een releasegate nog open is.
 
-De cursus mag nu als **detail-audited tegen het actuele dictaat** worden aangeduid. Voor de definitieve inhoudelijke release voeren we nog Gate 3 uit en documenteren we per studiehulpvraag naar welk(e) level(s) en kenniselement(en) die vraag verwijst.
+## Release-status
+
+`principles-release.json` markeert de cursus nu als **complete** op inhoudsniveau:
+
+- Gate 1: **42/42** bronsecties;
+- Gate 2: **294/294** detailpunten;
+- Gate 3: **75/75** studiehulpdoelen.
+
+Dit betekent inhoudelijk compleet ten opzichte van de gebruikte bronnen. Het betekent niet dat de cursus pedagogisch nooit meer verbeterd kan worden: extra oefenvormen, betere illustraties, herhalingsvragen en UX-verbeteringen kunnen we blijven toevoegen zonder de inhoudelijke releasegate te verlagen.
