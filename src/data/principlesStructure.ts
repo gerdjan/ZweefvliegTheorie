@@ -1,10 +1,6 @@
-export type PrinciplesChapter = {
-  id: string
-  title: string
-  shortTitle: string
-}
+import type { CourseChapter } from '../domain/course'
 
-export const principlesChapters:PrinciplesChapter[] = [
+export const principlesChapters:CourseChapter[] = [
   {id:'5.0',title:'5.0 · Begrippen en definities',shortTitle:'Begrippen'},
   {id:'5.1',title:'5.1 · Aerodynamica',shortTitle:'Aerodynamica'},
   {id:'5.2',title:'5.2 · Vliegmechanica',shortTitle:'Vliegmechanica'},
