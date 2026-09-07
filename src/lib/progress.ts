@@ -9,21 +9,22 @@ export const defaultProgress: Progress = {
   completedLessons: [],
   questionReviews: {},
   checkpointScores: {},
-  examBestScore: 0,
+  examBestScores: {},
 }
 
 export function loadProgress(): Progress {
   try {
     const raw = localStorage.getItem(KEY)
     if(!raw) return defaultProgress
-    const parsed=JSON.parse(raw) as Partial<Progress>
+    const parsed=JSON.parse(raw) as Partial<Progress> & {examBestScore?:number}
+    const examBestScores=parsed.examBestScores ?? (parsed.examBestScore ? {principles:parsed.examBestScore} : {})
     return {
       ...defaultProgress,
       ...parsed,
       completedLessons:Array.isArray(parsed.completedLessons)?parsed.completedLessons:[],
       questionReviews:parsed.questionReviews ?? {},
       checkpointScores:parsed.checkpointScores ?? {},
-      examBestScore:parsed.examBestScore ?? 0,
+      examBestScores,
     }
   } catch {
     return defaultProgress
