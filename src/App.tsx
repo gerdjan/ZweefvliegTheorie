@@ -8,6 +8,7 @@ import type { Lesson, LessonResult, Progress, Subject } from './domain/types'
 import { loadProgress, saveProgress } from './lib/progress'
 import { buildChapterCheckpoint, buildReviewLesson, buildSubjectExam, collectQuestionBank, dueReviewItems, updateReviewItem } from './lib/studyModes'
 import './styles.css'
+import './components/studyModes.css'
 
 type SessionKind='lesson'|'checkpoint'|'review'|'exam'
 type StudySession={lesson:Lesson,kind:SessionKind,chapterId?:string}
