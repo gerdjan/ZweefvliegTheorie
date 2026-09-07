@@ -25,6 +25,7 @@ export function LessonPlayer({ lesson, onClose, onComplete }:{lesson:Lesson,onCl
   const [selected,setSelected]=useState<number|null>(null)
   const [numericAnswer,setNumericAnswer]=useState('')
   const [orderedItems,setOrderedItems]=useState<string[]>([])
+  const [matchAnswers,setMatchAnswers]=useState<Record<string,string>>({})
   const [checked,setChecked]=useState(false)
   const [correct,setCorrect]=useState(0)
   const [answerResults,setAnswerResults]=useState<QuestionResult[]>([])
@@ -35,11 +36,13 @@ export function LessonPlayer({ lesson, onClose, onComplete }:{lesson:Lesson,onCl
     return shuffled(step.answers.map((text,originalIndex)=>({text,originalIndex})))
   },[lesson.id,index])
   const initialOrder=useMemo(()=>step.type==='order'?shuffled(step.items):[],[lesson.id,index])
+  const matchOptions=useMemo(()=>step.type==='match'?shuffled(step.pairs.map(pair=>pair.right)):[],[lesson.id,index])
 
   useEffect(()=>{
     setOrderedItems(initialOrder)
     setNumericAnswer('')
-  },[initialOrder])
+    setMatchAnswers({})
+  },[initialOrder,index])
 
   const progress=Math.round((index/lesson.steps.length)*100)
   const isPrinciples=lesson.id.startsWith('principles-') || step.source?.file==='5-Beginselen.pdf'
@@ -71,6 +74,7 @@ export function LessonPlayer({ lesson, onClose, onComplete }:{lesson:Lesson,onCl
     if(step.type==='question') return selected!==null
     if(step.type==='numeric') return numericAnswer.trim()!=='' && Number.isFinite(Number(numericAnswer.replace(',','.')))
     if(step.type==='order') return orderedItems.length===step.items.length
+    if(step.type==='match') return step.pairs.every(pair=>Boolean(matchAnswers[pair.left]))
     return false
   }
 
@@ -83,6 +87,7 @@ export function LessonPlayer({ lesson, onClose, onComplete }:{lesson:Lesson,onCl
       isCorrect=Math.abs(value-step.correctAnswer)<=(step.tolerance ?? 0.000001)
     }
     if(step.type==='order') isCorrect=step.correctOrder.every((item,i)=>orderedItems[i]===item)
+    if(step.type==='match') isCorrect=step.pairs.every(pair=>matchAnswers[pair.left]===pair.right)
     if(isCorrect) setCorrect(v=>v+1)
     const questionId=step.id ?? `${lesson.id}::${index}`
     setAnswerResults(results=>[...results,{
@@ -94,10 +99,12 @@ export function LessonPlayer({ lesson, onClose, onComplete }:{lesson:Lesson,onCl
     setChecked(true)
   }
 
+  const kicker=step.type==='theory'?'Kernkennis':step.type==='numeric'?'Rekenvraag':step.type==='order'?'Volgordevraag':step.type==='match'?'Koppelvraag':'Kennischeck'
+
   return <div className="lesson-shell">
     <div className="lesson-top"><button className="secondary" onClick={onClose}>← Terug</button><div className="progress"><span style={{width:`${progress}%`}}/></div></div>
     <section className="card lesson-card">
-      <div className="eyebrow">{step.type==='theory'?'Kernkennis':step.type==='numeric'?'Rekenvraag':step.type==='order'?'Volgordevraag':'Kennischeck'} · {index+1}/{lesson.steps.length}</div>
+      <div className="eyebrow">{kicker} · {index+1}/{lesson.steps.length}</div>
       <h2>{lesson.title}</h2>
       {step.type==='theory' ? <div className="theory-box">
         <h3>{step.title}</h3>
@@ -111,6 +118,7 @@ export function LessonPlayer({ lesson, onClose, onComplete }:{lesson:Lesson,onCl
         {step.type==='question' && <div className="answers">{shuffledAnswers.map(({text,originalIndex})=><button key={`${originalIndex}-${text}`} disabled={checked} onClick={()=>setSelected(originalIndex)} className={(selected===originalIndex?'selected ':'')+(checked?(originalIndex===step.correctIndex?'correct':selected===originalIndex?'wrong':''):'')}>{text}</button>)}</div>}
         {step.type==='numeric' && <div className="numeric-answer"><label><span>Jouw antwoord{step.unit?` (${step.unit})`:''}</span><input inputMode="decimal" disabled={checked} value={numericAnswer} onChange={event=>setNumericAnswer(event.target.value)} placeholder="Vul een getal in" /></label>{checked && <div className="numeric-correct">Juiste antwoord: <strong>{step.correctAnswer}{step.unit?` ${step.unit}`:''}</strong></div>}</div>}
         {step.type==='order' && <div className="order-answer">{orderedItems.map((item,position)=><div className="order-row" key={item}><span className="order-number">{position+1}</span><span>{item}</span><span className="order-buttons"><button type="button" disabled={checked||position===0} onClick={()=>moveOrder(position,-1)} aria-label="Omhoog">↑</button><button type="button" disabled={checked||position===orderedItems.length-1} onClick={()=>moveOrder(position,1)} aria-label="Omlaag">↓</button></span></div>)}</div>}
+        {step.type==='match' && <div className="match-answer">{step.pairs.map(pair=><label className="match-row" key={pair.left}><span>{pair.left}</span><select disabled={checked} value={matchAnswers[pair.left]??''} onChange={event=>setMatchAnswers(current=>({...current,[pair.left]:event.target.value}))}><option value="">Kies…</option>{matchOptions.map(option=><option value={option} key={option}>{option}</option>)}</select>{checked && <small>{matchAnswers[pair.left]===pair.right?'✓':'→ '+pair.right}</small>}</label>)}</div>}
         {checked && <div className="feedback"><RichText text={step.explanation} terms={terms}/></div>}
       </>}
       <div className="actions">
