@@ -13,9 +13,9 @@ export function LearningPath({ subject, completedLessons, onStart }:{subject:Sub
     <p className="muted">{subject.description}</p>
     {subject.id==='principles' && <>
       <div className="source-policy-banner">
-        <strong>Broncontrole aan</strong>
+        <strong>Broncontrole aan · inhoudelijk compleet</strong>
         <span>Elk theorieblok en elke vraag toont de exacte PDF, PDF-pagina en paragraaf. De actuele theorie is leidend; de studiehulp wordt alleen als oefendoel gebruikt.</span>
-        <span><strong>Dekkingsstatus:</strong> 42/42 genummerde bronsecties aanwezig · 294/294 afzonderlijke auditpunten expliciet afgedekt (100%). §5.0 t/m §5.7 zijn detail-audited. De laatste releasecheck is de aparte vergelijking met de studiehulp.</span>
+        <span><strong>Dekkingsstatus:</strong> 42/42 genummerde bronsecties · 294/294 detailpunten · 75/75 oefendoelen uit de studiehulp herleidbaar. Bij 2 oefendoelen verwees de studiehulp naar oude polaire-figuren/paginanummers; daar gebruikt de cursus expliciet de gelijkwaardige methode en voorbeelden uit het dictaat van november 2025.</span>
       </div>
       <KnowledgeIndex completedLessons={completedLessons}/>
     </>}
