@@ -38,6 +38,12 @@ const illustrations:Record<string,LearningIllustration> = {
     caption:'Didactische vereenvoudiging van het V-n-diagram en de LS4-voorbeeldwaarden uit het dictaat. Voor operationele limieten blijft het vlieghandboek van het betreffende type leidend.',
     source:b(35,'§5.5.5 Belastingdiagram'),
   },
+  'principles-5-6-stall-signals::Drukpunt naar achteren': {
+    src:'illustrations/principles/stall-progression.svg',
+    alt:'Didactische vergelijking tussen aangehechte stroming vóór overtrek en losgelaten stroming bij overtrek, met het drukpunt achter het zwaartepunt en een neus-omlaagmoment.',
+    caption:'Vereenvoudigde schets van loslating en de drukpuntverschuiving die het dictaat bij overtrek beschrijft.',
+    source:b(37,'§5.6.1 Gevolgen van de overtrek · moment om de dwarsas'),
+  },
 }
 
 export function getPrinciplesIllustration(lessonId:string, stepTitle:string){
