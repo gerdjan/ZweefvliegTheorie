@@ -23,28 +23,32 @@ Historische voorbeelden, externe links, de literatuurlijst en herhalende rekenvo
 
 De basismatrix staat in `principles-detail-audit.json`. Tijdens de lopende hoofdstuk-voor-hoofdstukaudit worden afgeronde secties aanvullend vastgelegd in `principles-detail-audit-overrides.json`; de build voegt beide samen tot één effectieve audit. Na afronding van het hele vak kunnen de overrides weer in de basismatrix worden geconsolideerd.
 
-### Huidige stand na uitwerking van §5.0 t/m §5.5
+### Huidige stand na uitwerking van §5.0 t/m §5.6
 
 - **294** afzonderlijke kenniselementen geïdentificeerd in de actuele bron.
-- **271** daarvan zijn nu expliciet terug te vinden in de cursus.
-- **23** elementen staan nog open.
-- Detaildekking: **92,2%**.
-- **§5.0 t/m §5.5 zijn volledig detail-audited.**
+- **289** daarvan zijn nu expliciet terug te vinden in de cursus.
+- **5** elementen staan nog open.
+- Detaildekking: **98,3%**.
+- **§5.0 t/m §5.6 zijn volledig detail-audited.**
 
-De resterende open punten zitten uitsluitend in §5.6 en §5.7. De cursus blijft daarom `beta-detail-audit` totdat alle 294 kenniselementen zijn behandeld of met een expliciete redactionele reden zijn uitgesloten.
+De resterende open punten zitten uitsluitend in §5.7 Spiraalduik. De cursus blijft daarom `beta-detail-audit` totdat alle 294 kenniselementen zijn behandeld of met een expliciete redactionele reden zijn uitgesloten.
 
-## Wat bij de §5.5-ronde is toegevoegd
+## Wat bij de §5.6-ronde is toegevoegd
 
-De 26 eerder openstaande punten uit Beperkingen en belastingen zijn nu als brongebonden lesinhoud toegevoegd. Het gaat onder andere om:
+De 18 eerder openstaande punten uit Overtrek en Tolvlucht/Vrille zijn nu als brongebonden lesinhoud toegevoegd. Het gaat onder andere om:
 
-- centripetale kracht, centrifugaalkracht/schijnbaar gewicht en de relatie tussen dwarshelling, g-belasting en overtreksnelheid;
-- het piefje als indicatie voor zuiver, schuivend en slippend vliegen, plus de herstelmethode en het verschillende tolvluchtrisico;
-- circa 5g bij ongeveer 80° dwarshelling, beheerst herstel uit een duik, de relatie `n = (V/Vstall)²` en high-speed stall;
-- het optellen van manoeuvreer- en remousbelasting, Utility versus Aerobatic en de voorbeeldlimieten uit de tabel;
-- positieve en negatieve grenzen in het V-n-diagram, groen/geel snelheidsgebied, VA, Vne, Vd, VRA en de veiligheidsfactor 1,5;
-- buigings- en torsietrillingen, de snelheidsafhankelijkheid van hun frequenties en het mechanisme waardoor ze bij flutter elkaar kunnen versterken.
+- wrong als reden dat de overtrek in de regel eerst bij de vleugelwortel optreedt en het schudden door losgelaten wervels tegen romp en staart;
+- de plotselinge drukpuntverschuiving naar achteren en het herstellende neus-omlaagmoment;
+- de vijf expliciete waarschuwingssignalen voor overtrek;
+- voorzorgsmaatregelen en de uitkijkprocedure met twee halve cirkels vóór de oefening;
+- het directe herstel door vieren, de zakvlucht en het neutraal houden van voeten en rolroer;
+- de leerdoelen en het herstel bij een dreigende overtrek in een schuivende bocht;
+- de definitie van tolvlucht/vrille als overtrokken, schroefvormig dalende toestand met draaiing om de topas;
+- langzaam vliegen met te veel voetenstuur/gier als mogelijke aanleiding, de overtrokken binnenvleugel en het nog werkzame richtingsroer;
+- de binnen- en buitencheck voor de tolvluchtoefening, plus de in de bron genoemde circa 80 m hoogteverlies per draai en circa 300 m oefengrens;
+- rolroer neutraal tijdens herstel en de waarschuwing dat tolvluchteigenschappen en herstelprocedures per zweefvliegtuigtype kunnen verschillen, zodat het vlieghandboek leidend blijft.
 
-De gebruikersgerichte kennisindex van §5.5 is tegelijk uitgebreid en staat nu op **47/47 auditpunten**. Er zijn zes verdiepingslevels toegevoegd. Bij het V-n-diagram staat bovendien een eigen didactische illustratie met bronverwijzing; de exacte operationele limieten blijven type-afhankelijk en moeten uit het vlieghandboek worden gehaald.
+De gebruikersgerichte kennisindex van §5.6 is tegelijk uitgebreid en staat nu op **30/30 auditpunten**. Er zijn vijf verdiepingslevels toegevoegd. Bij de drukpuntverschuiving staat bovendien een eigen didactische illustratie die expliciet naar `5-Beginselen.pdf`, PDF p. 37, §5.6.1 verwijst.
 
 ## Gate 3 — studiehulpdekking (apart)
 
