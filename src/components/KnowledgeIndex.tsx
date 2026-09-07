@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { principlesKnowledgeChapters } from '../data/principlesKnowledgeIndex'
 import { principlesKnowledge52 } from '../data/principlesKnowledge52'
 import { principlesKnowledgeFiveThree } from '../data/principlesKnowledgeFiveThree'
+import { principlesKnowledgeFiveFour } from '../data/principlesKnowledgeFiveFour'
 
 function sourceLabel(source:{file:string,page:number,pageEnd?:number,section:string}){
   const pages=source.pageEnd && source.pageEnd!==source.page ? `${source.page}–${source.pageEnd}` : `${source.page}`
@@ -11,6 +12,7 @@ function sourceLabel(source:{file:string,page:number,pageEnd?:number,section:str
 const knowledgeChapters=principlesKnowledgeChapters.map(chapter=>{
   if(chapter.id==='5.2') return principlesKnowledge52
   if(chapter.id==='5.3') return principlesKnowledgeFiveThree
+  if(chapter.id==='5.4') return principlesKnowledgeFiveFour
   return chapter
 })
 
