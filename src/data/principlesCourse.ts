@@ -18,7 +18,7 @@ export const principlesSubject:SourcedSubject = {
   id:'principles',
   number:5,
   title:'Beginselen van het zweefvliegen',
-  sourceFreshness:'46 levels · theorie november 2025 · detailaudit 92,2%',
-  description:'46 levels over aerodynamica, vliegmechanica, stabiliteit, besturing, belastingen, overtrek, tolvlucht en spiraalduik. Elk theorieblok en elke vraag heeft een controleerbare PDF-bron. 5.0 t/m 5.5 zijn nu pagina-voor-pagina op detailniveau gecontroleerd; 5.6 en 5.7 volgen.',
+  sourceFreshness:'51 levels · theorie november 2025 · detailaudit 98,3%',
+  description:'51 levels over aerodynamica, vliegmechanica, stabiliteit, besturing, belastingen, overtrek, tolvlucht en spiraalduik. Elk theorieblok en elke vraag heeft een controleerbare PDF-bron. 5.0 t/m 5.6 zijn nu pagina-voor-pagina op detailniveau gecontroleerd; alleen 5.7 volgt nog.',
   units:[...basics,...completenessA,...aeroA,...density,...aeroB,...completenessB,...mechanics,...mechanicsCompleteness,...stabilityControls,...stabilityCompleteness,...controlsCompleteness,...limits,...limitsCompleteness,...safetyFinal],
 }
