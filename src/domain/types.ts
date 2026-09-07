@@ -1,9 +1,13 @@
+export type SourceFreshness='stable'|'dynamic'
+
 export type SourceReference = {
   file: string
   page: number
   pageEnd?: number
   section: string
   note?: string
+  freshness?: SourceFreshness
+  currentCheck?: string
 }
 
 export type QuestionOrigin = {
