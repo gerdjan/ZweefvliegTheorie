@@ -13,6 +13,7 @@ export function LearningPath({ subject, completedLessons, onStart }:{subject:Sub
     {subject.id==='principles' && <div className="source-policy-banner">
       <strong>Broncontrole aan</strong>
       <span>Elk theorieblok en elke vraag toont de exacte PDF, PDF-pagina en paragraaf. De actuele theorie is leidend; de studiehulp wordt alleen als oefendoel gebruikt.</span>
+      <span><strong>Dekkingsstatus:</strong> alle 42 genummerde bronsecties zijn aanwezig. De strengere detailaudit controleert definities, relaties, formules, limieten en veiligheidsregels afzonderlijk. Tot die audit 100% is, blijft deze cursus bewust een beta.</span>
     </div>}
     {totalPlayable>1 && <div className="course-progress"><strong>{completedInSubject}/{totalPlayable}</strong> levels afgerond</div>}
     <div className="path">
