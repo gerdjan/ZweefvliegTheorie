@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "sourceFile": "3.Meteorologie.pdf",
   "sourceVersion": "januari 2026",
-  "method": "Pagina-voor-pagina broninventarisatie. Verplichte leerpunten hebben stabiele meteo-dNNN-ID's die in de lescode moeten voorkomen. Tijdgebonden voorbeelden en oude toegangsinstructies blijven traceerbaar als context-only maar tellen niet als te beheersen theorie.",
+  "method": "Pagina-voor-pagina auditinventarisatie. De nummering meteo-d001 t/m meteo-d437 blijft gekoppeld aan de oorspronkelijke inventarisvolgorde. Vijf punten zijn expliciet uitgesloten van mastery omdat ze verouderde regelgeving/toegangsinformatie, vakoverschrijdende operationele instructie of een aantoonbaar actueel bronconflict bevatten. De overige 432 ID's moeten exact één keer in de cursuscode voorkomen.",
   "sourceInventory": {
     "total": 437,
     "required": 432,
@@ -11,34 +11,35 @@
   "requiredIds": {
     "prefix": "meteo-d",
     "first": 1,
-    "last": 432,
-    "width": 3
+    "last": 437,
+    "width": 3,
+    "exclude": [189, 190, 409, 428, 434]
   },
   "contextOnly": [
     {
-      "id": "meteo-context-01",
+      "id": "meteo-d189",
+      "location": "§3.3.3 Adiabatische processen · bergvliegen",
+      "description": "Het dictaat koppelt het recht om in de bergen te zweefvliegen aan een LAPL(S). Deze licentieverwijzing is verouderd en wordt niet als actuele Meteorologie-leerstof aangeleerd."
+    },
+    {
+      "id": "meteo-d190",
+      "location": "§3.3.3 Adiabatische processen · bergvliegen",
+      "description": "Advies om bergvliegen met een ervaren bergvlieginstructeur te leren. Veilig en nuttig contextueel advies, maar een operationeel/opleidingselement buiten de meteorologische mastery; blijft hier expliciet traceerbaar."
+    },
+    {
+      "id": "meteo-d409",
       "location": "§3.10.1 Waarnemingen",
-      "description": "Historisch METAR-voorbeeld Leeuwarden gedateerd 2010/01/01; bruikbaar als voorbeeld, niet als blijvend feit."
+      "description": "Tijdgebonden internet-/toegangsinformatie en concrete service-interface rond luchtvaartmeteo/satelliet- en radarbronnen. Productbetekenis wordt geleerd; toegang en distributie worden dynamisch gecontroleerd."
     },
     {
-      "id": "meteo-context-02",
-      "location": "§3.10.1 Waarnemingen",
-      "description": "Historisch METAR-voorbeeld Deelen van 26 september 2019; codeleesvoorbeeld, datum/condities zijn geen leerfeit."
-    },
-    {
-      "id": "meteo-context-03",
-      "location": "§3.10.1 Waarnemingen",
-      "description": "Historisch TAF-voorbeeld Volkel van 26 september 2019; codeleesvoorbeeld, datum/condities zijn geen leerfeit."
-    },
-    {
-      "id": "meteo-context-04",
-      "location": "§3.10.2 Weerkaarten",
-      "description": "KNMI-weerkaart van 26 september 2019; wordt alleen gebruikt om kaarttekens te illustreren."
-    },
-    {
-      "id": "meteo-context-05",
+      "id": "meteo-d428",
       "location": "§3.10.3 Informatie voor vluchtplanning",
-      "description": "Oude concrete login-/toegangsinstructie met KZ en KNVvL-nummer; tijdgebonden toegangsinformatie, niet als blijvende procedure leren."
+      "description": "Concrete, tijdgebonden frequentie-/toegangs- of kanaalinformatie uit het dictaat. De cursus leert het gebruik van officiële bronnen en markeert actuele frequenties en diensten als dynamisch in plaats van deze waarden blijvend vast te leggen."
+    },
+    {
+      "id": "meteo-d434",
+      "location": "§3.10.4 Meteorologische diensten",
+      "description": "Het dictaat stelt dat SIGMET en AIRMET alleen voor de grote luchtvaart worden gebruikt en niet bij zweefvliegen. Deze toepassingsclaim conflicteert met de actuele KNMI-distributie en wordt daarom niet stilzwijgend als waarheid geleerd; definities blijven brongebonden en de actuele toepasselijkheid krijgt een expliciete dynamische controle."
     }
   ],
   "dynamicReview": [
@@ -48,11 +49,11 @@
     },
     {
       "topic": "Beschikbaarheid/rol van SIGMET en AIRMET",
-      "policy": "Bronconflict met actuele KNMI-informatie expliciet registreren; niet stilzwijgend harmoniseren."
+      "policy": "Bronconflict expliciet registreren; niet stilzwijgend harmoniseren."
     },
     {
-      "topic": "Meteorologische informatiekanalen en websites",
-      "policy": "Markeer dynamisch; leer product/betekenis, niet een oncontroleerbare blijvende URL of interface."
+      "topic": "Meteorologische informatiekanalen, frequenties, websites en toegang",
+      "policy": "Markeer dynamisch; leer product en werkwijze, niet een oncontroleerbare blijvende interface of frequentie."
     }
   ]
 }
