@@ -10,21 +10,29 @@ export type SourceReference = {
   currentCheck?: string
 }
 
+export type ContentTrace = {
+  /** Stable audit IDs proving which source-derived detail elements this step covers. */
+  coverageIds?: string[]
+  /** Stable IDs linking active questions to goals from an older study aid. */
+  studyGoalIds?: string[]
+}
+
 export type QuestionOrigin = {
   id?: string
   originLessonId?: string
   originChapterId?: string
 }
 
-export type TheoryStep = {
+export type TheoryStep = ContentTrace & {
   type: 'theory'
   title: string
   text: string
   source?: SourceReference
   practiceSource?: SourceReference
+  illustrationKey?: string
 }
 
-export type QuestionStep = QuestionOrigin & {
+export type QuestionStep = QuestionOrigin & ContentTrace & {
   type: 'question'
   question: string
   answers: string[]
@@ -35,7 +43,7 @@ export type QuestionStep = QuestionOrigin & {
   illustrationKey?: string
 }
 
-export type NumericQuestionStep = QuestionOrigin & {
+export type NumericQuestionStep = QuestionOrigin & ContentTrace & {
   type: 'numeric'
   question: string
   correctAnswer: number
@@ -47,7 +55,7 @@ export type NumericQuestionStep = QuestionOrigin & {
   illustrationKey?: string
 }
 
-export type OrderQuestionStep = QuestionOrigin & {
+export type OrderQuestionStep = QuestionOrigin & ContentTrace & {
   type: 'order'
   question: string
   items: string[]
@@ -58,7 +66,7 @@ export type OrderQuestionStep = QuestionOrigin & {
   illustrationKey?: string
 }
 
-export type MatchQuestionStep = QuestionOrigin & {
+export type MatchQuestionStep = QuestionOrigin & ContentTrace & {
   type: 'match'
   question: string
   pairs: { left:string; right:string }[]
