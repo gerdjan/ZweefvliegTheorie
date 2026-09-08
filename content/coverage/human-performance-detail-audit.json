@@ -2,7 +2,7 @@
   "schemaVersion": 2,
   "sourceFile": "2-Menselijke-prestaties.pdf",
   "sourceVersion": "december 2025",
-  "method": "Pagina-voor-pagina broninventarisatie. Elk verplicht leerpunt heeft een stabiel human-dNNN-ID; de volledige ID-beschrijving staat in human-performance-detail-inventory.json. Historische statistiek, oude medische drempels en illustratieve anekdotes blijven als context-only traceerbaar.",
+  "method": "Pagina-voor-pagina broninventarisatie. Elk verplicht leerpunt heeft een stabiel human-dNNN-ID dat exact één keer in de brongebonden lescode moet voorkomen. Historische statistiek, oude medische drempels en illustratieve anekdotes blijven als context-only traceerbaar.",
   "sourceInventory": {"total":223,"required":213,"contextOnly":10},
   "requiredIds": {"prefix":"human-d","first":1,"last":213,"width":3},
   "contextOnly": [
