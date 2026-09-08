@@ -7,7 +7,7 @@ import { principlesChapters } from './principlesStructure'
 export const courseDefinitions:Record<string,CourseDefinition>={
   meteo:{
     subjectId:'meteo',
-    releaseStatus:'content-complete',
+    releaseStatus:'1.0',
     chapters:meteorologyChapters,
     knowledgeChapters:meteorologyKnowledge,
     sourcePolicy:{
