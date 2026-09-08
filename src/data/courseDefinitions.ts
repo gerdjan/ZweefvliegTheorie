@@ -1,10 +1,35 @@
 import type { CourseDefinition } from '../domain/course'
+import { humanKnowledge } from './humanKnowledge'
+import { humanChapters } from './humanStructure'
 import { meteorologyKnowledge } from './meteorologyKnowledge'
 import { meteorologyChapters } from './meteorologyStructure'
 import { principlesKnowledge } from './principlesKnowledge'
 import { principlesChapters } from './principlesStructure'
 
 export const courseDefinitions:Record<string,CourseDefinition>={
+  human:{
+    subjectId:'human',
+    releaseStatus:'audit',
+    chapters:humanChapters,
+    knowledgeChapters:humanKnowledge,
+    sourcePolicy:{
+      authoritativeSource:'2-Menselijke-prestaties.pdf',
+      authoritativeSourceVersion:'december 2025',
+      dynamicContent:true,
+      note:'Het actuele dictaat bepaalt de stabiele leerstof. Medische en zuurstofregels die kunnen wijzigen krijgen een expliciete actualiteitscontrole. Voor dit vak is geen aparte studiehulpbron aangeleverd; de actieve vragen zijn rechtstreeks uit de primaire bron opgebouwd.',
+    },
+    releaseGates:{
+      sourceSections:'audit 17 secties',
+      detailElements:'audit 213 verplichte detail-ID’s + 10 context-only',
+      studyAidGoals:'n.v.t. — geen aparte studiehulpbron',
+      activeQuestionGoals:'n.v.t. — vragen rechtstreeks uit actuele bron',
+    },
+    checkpointMinScore:80,
+    examMinScore:75,
+    examQuestionCount:30,
+    supportsStudyModes:true,
+    chapterIdForUnit:unit=>humanChapters.find(chapter=>unit.title.startsWith(chapter.id))?.id,
+  },
   meteo:{
     subjectId:'meteo',
     releaseStatus:'1.0',
