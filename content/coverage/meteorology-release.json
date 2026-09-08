@@ -1,16 +1,18 @@
 {
-  "status": "audit",
+  "status": "content-complete",
   "subject": "Meteorologie",
   "authoritativeSource": "3.Meteorologie.pdf",
   "authoritativeSourceVersion": "januari 2026",
   "gates": {
-    "sourceSections": "pending/37",
-    "detailElements": "pending/432",
-    "studyAidGoals": "pending/77",
-    "activeQuestionGoals": "pending/77"
+    "sourceSections": "37/37",
+    "detailElements": "432/432 + 5 expliciet context-only",
+    "studyAidGoals": "77/77",
+    "activeQuestionGoals": "77/77"
   },
   "notes": [
-    "5 bronitems zijn als context-only gemarkeerd en tellen niet mee als verplichte mastery-inhoud.",
-    "Dynamische informatie wordt apart gemarkeerd en waar nodig tegen actuele officiële bronnen gecontroleerd."
+    "De broninventaris telt 437 punten: 432 verplichte mastery-elementen en 5 expliciet traceerbare context-/conflictpunten.",
+    "Dynamische informatie wordt apart gemarkeerd en tegen officiële actuele bronnen gecontroleerd; zie meteorology-current-checks.json.",
+    "Gate 2 gebruikt vanaf Meteorologie stabiele detail-ID's in de daadwerkelijke lescode in plaats van alleen totaaltellingen.",
+    "Gate 3 vereist vanaf Meteorologie een expliciet studiehulpdoel-ID op de actieve vraag zelf."
   ]
 }
