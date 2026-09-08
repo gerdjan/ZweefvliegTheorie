@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 2,
+  "sourceFile": "3.Meteorologie.pdf",
+  "sourceVersion": "januari 2026",
+  "method": "Pagina-voor-pagina broninventarisatie. Verplichte leerpunten hebben stabiele meteo-dNNN-ID's die in de lescode moeten voorkomen. Tijdgebonden voorbeelden en oude toegangsinstructies blijven traceerbaar als context-only maar tellen niet als te beheersen theorie.",
+  "sourceInventory": {
+    "total": 437,
+    "required": 432,
+    "contextOnly": 5
+  },
+  "requiredIds": {
+    "prefix": "meteo-d",
+    "first": 1,
+    "last": 432,
+    "width": 3
+  },
+  "contextOnly": [
+    {
+      "id": "meteo-context-01",
+      "location": "§3.10.1 Waarnemingen",
+      "description": "Historisch METAR-voorbeeld Leeuwarden gedateerd 2010/01/01; bruikbaar als voorbeeld, niet als blijvend feit."
+    },
+    {
+      "id": "meteo-context-02",
+      "location": "§3.10.1 Waarnemingen",
+      "description": "Historisch METAR-voorbeeld Deelen van 26 september 2019; codeleesvoorbeeld, datum/condities zijn geen leerfeit."
+    },
+    {
+      "id": "meteo-context-03",
+      "location": "§3.10.1 Waarnemingen",
+      "description": "Historisch TAF-voorbeeld Volkel van 26 september 2019; codeleesvoorbeeld, datum/condities zijn geen leerfeit."
+    },
+    {
+      "id": "meteo-context-04",
+      "location": "§3.10.2 Weerkaarten",
+      "description": "KNMI-weerkaart van 26 september 2019; wordt alleen gebruikt om kaarttekens te illustreren."
+    },
+    {
+      "id": "meteo-context-05",
+      "location": "§3.10.3 Informatie voor vluchtplanning",
+      "description": "Oude concrete login-/toegangsinstructie met KZ en KNVvL-nummer; tijdgebonden toegangsinformatie, niet als blijvende procedure leren."
+    }
+  ],
+  "dynamicReview": [
+    {
+      "topic": "Transition altitude Nederland",
+      "policy": "Markeer dynamisch en controleer operationeel tegen de actuele AIP."
+    },
+    {
+      "topic": "Beschikbaarheid/rol van SIGMET en AIRMET",
+      "policy": "Bronconflict met actuele KNMI-informatie expliciet registreren; niet stilzwijgend harmoniseren."
+    },
+    {
+      "topic": "Meteorologische informatiekanalen en websites",
+      "policy": "Markeer dynamisch; leer product/betekenis, niet een oncontroleerbare blijvende URL of interface."
+    }
+  ]
+}
