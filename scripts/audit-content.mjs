@@ -13,7 +13,6 @@ async function readJson(relativePath){ return JSON.parse(await readFile(absolute
 function expectedIds(prefix,count,width){ return Array.from({length:count},(_,index)=>`${prefix}${String(index+1).padStart(width,'0')}`) }
 
 async function tsFilesRecursive(relativeDir){
-  const base=absolute(relativeDir)
   const out=[]
   async function walk(dir){
     for(const entry of await readdir(dir,{withFileTypes:true})){
@@ -22,7 +21,7 @@ async function tsFilesRecursive(relativeDir){
       else if(entry.isFile() && entry.name.endsWith('.ts')) out.push(full)
     }
   }
-  await walk(base)
+  await walk(absolute(relativeDir))
   return out
 }
 
@@ -35,10 +34,21 @@ function activeIdsInSource(source,prefix,questionFactories){
   const result=[]
   const factoryRegex=new RegExp(`\\b(?:${questionFactories.map(escapeRegex).join('|')})\\s*\\(`)
   for(const line of source.split('\n')){
-    if(!factoryRegex.test(line)) continue
-    result.push(...idsInSource(line,prefix))
+    if(factoryRegex.test(line)) result.push(...idsInSource(line,prefix))
   }
   return result
+}
+
+function expectedDetailIds(spec){
+  if(Number.isInteger(spec.expected)) return expectedIds(spec.prefix,spec.expected,spec.width)
+  const first=spec.first ?? 1
+  const last=spec.last
+  const excluded=new Set(spec.exclude ?? [])
+  const ids=[]
+  for(let number=first;number<=last;number++){
+    if(!excluded.has(number)) ids.push(`${spec.prefix}${String(number).padStart(spec.width,'0')}`)
+  }
+  return ids
 }
 
 async function auditCourse(config){
@@ -49,11 +59,11 @@ async function auditCourse(config){
   const release=await readJson(config.release)
 
   if(!allowedReleaseStatuses.has(release.status)){
-    console.error(`${prefix} onbekende release-status “${release.status}”. Gebruik concept, audit, content-complete of 1.0.`)
+    console.error(`${prefix} onbekende release-status “${release.status}”.`)
     invalid=true
   }
   if(release.authoritativeSource!==config.authoritativeSource){
-    console.error(`${prefix} releasebestand en cursusregister noemen niet dezelfde primaire bron.`)
+    console.error(`${prefix} releasebestand en register noemen niet dezelfde primaire bron.`)
     invalid=true
   }
 
@@ -71,8 +81,8 @@ async function auditCourse(config){
 
   for(const filePath of contentFiles){
     const source=await readFile(filePath,'utf8')
-    sourceTexts.push({filePath,source})
-    for(const match of source.matchAll(sourceRegex)) refs.push({section:match[1],file:filePath})
+    sourceTexts.push(source)
+    for(const match of source.matchAll(sourceRegex)) refs.push(match[1])
     for(const match of source.matchAll(lessonRegex)) lessonIds.add(match[1])
     for(const chunk of source.split(/\blesson\s*:\s*\{/).slice(1)){
       const id=chunk.match(new RegExp(`^\\s*id\\s*:\\s*['"\\\`](${lessonPrefix}[^'"\\\`]+)['"\\\`]`))?.[1]
@@ -82,18 +92,17 @@ async function auditCourse(config){
 
   const knowledgeIds=new Set()
   if(config.knowledgeDir && config.knowledgeFilePrefix && config.knowledgeFactory){
-    const dir=absolute(config.knowledgeDir)
-    const files=(await readdir(dir)).filter(name=>name.startsWith(config.knowledgeFilePrefix) && name.endsWith('.ts'))
+    const files=(await readdir(absolute(config.knowledgeDir))).filter(name=>name.startsWith(config.knowledgeFilePrefix) && name.endsWith('.ts'))
     const factory=escapeRegex(config.knowledgeFactory)
     const knowledgeRegex=new RegExp(`\\b${factory}\\(\\s*['"\\\`]([^'"\\\`]+)['"\\\`]`,'g')
     for(const file of files){
-      const source=await readFile(path.join(dir,file),'utf8')
+      const source=await readFile(path.join(absolute(config.knowledgeDir),file),'utf8')
       for(const match of source.matchAll(knowledgeRegex)) knowledgeIds.add(match[1])
     }
   }
 
-  // Gate 1 — iedere genummerde sectie uit de primaire bron moet in cursusinhoud voorkomen.
-  const coveredSections=new Set(refs.map(ref=>ref.section))
+  // Gate 1: every numbered primary-source section must be represented in course source refs.
+  const coveredSections=new Set(refs)
   const missingSections=sectionManifest.sections.filter(section=>!coveredSections.has(section.id))
   console.log(`${prefix} structurele brondekking: ${sectionManifest.sections.length-missingSections.length}/${sectionManifest.sections.length} secties.`)
   if(missingSections.length){
@@ -101,248 +110,124 @@ async function auditCourse(config){
     for(const section of missingSections) console.error(`${prefix} ontbreekt: §${section.id} ${section.title}`)
   }
 
-  // Gate 2 — oude tellingaudit (Beginselen) of expliciete stabiele detail-ID's (nieuwe cursussen).
-  let detailTotal=0
-  let detailCovered=0
+  // Gate 2: legacy count audit or strict explicit detail IDs.
   let detailMissing=0
-
   if(detailAudit.schemaVersion===2){
-    if(detailAudit.sourceFile!==config.authoritativeSource){
-      console.error(`${prefix} detailaudit noemt niet de geregistreerde primaire bron.`)
-      invalid=true
-    }
     const spec=detailAudit.requiredIds ?? config.detailIds
-    if(!spec || !Number.isInteger(spec.last ?? spec.expected) || !Number.isInteger(spec.width) || typeof spec.prefix!=='string'){
-      console.error(`${prefix} detailaudit v2 mist een geldige requiredIds-specificatie.`)
+    if(detailAudit.sourceFile!==config.authoritativeSource || !spec || typeof spec.prefix!=='string' || !Number.isInteger(spec.width) || (!Number.isInteger(spec.expected) && !Number.isInteger(spec.last))){
+      console.error(`${prefix} ongeldige detailaudit-v2 configuratie.`)
       invalid=true
     } else {
-      const count=spec.expected ?? ((spec.last ?? 0)-(spec.first ?? 1)+1)
-      const first=spec.first ?? 1
-      const expected=Array.from({length:count},(_,index)=>`${spec.prefix}${String(first+index).padStart(spec.width,'0')}`)
+      const expected=expectedDetailIds(spec)
       const expectedSet=new Set(expected)
       const counts=new Map()
-      for(const {source} of sourceTexts){
+      for(const source of sourceTexts){
         for(const id of idsInSource(source,spec.prefix)) counts.set(id,(counts.get(id)??0)+1)
       }
       const missing=expected.filter(id=>!counts.has(id))
       const duplicates=expected.filter(id=>(counts.get(id)??0)>1)
-      const unexpected=[...counts.keys()].filter(id=>!expectedSet.has(id))
-      detailTotal=expected.length
-      detailCovered=detailTotal-missing.length
+      const contextIds=new Set((detailAudit.contextOnly ?? []).map(item=>item.id))
+      const unexpected=[...counts.keys()].filter(id=>!expectedSet.has(id) && !contextIds.has(id))
+      const excludedNumbers=new Set(spec.exclude ?? [])
+      const expectedContextIds=[...excludedNumbers].map(number=>`${spec.prefix}${String(number).padStart(spec.width,'0')}`)
+      const contextMismatch=expectedContextIds.some(id=>!contextIds.has(id)) || [...contextIds].some(id=>!expectedContextIds.includes(id))
       detailMissing=missing.length
-      console.log(`${prefix} detail-ID-dekking: ${detailCovered}/${detailTotal}. Context-only: ${detailAudit.sourceInventory?.contextOnly ?? 0}.`)
-      if(missing.length){
-        invalid=true
-        console.error(`${prefix} ontbrekende detail-ID's (${missing.length}): ${missing.join(', ')}`)
-      }
-      if(duplicates.length){
-        invalid=true
-        console.error(`${prefix} detail-ID's komen meer dan één keer voor (${duplicates.length}): ${duplicates.join(', ')}`)
-      }
-      if(unexpected.length){
-        invalid=true
-        console.error(`${prefix} onverwachte detail-ID's: ${unexpected.join(', ')}`)
-      }
+      console.log(`${prefix} detail-ID-dekking: ${expected.length-missing.length}/${expected.length}. Context-only expliciet: ${contextIds.size}.`)
+      if(missing.length){ invalid=true; console.error(`${prefix} ontbrekende detail-ID's (${missing.length}): ${missing.join(', ')}`) }
+      if(duplicates.length){ invalid=true; console.error(`${prefix} dubbele detail-ID's (${duplicates.length}): ${duplicates.join(', ')}`) }
+      if(unexpected.length){ invalid=true; console.error(`${prefix} onverwachte detail-ID's: ${unexpected.join(', ')}`) }
       const inv=detailAudit.sourceInventory
-      if(!inv || inv.required!==detailTotal || inv.total!==inv.required+inv.contextOnly || !Array.isArray(detailAudit.contextOnly) || detailAudit.contextOnly.length!==inv.contextOnly){
-        console.error(`${prefix} broninventarisatie total/required/context-only is intern niet sluitend.`)
+      if(!inv || inv.required!==expected.length || inv.total!==inv.required+inv.contextOnly || inv.contextOnly!==contextIds.size || contextMismatch){
         invalid=true
+        console.error(`${prefix} broninventarisatie en context-exclusies zijn intern niet sluitend.`)
       }
     }
   } else {
     const detailById=new Map(detailAudit.sections.map(section=>[section.section,section]))
-    const effectiveSections=sectionManifest.sections.map(section=>detailById.get(section.id))
-    if(effectiveSections.some(section=>!section)){
-      console.error(`${prefix} detailaudit bevat niet alle secties uit het sectiemanifest.`)
-      invalid=true
-    }
-    const auditedIds=new Set()
-    for(const section of effectiveSections.filter(Boolean)){
-      auditedIds.add(section.section)
-      if(!Number.isInteger(section.total) || !Number.isInteger(section.covered) || section.total<0 || section.covered<0 || section.covered>section.total){
-        console.error(`${prefix} ongeldige telling in detailaudit §${section.section}.`)
-        invalid=true
-        continue
-      }
-      const expectedMissing=section.total-section.covered
-      if(!Array.isArray(section.missing) || section.missing.length!==expectedMissing){
-        console.error(`${prefix} detailaudit §${section.section}: ${expectedMissing} open verwacht, maar ${Array.isArray(section.missing)?section.missing.length:'geen lijst'} vastgelegd.`)
-        invalid=true
-      }
-      detailTotal+=section.total
-      detailCovered+=section.covered
-      detailMissing+=expectedMissing
-    }
+    let total=0,covered=0
     for(const sourceSection of sectionManifest.sections){
-      if(!auditedIds.has(sourceSection.id)){
-        console.error(`${prefix} bronsectie §${sourceSection.id} ontbreekt in de detailaudit.`)
-        invalid=true
-      }
+      const section=detailById.get(sourceSection.id)
+      if(!section){ invalid=true; console.error(`${prefix} bronsectie §${sourceSection.id} ontbreekt in detailaudit.`); continue }
+      if(!Number.isInteger(section.total)||!Number.isInteger(section.covered)||section.covered<0||section.total<section.covered){ invalid=true; continue }
+      const expectedMissing=section.total-section.covered
+      if(!Array.isArray(section.missing)||section.missing.length!==expectedMissing) invalid=true
+      total+=section.total;covered+=section.covered;detailMissing+=expectedMissing
     }
-    if(detailAudit.summary && (detailAudit.summary.elements!==detailTotal || detailAudit.summary.covered!==detailCovered || detailAudit.summary.missing!==detailMissing)){
-      console.error(`${prefix} samenvatting van de detailaudit komt niet overeen met de sectietellingen.`)
-      invalid=true
-    }
-    const percentage=detailTotal ? (detailCovered/detailTotal*100).toFixed(1) : '0.0'
-    console.log(`${prefix} detailaudit: ${detailCovered}/${detailTotal} kenniselementen expliciet afgedekt (${percentage}%). Nog open: ${detailMissing}.`)
+    if(detailAudit.summary && (detailAudit.summary.elements!==total||detailAudit.summary.covered!==covered||detailAudit.summary.missing!==detailMissing)) invalid=true
+    console.log(`${prefix} detailaudit: ${covered}/${total} kenniselementen expliciet afgedekt. Nog open: ${detailMissing}.`)
   }
 
-  // Gate 3 — studiehulp: oud mappingmodel of expliciete doel-ID's op actieve vragen.
+  // Gate 3: legacy mapped rows or strict goal IDs that must appear on active questions.
   let studyOpen=0
-  let studyRows=[]
+  let studyGoalTotal=0
   let activeRetrievalCovered=0
-  let adaptedReferences=0
-
   if(config.studyAidAudit){
     const studyAidAudit=await readJson(config.studyAidAudit)
-    if(studyAidAudit.sourceFile!==config.studyAid?.sourceFile || studyAidAudit.currentAuthority?.file!==config.authoritativeSource){
-      console.error(`${prefix} studiehulpaudit gebruikt niet de geregistreerde oefenbron en primaire antwoordbron.`)
-      invalid=true
-    }
+    if(studyAidAudit.sourceFile!==config.studyAid?.sourceFile || studyAidAudit.currentAuthority?.file!==config.authoritativeSource){ invalid=true; console.error(`${prefix} verkeerde studiehulp/antwoordbron.`) }
 
     if(studyAidAudit.schemaVersion===2){
       const goals=studyAidAudit.goals ?? []
-      const expectedGoals=config.studyAid?.expectedGoals ?? goals.length
+      const expectedCount=config.studyAid?.expectedGoals ?? goals.length
       const goalPrefix=config.studyAid?.goalIdPrefix
       const goalWidth=config.studyAid?.goalIdWidth ?? 2
-      const expected=goalPrefix ? expectedIds(goalPrefix,expectedGoals,goalWidth) : goals.map(goal=>goal.id)
-      const goalIds=goals.map(goal=>goal.id)
-      const uniqueGoalIds=new Set(goalIds)
-      const expectedSet=new Set(expected)
-      if(goals.length!==expectedGoals || uniqueGoalIds.size!==goals.length || expected.some(id=>!uniqueGoalIds.has(id))){
-        console.error(`${prefix} studiehulp v2 bevat niet exact de ${expectedGoals} verwachte doel-ID's.`)
-        invalid=true
-      }
-      const activeCounts=new Map()
+      const expected=goalPrefix?expectedIds(goalPrefix,expectedCount,goalWidth):goals.map(goal=>goal.id)
+      const defined=new Set(goals.map(goal=>goal.id))
+      studyGoalTotal=expected.length
+      if(goals.length!==expectedCount || defined.size!==goals.length || expected.some(id=>!defined.has(id))){ invalid=true; console.error(`${prefix} studiehulp bevat niet exact ${expectedCount} unieke doel-ID's.`) }
+      const active=new Map()
       if(goalPrefix){
-        for(const {source} of sourceTexts){
-          for(const id of activeIdsInSource(source,goalPrefix,config.questionFactories ?? [])) activeCounts.set(id,(activeCounts.get(id)??0)+1)
+        for(const source of sourceTexts){
+          for(const id of activeIdsInSource(source,goalPrefix,config.questionFactories ?? [])) active.set(id,(active.get(id)??0)+1)
         }
       }
-      const missingActive=expected.filter(id=>!activeCounts.has(id))
-      const unexpectedActive=[...activeCounts.keys()].filter(id=>!expectedSet.has(id))
-      activeRetrievalCovered=expected.length-missingActive.length
-      studyOpen=missingActive.length
-      studyRows=goals
-      console.log(`${prefix} studiehulpaudit: ${goals.length}/${expectedGoals} doelen geïnventariseerd.`)
+      const missing=expected.filter(id=>!active.has(id))
+      const unexpected=[...active.keys()].filter(id=>!defined.has(id))
+      activeRetrievalCovered=expected.length-missing.length
+      studyOpen=missing.length
+      console.log(`${prefix} studiehulpaudit: ${goals.length}/${expectedCount} doelen geïnventariseerd.`)
       console.log(`${prefix} actieve-doeldekking: ${activeRetrievalCovered}/${expected.length} doel-ID's expliciet op actieve vragen.`)
-      if(missingActive.length){
-        invalid=true
-        console.error(`${prefix} studiehulpdoelen zonder actieve vraag (${missingActive.length}): ${missingActive.join(', ')}`)
-      }
-      if(unexpectedActive.length){
-        invalid=true
-        console.error(`${prefix} actieve vragen gebruiken onbekende studiehulp-ID's: ${unexpectedActive.join(', ')}`)
-      }
-      if(studyAidAudit.summary?.goals!==goals.length || studyAidAudit.summary?.requiredActive!==expected.length){
-        console.error(`${prefix} samenvatting van studiehulpaudit v2 is niet sluitend.`)
-        invalid=true
-      }
+      if(missing.length){ invalid=true; console.error(`${prefix} doelen zonder actieve vraag (${missing.length}): ${missing.join(', ')}`) }
+      if(unexpected.length){ invalid=true; console.error(`${prefix} onbekende actieve doel-ID's: ${unexpected.join(', ')}`) }
+      if(studyAidAudit.summary?.goals!==goals.length || studyAidAudit.summary?.requiredActive!==expected.length) invalid=true
     } else {
-      studyRows=(studyAidAudit.groups ?? []).flatMap(group=>(group.rows ?? []).map(row=>({group,row})))
-      const seenNumbers=new Set()
-      for(const {group,row} of studyRows){
-        if(!Array.isArray(row) || row.length!==6){
-          console.error(`${prefix} ongeldige studiehulprij in groep ${group.id ?? '?'}.`)
-          invalid=true
-          continue
-        }
-        const [number,shortGoal,status,mappedLessons,mappedKnowledge,currentSource]=row
-        if(!Number.isInteger(number) || number<1 || seenNumbers.has(number)){
-          console.error(`${prefix} ongeldig of dubbel studienummer: ${number}.`)
-          invalid=true
-        }
-        seenNumbers.add(number)
-        if(typeof shortGoal!=='string' || !shortGoal.trim()){
-          console.error(`${prefix} studiehulppunt ${number} mist een korte omschrijving.`)
-          invalid=true
-        }
-        if(!allowedStudyStatuses.has(status)){
-          console.error(`${prefix} studiehulppunt ${number} heeft onbekende status ${status}.`)
-          invalid=true
-        }
-        if(status==='open') studyOpen++
-        if(status==='adapted-reference'){
-          adaptedReferences++
-          if(!studyAidAudit.adaptations?.[String(number)]){
-            console.error(`${prefix} studiehulppunt ${number} is aangepast maar mist een toelichting.`)
-            invalid=true
-          }
-        }
-        if(!Array.isArray(mappedLessons) || mappedLessons.length===0){
-          console.error(`${prefix} studiehulppunt ${number} is niet aan een level gekoppeld.`)
-          invalid=true
-        } else {
-          for(const lessonId of mappedLessons){
-            if(!lessonIds.has(lessonId)){
-              console.error(`${prefix} studiehulppunt ${number} verwijst naar onbekend level ${lessonId}.`)
-              invalid=true
-            }
-          }
-          if(config.studyAid?.requireActiveQuestion){
-            if(mappedLessons.some(lessonId=>questionBearingLessonIds.has(lessonId))) activeRetrievalCovered++
-            else {
-              console.error(`${prefix} studiehulppunt ${number} is niet gekoppeld aan een level met een actieve kennisvraag.`)
-              invalid=true
-            }
-          }
-        }
-        if(!Array.isArray(mappedKnowledge) || mappedKnowledge.length===0){
-          console.error(`${prefix} studiehulppunt ${number} is niet aan een kenniselement gekoppeld.`)
-          invalid=true
-        } else if(knowledgeIds.size){
-          for(const knowledgeId of mappedKnowledge){
-            if(!knowledgeIds.has(knowledgeId)){
-              console.error(`${prefix} studiehulppunt ${number} verwijst naar onbekend kenniselement ${knowledgeId}.`)
-              invalid=true
-            }
-          }
-        }
-        if(!Array.isArray(currentSource) || currentSource.length!==3 || !Number.isInteger(currentSource[0]) || (currentSource[1]!==null && !Number.isInteger(currentSource[1])) || typeof currentSource[2]!=='string' || !currentSource[2].startsWith('§')){
-          console.error(`${prefix} studiehulppunt ${number} heeft geen geldige actuele bronvindplaats.`)
-          invalid=true
-        }
+      const rows=(studyAidAudit.groups ?? []).flatMap(group=>(group.rows ?? []).map(row=>({group,row})))
+      studyGoalTotal=rows.length
+      const seen=new Set();let adapted=0
+      for(const {group,row} of rows){
+        if(!Array.isArray(row)||row.length!==6){ invalid=true; continue }
+        const [number,goal,status,mappedLessons,mappedKnowledge,currentSource]=row
+        if(!Number.isInteger(number)||number<1||seen.has(number)||typeof goal!=='string'||!allowedStudyStatuses.has(status)){ invalid=true; continue }
+        seen.add(number);if(status==='open')studyOpen++;if(status==='adapted-reference')adapted++
+        if(!Array.isArray(mappedLessons)||mappedLessons.length===0||mappedLessons.some(id=>!lessonIds.has(id))) invalid=true
+        if(config.studyAid?.requireActiveQuestion && mappedLessons.some(id=>questionBearingLessonIds.has(id))) activeRetrievalCovered++
+        else if(config.studyAid?.requireActiveQuestion) invalid=true
+        if(!Array.isArray(mappedKnowledge)||mappedKnowledge.length===0||(knowledgeIds.size&&mappedKnowledge.some(id=>!knowledgeIds.has(id)))) invalid=true
+        if(!Array.isArray(currentSource)||currentSource.length!==3||!Number.isInteger(currentSource[0])||typeof currentSource[2]!=='string') invalid=true
+        if(status==='adapted-reference'&&!studyAidAudit.adaptations?.[String(number)]) invalid=true
       }
-
-      const expectedGoals=config.studyAid?.expectedGoals ?? studyRows.length
-      const expectedNumbers=Array.from({length:expectedGoals},(_,index)=>index+1)
-      if(studyRows.length!==expectedGoals || expectedNumbers.some(number=>!seenNumbers.has(number))){
-        console.error(`${prefix} studiehulpaudit bevat ${studyRows.length}/${expectedGoals} verwachte vragen/opdrachten.`)
-        invalid=true
-      }
-      const reachable=studyRows.length-studyOpen
-      const studySummary=studyAidAudit.summary ?? {}
-      if(studySummary.questions!==studyRows.length || studySummary.covered!==reachable || studySummary.adaptedReferences!==adaptedReferences || studySummary.open!==studyOpen){
-        console.error(`${prefix} samenvatting van de studiehulpaudit komt niet overeen met de rijen.`)
-        invalid=true
-      }
-      console.log(`${prefix} studiehulpaudit: ${reachable}/${studyRows.length} oefendoelen herleidbaar. Aangepaste oude verwijzingen: ${adaptedReferences}. Open: ${studyOpen}.`)
-      if(config.studyAid?.requireActiveQuestion){
-        console.log(`${prefix} actieve-vraagdekking: ${activeRetrievalCovered}/${studyRows.length} studiehulpdoelen gekoppeld aan minimaal één level met een kennisvraag.`)
-      }
+      const expectedCount=config.studyAid?.expectedGoals??rows.length
+      if(rows.length!==expectedCount) invalid=true
+      const reachable=rows.length-studyOpen
+      if(studyAidAudit.summary && (studyAidAudit.summary.questions!==rows.length||studyAidAudit.summary.covered!==reachable||studyAidAudit.summary.adaptedReferences!==adapted||studyAidAudit.summary.open!==studyOpen)) invalid=true
+      console.log(`${prefix} studiehulpaudit: ${reachable}/${rows.length} oefendoelen herleidbaar. Open: ${studyOpen}.`)
+      if(config.studyAid?.requireActiveQuestion) console.log(`${prefix} actieve-vraagdekking: ${activeRetrievalCovered}/${rows.length}.`)
     }
   }
 
-  const closesContentGates=release.status==='content-complete' || release.status==='1.0'
-  const activeGateOpen=Boolean(config.studyAid?.requireActiveQuestion && activeRetrievalCovered!==studyRows.length)
-  if(closesContentGates && (missingSections.length>0 || detailMissing>0 || studyOpen>0 || activeGateOpen)){
-    console.error(`${prefix} staat als ${release.status} gemarkeerd terwijl één of meer releasegates nog open staan.`)
+  const closesContentGates=release.status==='content-complete'||release.status==='1.0'
+  const activeGateOpen=Boolean(config.studyAid?.requireActiveQuestion&&activeRetrievalCovered!==studyGoalTotal)
+  if(closesContentGates&&(missingSections.length||detailMissing||studyOpen||activeGateOpen)){
     invalid=true
+    console.error(`${prefix} staat als ${release.status} gemarkeerd terwijl een releasegate open staat.`)
   }
 
   if(invalid) throw new Error(`${config.label} contentaudit mislukt.`)
   console.log(`${prefix} release-status ${release.status.toUpperCase()} — alle vereiste gates voor deze status zijn gesloten.`)
 }
 
-if(![1,2].includes(registry.schemaVersion) || !Array.isArray(registry.courses)) throw new Error('Ongeldig cursusregister content/coverage/courses.json.')
-
+if(![1,2].includes(registry.schemaVersion)||!Array.isArray(registry.courses)) throw new Error('Ongeldig cursusregister.')
 let failed=false
 for(const course of registry.courses){
-  try {
-    await auditCourse(course)
-  } catch (error) {
-    failed=true
-    console.error(error.message)
-  }
+  try{ await auditCourse(course) }catch(error){ failed=true;console.error(error.message) }
 }
 if(failed) process.exit(1)
