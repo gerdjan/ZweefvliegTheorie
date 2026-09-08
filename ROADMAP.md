@@ -17,52 +17,62 @@ Dit bestand is de blijvende projectstatus. Na ieder afgerond werkpakket werken w
 
 ## Fase B — Beginselen 1.0: leerervaring en techniek ✅
 
-- [x] Auditdata opgeschoond: tijdelijke detailaudit-overrides zijn geconsolideerd in één hoofdaudit.
-- [x] De 53 levels zichtbaar gegroepeerd onder hoofdstukken **5.0 t/m 5.7**.
-- [x] Per hoofdstuk een duidelijke voortgangsbalk en status toegevoegd.
-- [x] Per hoofdstuk een willekeurige checkpoint / hoofdstuktoets toegevoegd; **80%** is de beheersdrempel.
-- [x] Herhaalmodus gebouwd: fouten komen direct terug en later ingeplande vragen verschijnen wanneer ze weer aan de beurt zijn.
-- [x] Spaced repetition ingevoerd rond **1 / 3 / 7 / 14 / 30 dagen**.
-- [x] Kenniselementstatus verfijnd naar **nieuw / gezien / geoefend / beheerst**.
-- [x] Vakexamen voor Beginselen gebouwd met **30 willekeurige vragen** uit het hele vak; examendrempel **75%**.
-- [x] Vraagbankbreedte bewaakt tegen de 75 studiehulpdoelen: de build controleert **75/75 actieve-vraagdekking**.
-- [x] Meer vraagvormen toegevoegd: multiplechoice, rekenen, volgorde, koppelen, diagraminterpretatie, snelheidspolaire en scenario's.
-- [x] Eigen snelheidspolaire-illustratie toegevoegd naast de bestaande krachten-, assen-, V-n- en overtrekschema's.
+- [x] De 53 levels gegroepeerd onder hoofdstukken **5.0 t/m 5.7**.
+- [x] Hoofdstuktoetsen met **80%** beheersdrempel.
+- [x] Herhaalmodus en spaced repetition **1 / 3 / 7 / 14 / 30 dagen**.
+- [x] Kenniselementstatus **nieuw / gezien / geoefend / beheerst**.
+- [x] Vakexamen met **30 willekeurige vragen**, examendrempel **75%**.
+- [x] **75/75 actieve-vraagdekking** tegen de studiehulp.
+- [x] Meerdere vraagvormen en eigen illustraties.
 
-**Beginselen 1.0 is hiermee functioneel en inhoudelijk gesloten als referentiecursus.** Verbeteringen op basis van echt gebruik blijven mogelijk zonder de releasegates te versoepelen.
+**Beginselen 1.0 is functioneel en inhoudelijk gesloten als referentiecursus.**
 
 ## Fase C — Generieke content- en auditpipeline ✅
 
-- [x] Generieke datastructuur voor bronnen, hoofdstukken, kenniselementen, bronbeleid en cursusdefinities toegevoegd in `src/domain/course.ts`.
-- [x] Runtime-cursusregister toegevoegd in `src/data/courseDefinitions.ts`; LearningPath, KnowledgeIndex en studiemodi lezen uit dezelfde cursusdefinitie.
-- [x] Generieke Gate 1: bronsectiedekking via het cursusregister `content/coverage/courses.json`.
-- [x] Generieke Gate 2: detailaudit per bronsectie via dezelfde build-audit.
-- [x] Generieke Gate 3: studiehulp-/oefendoeldekking plus optionele actieve-vraagdekking.
-- [x] Eén release-statusmodel ingevoerd: **concept → audit → content-complete → 1.0**. Beginselen staat nu expliciet op **1.0**.
-- [x] Hoofdstuktoets-, herhaal- en examenarchitectuur generiek gemaakt; toetsdrempels en examengrootte komen per vak uit de cursusdefinitie.
-- [x] Examenscores per vak opgeslagen in plaats van één globale examenscore; bestaande Beginselen-voortgang wordt gemigreerd.
-- [x] Kenniselementen-index generiek gemaakt zodat toekomstige vakken dezelfde naslag- en masteryweergave kunnen gebruiken.
-- [x] Dynamische/current-info markering toegevoegd via `freshness: "dynamic"` en `currentCheck`; de UI toont automatisch een actualiteitswaarschuwing.
-- [x] De generieke werkwijze gedocumenteerd in `content/COURSE_PIPELINE.md`.
+- [x] Generieke cursusdefinities voor hoofdstukken, kenniselementen, bronbeleid en toetsen.
+- [x] Generieke Gate 1, Gate 2 en Gate 3 in de build.
+- [x] Release-statusmodel **concept → audit → content-complete → 1.0**.
+- [x] Generieke hoofdstuktoets-, herhaal- en examenarchitectuur.
+- [x] Examenscores per vak.
+- [x] Generieke kennisindex.
+- [x] `freshness: dynamic` en actualiteitswaarschuwingen.
+- [x] Werkwijze gedocumenteerd in `content/COURSE_PIPELINE.md`.
 
-## Fase D — Tweede volledige cursus: Meteorologie ← VOLGENDE
+## Fase D — Tweede volledige cursus: Meteorologie ✅
 
-Meteorologie wordt het eerste vak dat vanaf het begin met de generieke pipeline wordt opgebouwd.
+Meteorologie is het eerste vak dat vanaf het begin met de generieke pipeline én de aangescherpte ID-audits is opgebouwd.
 
-- [ ] Actuele theorie-PDF `3.Meteorologie.pdf` als primaire bron structureren en cursusstatus op `concept` zetten.
-- [ ] Hoofdstukken 3.1 t/m 3.10 als generieke cursusstructuur registreren.
-- [ ] Bronsecties inventariseren en Gate 1 opbouwen/sluiten.
-- [ ] Pagina-voor-pagina detailaudit uitvoeren en Gate 2 sluiten.
-- [ ] Kenniselementen-index bouwen.
-- [ ] Theorielevels en oefenvragen bouwen met exacte bronnen.
-- [ ] Geschikte illustraties, weerdiagrammen, reken- en interpretatieoefeningen toevoegen.
-- [ ] Oude studiehulp als laatste kruiscontrole gebruiken en Gate 3 sluiten.
-- [ ] Actuele/dynamische meteorologische informatie expliciet onderscheiden van stabiele theorie.
-- [ ] Hoofdstuktoetsen, herhaling en vakexamen aansluiten op dezelfde 1.0-leerarchitectuur.
+- [x] `3.Meteorologie.pdf` januari 2026 als primaire bron vastgelegd.
+- [x] Hoofdstukken **3.1 t/m 3.10** geregistreerd.
+- [x] Gate 1: **37/37** genummerde bronsecties gedekt.
+- [x] Pagina-voor-pagina auditinventaris: **437** punten.
+- [x] Gate 2: **432/432** verplichte detail-ID's exact één keer in de cursuscode afgedekt.
+- [x] **5** bronpunten expliciet als context-/conflictpunt geregistreerd in plaats van ze stil te negeren.
+- [x] Kenniselementen-index wordt rechtstreeks uit de brongebonden theoriekaarten opgebouwd.
+- [x] Volledige brongebonden theorie- en vraagcursus voor 3.1–3.10.
+- [x] Eigen didactische illustraties voor atmosfeer, druk/wind, zeewind, stabiliteit/adiabaten, fronten en onweersontwikkeling.
+- [x] Gate 3: **77/77** doelen uit `3-Meteo-studiehulp.pdf` geïnventariseerd.
+- [x] Aangescherpte Gate 3: **77/77** doel-ID's staan expliciet op een actieve vraag.
+- [x] Dynamische controles vastgelegd in `meteorology-current-checks.json`.
+- [x] Bronconflict rond SIGMET/AIRMET expliciet vastgelegd; niet stilzwijgend geharmoniseerd.
+- [x] Transition-altitudeclaim van het dictaat gecontroleerd tegen actuele AIP met VFR/IFR-nuance.
+- [x] Hoofdstuktoetsen, herhaling, kennisindex en 30-vragen-vakexamen aangesloten op dezelfde 1.0-architectuur.
+- [x] Feature-branch CI controleert audit + TypeScript + productiebuild zonder de live site voortijdig te deployen.
 
-## Fase E — Overige zeven vakken
+### Proceslessen uit Meteorologie
 
-Daarna dezelfde pipeline toepassen op:
+- [x] **Totaaltellingen zijn niet genoeg.** Stabiele detail-ID's maken bewijsbaar welke inhoud werkelijk in de lescode zit.
+- [x] **Behoud de oorspronkelijke auditnummering.** De eerste strikte run faalde terecht doordat 432 verplichte punten onjuist als `001–432` waren aangenomen; werkelijk liep de inventaris `001–437` met vijf expliciete contextgaten.
+- [x] **Een oefendoel moet op de actieve vraag zelf staan.** “Er staat ergens een vraag in dit level” is als Gate 3 te zwak.
+- [x] **Context-only is geen weggooibak.** Ieder uitgesloten bronpunt houdt een ID en een reden.
+- [x] **Dynamische feiten horen in een aparte actualiteitscontrole.** Ze worden niet vermengd met stabiele PDF-theorie.
+- [x] **Bronconflicten blijven zichtbaar.** Oude claims worden niet stilzwijgend gecorrigeerd.
+- [x] **Eén inhoudelijke waarheid.** De kennisindex wordt waar mogelijk uit dezelfde theoriedata opgebouwd in plaats van dubbel onderhouden.
+- [x] **Grote hoofdstukken technisch opsplitsen** verbetert onderhoud zonder het leerpad te veranderen.
+
+## Fase E — Overige zeven vakken ← VOLGENDE
+
+De aangescherpte Meteorologie-pipeline wordt daarna toegepast op:
 
 - [ ] Luchtvaartwetgeving
 - [ ] Menselijke prestaties
@@ -74,9 +84,9 @@ Daarna dezelfde pipeline toepassen op:
 
 Bij **Luchtvaartwetgeving**, luchtruim, AIP/NOTAM en andere veranderlijke operationele onderwerpen blijft een extra actualiteitscontrole vereist.
 
-## Later / productontwikkeling
+**Voorgestelde eerstvolgende cursus:** Menselijke prestaties. Dat vak is inhoudelijk compacter en grotendeels stabiel, waardoor we eerst kunnen bevestigen dat de aangescherpte ID-pipeline ook zonder veel dynamische uitzonderingen soepel werkt. Daarna is Luchtvaartwetgeving een goede stresstest voor actualiteitscontrole.
 
-Niet nodig om de eerste vakken inhoudelijk goed te maken, maar wel logische vervolgstappen:
+## Later / productontwikkeling
 
 - [ ] Account/synchronisatie zodat voortgang niet alleen per browser via localStorage bestaat.
 - [ ] Streaks en XP verder koppelen aan leren zonder mastery ermee te verwarren.
@@ -87,7 +97,7 @@ Niet nodig om de eerste vakken inhoudelijk goed te maken, maar wel logische verv
 
 ## Huidige positie
 
-**Klaar:** Fase A, Fase B en Fase C.  
-**Nu:** Fase D — Meteorologie als tweede volledige cursus.  
-**Daarna:** Fase E — de overige zeven vakken.  
-**Eerstvolgende concrete taak:** Meteorologie registreren als `concept`-cursus, de hoofdstukstructuur 3.1–3.10 vastleggen en daarna uit het actuele dictaat het bronsectiemanifest voor Gate 1 opbouwen.
+**Klaar:** Fase A, B, C en D — Beginselen 1.0 + Meteorologie 1.0 + generieke strikte pipeline.  
+**Nu:** laatste 1.0-CI en productie-publicatie van Meteorologie.  
+**Daarna:** Fase E — overige zeven vakken.  
+**Eerstvolgende concrete taak na publicatie:** Menselijke prestaties volgens exact dezelfde aangescherpte bron-ID- en auditmethode opbouwen.
