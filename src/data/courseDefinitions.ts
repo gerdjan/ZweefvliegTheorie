@@ -7,7 +7,7 @@ import { principlesChapters } from './principlesStructure'
 export const courseDefinitions:Record<string,CourseDefinition>={
   meteo:{
     subjectId:'meteo',
-    releaseStatus:'audit',
+    releaseStatus:'content-complete',
     chapters:meteorologyChapters,
     knowledgeChapters:meteorologyKnowledge,
     sourcePolicy:{
@@ -18,10 +18,10 @@ export const courseDefinitions:Record<string,CourseDefinition>={
       note:'Het actuele dictaat bepaalt de stabiele leerstof. Veranderlijke operationele gegevens krijgen een afzonderlijke actualiteitswaarschuwing; de studiehulp uit 2019 is alleen een oefen- en kruiscontrolebron.',
     },
     releaseGates:{
-      sourceSections:'audit 37 secties',
-      detailElements:'audit 432 verplichte detail-ID’s',
-      studyAidGoals:'audit 77 oefendoelen',
-      activeQuestionGoals:'audit 77 actieve doel-ID’s',
+      sourceSections:'37/37',
+      detailElements:'432/432 + 5 context-only',
+      studyAidGoals:'77/77',
+      activeQuestionGoals:'77/77',
     },
     checkpointMinScore:80,
     examMinScore:75,
