@@ -50,6 +50,25 @@
         "goalIdPrefix": "meteo-g",
         "goalIdWidth": 2
       }
+    },
+    {
+      "id": "human",
+      "label": "Menselijke prestaties",
+      "subject": "Menselijke prestaties",
+      "authoritativeSource": "2-Menselijke-prestaties.pdf",
+      "authoritativeSourceVersion": "december 2025",
+      "contentDir": "src/data/humanParts",
+      "lessonIdPrefix": "human-",
+      "sourceHelper": "h",
+      "questionFactories": ["q", "o", "match"],
+      "sectionManifest": "content/coverage/human-performance-sections.json",
+      "detailAudit": "content/coverage/human-performance-detail-audit.json",
+      "release": "content/coverage/human-performance-release.json",
+      "detailIds": {
+        "prefix": "human-d",
+        "expected": 213,
+        "width": 3
+      }
     }
   ]
 }
