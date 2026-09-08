@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import type { KnowledgeCheckStep, Lesson, LessonResult, QuestionResult } from '../domain/types'
+import { getMeteorologyIllustrationByKey } from '../data/meteorologyIllustrations'
+import { meteorologyTerms } from '../data/meteorologyTerms'
 import { getPrinciplesIllustration, getPrinciplesIllustrationByKey } from '../data/principlesIllustrations'
 import { principlesTerms } from '../data/principlesTerms'
 import { RichText } from './RichText'
@@ -45,11 +47,15 @@ export function LessonPlayer({ lesson, onClose, onComplete }:{lesson:Lesson,onCl
   },[initialOrder,index])
 
   const progress=Math.round((index/lesson.steps.length)*100)
-  const isPrinciples=lesson.id.startsWith('principles-') || step.source?.file==='5-Beginselen.pdf'
-  const terms=isPrinciples ? principlesTerms : []
-  const illustration=step.type==='theory'
-    ? getPrinciplesIllustration(lesson.id,step.title)
-    : getPrinciplesIllustrationByKey(step.illustrationKey)
+  const sourceFile=step.source?.file
+  const isPrinciples=lesson.id.startsWith('principles-') || sourceFile==='5-Beginselen.pdf'
+  const isMeteorology=lesson.id.startsWith('meteo-') || sourceFile==='3.Meteorologie.pdf'
+  const terms=isPrinciples ? principlesTerms : isMeteorology ? meteorologyTerms : []
+  const illustration=isMeteorology
+    ? getMeteorologyIllustrationByKey(step.illustrationKey)
+    : step.type==='theory'
+      ? getPrinciplesIllustration(lesson.id,step.title) ?? getPrinciplesIllustrationByKey(step.illustrationKey)
+      : getPrinciplesIllustrationByKey(step.illustrationKey)
 
   function advance(){
     if(index===lesson.steps.length-1){
