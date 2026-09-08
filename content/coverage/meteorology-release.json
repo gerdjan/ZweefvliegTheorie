@@ -1,0 +1,16 @@
+{
+  "status": "audit",
+  "subject": "Meteorologie",
+  "authoritativeSource": "3.Meteorologie.pdf",
+  "authoritativeSourceVersion": "januari 2026",
+  "gates": {
+    "sourceSections": "pending/37",
+    "detailElements": "pending/432",
+    "studyAidGoals": "pending/77",
+    "activeQuestionGoals": "pending/77"
+  },
+  "notes": [
+    "5 bronitems zijn als context-only gemarkeerd en tellen niet mee als verplichte mastery-inhoud.",
+    "Dynamische informatie wordt apart gemarkeerd en waar nodig tegen actuele officiële bronnen gecontroleerd."
+  ]
+}
