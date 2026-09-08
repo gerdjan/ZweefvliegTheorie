@@ -11,7 +11,7 @@ import { meteorology39Units } from './meteorologyParts/ch39'
 import { meteorology310Units } from './meteorologyParts/ch310'
 
 export const meteorologySubject:SourcedSubject={
-  id:'meteo',number:3,title:'Meteorologie',sourceFreshness:'theorie januari 2026 · studiehulp 2019 · dynamische checks 8 sep 2026',
+  id:'meteo',number:3,title:'Meteorologie',sourceFreshness:'theorie januari 2026 · studiehulp 2019 · dynamische checks 7–8 sep 2026',
   description:'Atmosfeer, wind, thermodynamica, wolken, neerslag, fronten, druksystemen, klimatologie, gevaren en meteorologische informatie.',
   units:[...meteorology31Units,...meteorology32Units,...meteorology33Units,...meteorology34Units,...meteorology35Units,...meteorology36Units,...meteorology37Units,...meteorology38Units,...meteorology39Units,...meteorology310Units],
 }
