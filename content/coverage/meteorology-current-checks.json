@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "subject": "Meteorologie",
+  "checkedAt": "2026-09-08",
+  "purpose": "Los van de stabiele theoriebron vastleggen welke veranderlijke operationele claims tegen officiële actuele bronnen zijn gecontroleerd. Deze checks vervangen de primaire theoriebron niet; ze voorkomen dat tijdgebonden cursusclaims als eeuwige waarheid worden behandeld.",
+  "checks": [
+    {
+      "topic": "Transition altitude Amsterdam FIR",
+      "theoryLocation": "3.Meteorologie.pdf · §3.1.6 Hoogtemeterinstellingen",
+      "officialSource": "AIP Netherlands ENR 1.7 Altimeter Setting Procedures",
+      "url": "https://eaip.lvnl.nl/",
+      "finding": "De AIP maakt onderscheid: transition altitude 3500 ft voor VFR en 3000 ft voor IFR in de Amsterdam FIR. De zweefvlieg/VFR-waarde 3500 ft uit het dictaat blijft bruikbaar, maar wordt dynamisch gemarkeerd.",
+      "status": "confirmed-with-nuance"
+    },
+    {
+      "topic": "Operationele luchtvaartmeteorologische vluchtvoorbereiding",
+      "theoryLocation": "3.Meteorologie.pdf · §3.10.1 en §3.10.3",
+      "officialSource": "KNMI Luchtvaartmeteorologische informatie",
+      "url": "https://www.knmi.nl/nederland-nu/luchtvaart/luchtvaartmeteorologische-informatie",
+      "finding": "KNMI verwijst voor volledige operationele vluchtvoorbereiding naar de bewaakte dienst Luchtvaartmeteo. Publieke METAR/TAF-informatie is niet compleet voor operationeel gebruik.",
+      "status": "dynamic-confirmed"
+    },
+    {
+      "topic": "NOS Teletekst 707",
+      "theoryLocation": "3.Meteorologie.pdf · §3.10.1 en §3.10.3",
+      "officialSource": "KNMI Luchtvaartmeteorologische informatie",
+      "url": "https://www.knmi.nl/nederland-nu/luchtvaart/luchtvaartmeteorologische-informatie",
+      "finding": "KNMI noemt NOS Teletekst 707 nog als distributiekanaal voor Nederlandse METAR, het weerbulletin en SIGMET/AIRMET voor de Amsterdam FIR. Het kanaal blijft desondanks dynamische operationele informatie.",
+      "status": "confirmed-dynamic"
+    },
+    {
+      "topic": "SIGMET/AIRMET en zweefvliegen",
+      "theoryLocation": "3.Meteorologie.pdf · §3.10.4 Meteorologische diensten",
+      "officialSource": "KNMI Luchtvaartmeteorologische informatie",
+      "url": "https://www.knmi.nl/nederland-nu/luchtvaart/luchtvaartmeteorologische-informatie",
+      "finding": "Het dictaat stelt dat SIGMET/AIRMET alleen bij de grote luchtvaart worden gebruikt en niet bij zweefvliegen. KNMI neemt SIGMET/AIRMET op in complete flight documentation en distribueert ze voor de Amsterdam FIR via Luchtvaartmeteo en Teletekst 707. De cursus bewaart het bronconflict expliciet en leert de oude toepassingsclaim niet als actuele waarheid.",
+      "status": "source-conflict"
+    }
+  ]
+}
