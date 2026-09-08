@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "courses": [
     {
       "id": "principles",
@@ -22,6 +22,33 @@
         "sourceFile": "5-beginselen-studiehulp.pdf",
         "expectedGoals": 75,
         "requireActiveQuestion": true
+      }
+    },
+    {
+      "id": "meteo",
+      "label": "Meteorologie",
+      "subject": "Meteorologie",
+      "authoritativeSource": "3.Meteorologie.pdf",
+      "authoritativeSourceVersion": "januari 2026",
+      "contentDir": "src/data/meteorologyParts",
+      "lessonIdPrefix": "meteo-",
+      "sourceHelper": "m",
+      "questionFactories": ["q", "n", "o", "match"],
+      "sectionManifest": "content/coverage/meteorology-sections.json",
+      "detailAudit": "content/coverage/meteorology-detail-audit.json",
+      "studyAidAudit": "content/coverage/meteorology-study-aid-audit.json",
+      "release": "content/coverage/meteorology-release.json",
+      "detailIds": {
+        "prefix": "meteo-d",
+        "expected": 432,
+        "width": 3
+      },
+      "studyAid": {
+        "sourceFile": "3-Meteo-studiehulp.pdf",
+        "expectedGoals": 77,
+        "requireActiveQuestion": true,
+        "goalIdPrefix": "meteo-g",
+        "goalIdWidth": 2
       }
     }
   ]
