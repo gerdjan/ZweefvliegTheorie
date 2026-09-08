@@ -1,0 +1,17 @@
+{
+  "status": "audit",
+  "subject": "Menselijke prestaties",
+  "authoritativeSource": "2-Menselijke-prestaties.pdf",
+  "authoritativeSourceVersion": "december 2025",
+  "gates": {
+    "sourceSections": "pending/17",
+    "detailElements": "pending/213",
+    "studyAidGoals": "n.v.t. — geen aparte studiehulpbron beschikbaar",
+    "activeQuestionGoals": "n.v.t. — vragen zijn rechtstreeks uit de actuele bron opgebouwd"
+  },
+  "notes": [
+    "10 bronitems zijn context-only of dynamisch en tellen niet mee als verplichte mastery-inhoud.",
+    "Er is geen aparte oudere studiehulp voor dit vak in de aangeleverde bronnen; Gate 3 wordt daarom expliciet als niet van toepassing geregistreerd.",
+    "Medische en zuurstofregels met veranderlijke juridische inhoud krijgen een actuele EASA-controle."
+  ]
+}
